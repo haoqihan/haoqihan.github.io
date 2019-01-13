@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一.简介ansible是什么东西?官方的title是“Ansible is Simple IT Automation”——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。  所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。就像我之前有介绍过的Fabric，以及我们基于Fabric">
+<meta name="keywords" content="ansible">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible的基本使用">
+<meta property="og:url" content="http://yoursite.com/2019/01/13/ansible的基本使用/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="一.简介ansible是什么东西?官方的title是“Ansible is Simple IT Automation”——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。  所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。就像我之前有介绍过的Fabric，以及我们基于Fabric">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-13T10:02:26.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ansible的基本使用">
+<meta name="twitter:description" content="一.简介ansible是什么东西?官方的title是“Ansible is Simple IT Automation”——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。  所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。就像我之前有介绍过的Fabric，以及我们基于Fabric">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/13/ansible的基本使用/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>ansible的基本使用 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/13/ansible的基本使用/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ansible的基本使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-13 16:25:34 / 修改时间：18:02:26" itemprop="dateCreated datePublished" datetime="2019-01-13T16:25:34+08:00">2019-01-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/运维开发之路/" itemprop="url" rel="index"><span itemprop="name">运维开发之路</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="一-简介"><a href="#一-简介" class="headerlink" title="一.简介"></a>一.简介</h4><p>ansible是什么东西?官方的title是“Ansible is Simple IT Automation”——简单的自动化IT工具。这个工具的目标有这么几项：让我们自动化部署APP；自动化管理配置项；自动化的持续交付；自动化的（AWS）云服务管理。 </p>
+<p>所有的这几个目标本质上来说都是在一个台或者几台服务器上，执行一系列的命令而已。就像我之前有介绍过的Fabric，以及我们基于Fabric开发的自动化应用部署的工具： Essay 。都是做了这么个事——批量的在远程服务器上执行命令 。 </p>
+<p>那么fabric和ansible有什么差别呢？简单来说fabric像是一个工具箱，提供了很多好用的工具，用来在Remote执行命令，而Ansible则是提供了一套简单的流程，你要按照它的流程来做，就能轻松完成任务。这就像是库和框架的关系一样。 </p>
+<p>当然，它们之间也是有共同点的——都是基于 paramiko 开发的。这个paramiko是什么呢？它是一个纯Python实现的ssh协议库。因此fabric和ansible还有一个共同点就是不需要在远程主机上安装client/agents，因为它们是基于ssh来和远程主机通讯的。 </p>
+<h4 id="二-安装及初步使用"><a href="#二-安装及初步使用" class="headerlink" title="二.安装及初步使用"></a>二.安装及初步使用</h4><ol>
+<li><strong>编译安装,此处使用yum</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install epel   # 下载epel源</span><br><span class="line">yum install -y ansible  # 安装ansible</span><br></pre></td></tr></table></figure>
+<p>2.<strong>查看ansible生成的文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql ansible</span><br></pre></td></tr></table></figure>
+<p>3.<strong>查看ansible生成的命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible   			 # 用来执行ansible的一些命令</span><br><span class="line">ansible-doc   		 # 用来查看ansible的模块的帮助信息</span><br><span class="line">ansible-playbook   	  # 用来执行playbook</span><br><span class="line">ansible-galaxy		  # 用来下载第三方的playbook</span><br></pre></td></tr></table></figure>
+<p>4.<strong>ansible命令模式</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ansible &lt;host-pattern&gt; [options]</span><br><span class="line">-a MODULE_ARGS  # 模块的参数</span><br><span class="line">-C --check      # 测试,干跑</span><br><span class="line">-f  FORKS       # 指定并发数</span><br><span class="line">--list-hosts    # 列出host-pattern主机</span><br><span class="line">--syntax-check  # 语法检查</span><br><span class="line">-m  MODULE_NAME # 指定模块</span><br></pre></td></tr></table></figure>
+<p>5.<strong>ansible第一条命令</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible  all -m  ping  # 跟系统自带的ping不一样</span><br></pre></td></tr></table></figure>
+<p>6.<strong>host-pattern格式</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[web]</span><br><span class="line">192.168.19.33</span><br><span class="line">192.168.19.44</span><br><span class="line">[db]</span><br><span class="line">192.168.19.55</span><br><span class="line">[cache]</span><br><span class="line">192.168.19.66</span><br><span class="line"></span><br><span class="line">www[001:006].example.com</span><br><span class="line">指定所有  all</span><br><span class="line">指定单台机器(指定多个机器)</span><br><span class="line">指定分组(多个分组)</span><br><span class="line">指定分组并集  # ansible "web:db" -m ping</span><br><span class="line">指定分组的交集  # ansible "web:&amp;db" -m ping</span><br><span class="line">指定分组的差集  # ansible "web:!db" -m ping</span><br></pre></td></tr></table></figure>
+<p>7.<strong>ansible-doc</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Usage: ansible-doc [-l|-F|-s] [options] [-t &lt;plugin type&gt; ] </span><br><span class="line">[plugin]</span><br><span class="line">-a  # 列出所有的模块</span><br><span class="line">-l  # 列出ansible的模块</span><br><span class="line">-s  # 片段式显示模块的信息</span><br></pre></td></tr></table></figure>
+<p>8.<strong>补充</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[name]   #分组</span><br><span class="line">name=CentOS-$releasever - Base - mirrors.aliyun.com  #这个分组的名字</span><br><span class="line">failovermethod=priority</span><br><span class="line">baseurl=http://mirrors.aliyun.com/centos/$releasever/os/$basearch/ #分组的url,叫baseurl</span><br><span class="line">        http://mirrors.aliyuncs.com/centos/$releasever/os/$basearch/</span><br><span class="line">        http://mirrors.cloud.aliyuncs.com/centos/$releasever/os/$basearch/</span><br><span class="line">gpgcheck=0 # gpgcheck=1需要验证key文件,gpgcheck=0不验证key</span><br><span class="line">enabled=1 #enabled=1 表示分组可用,enabled=0表示分组是不可用的</span><br><span class="line">gpgkey=http://mirrors.aliyun.com/centos/RPM-GPG-KEY-CentOS-7 #key文件</span><br></pre></td></tr></table></figure>
+<h4 id="三-命令相关"><a href="#三-命令相关" class="headerlink" title="三.命令相关"></a>三.命令相关</h4><h5 id="命令相关"><a href="#命令相关" class="headerlink" title="命令相关"></a>命令相关</h5><p>1.<strong>command</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible  web -m aommand "pwd"</span><br><span class="line">ansible  web -a "chdir=/tmp/ mkdir /data2"  # 切换到/tmp并执行pwd</span><br><span class="line">ansible  web -a  "creates=/etc/  mkdir /data2" # 判断creates是否存在,真就忽略后面的操作</span><br><span class="line">ansible  web -a  "removes=/tmp/data  mkdir  /tmp/data2"  # 判断removes是否存在,假就忽略后面的操作</span><br></pre></td></tr></table></figure>
+<p>2.<strong>shell</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible  web -m shell  -a "echo 'test1'|password --stdin test1" # 修改密码</span><br><span class="line">ansible  192.168.19.9  -m  shell "/root/a.sh"  # 指定远程主机上的shell脚本</span><br><span class="line">ansible  192.168.19.2  -m  shell  -a  "/root/a.py"  # 指定远程主机上的python文件</span><br></pre></td></tr></table></figure>
+<p>3.<strong>sctipt</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible  all  -m  script  -a  "/root/a.sh"  # 执行管控机的shell脚本</span><br></pre></td></tr></table></figure>
+<h5 id="文件相关"><a href="#文件相关" class="headerlink" title="文件相关"></a>文件相关</h5><p>1.<strong>copy复制管控机文件到被管控机</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ansible  web  -m  copy  -a  "src=/etc/xxx  dest=/data/xxx"  # src指定源文件 dest指定目标文件</span><br><span class="line">ansible  web  -m  copy  -a  "src=/etc/xxx  dest=/data/xxx backup=yes"  # backup备份</span><br><span class="line">ansible  web  -m  copy  -a  "src=/etc/init.d dest=/data/"  # 复制目录和目录下的文件到远程主机,远程主机也是一个文件夹</span><br><span class="line">ansible  web  -m  copy  -a  "src=/etc/init.d/ dest=/data/"  # 复制目录下的文件</span><br><span class="line">ansible  web  -m  copy  -a  "src=/etc/xxx  dest=/data/xxx backup=yes mode=600"  # mode 指定权限,owner指定文件的属主,group用来指定属组</span><br><span class="line">ansible  web  -m  copy  -a  "content='内容xxxxx' dest=/data10/xx.txt"  # content 直接写内容</span><br></pre></td></tr></table></figure>
+<p>2.<strong>file</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible  db  -m  file  -a  "path=/data10  state=directory"  # path指定地址,state=directory表示创建文件夹</span><br><span class="line">ansible  db  -m  file  -a  "path=/data10/xxx  state=touch"  # state=touch  表示创建新文件</span><br><span class="line">ansible  db  -m  file  -a  "path=/data10/test1  state=absent"  # state=absent  代表删除</span><br><span class="line">ansible db -m  file -a 'path=/data10/test10 src=/data10/test1 state=link' #src表示源文件,path是不是目标,state=link是不是创建一个软连接</span><br></pre></td></tr></table></figure>
+<p>3.<strong>fetch</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible  db  -m  fetch  -a  "src=/etc/xxx dest/tmp"  # src源地址(在被控机器上),dest目标地址(管控机上的地址)每个管控机的文件都生成了一个目录,会保持文件的原来目录结构</span><br></pre></td></tr></table></figure>
+<h5 id="软件相关"><a href="#软件相关" class="headerlink" title="软件相关"></a>软件相关</h5><p>1.<strong>yum</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ansible  web  -m  yum  -a  "name=nginx state=installed"  # 安装nginx</span><br><span class="line">ansible  web  -m  shell  -a  "rpm  -qa | grep nginx"  # 查看nginx是不是安装成功</span><br><span class="line">ansible  web  -m  yum  -a  "name=nginx  state=absent"  # 卸载nginx</span><br><span class="line">ansible  web  -m  yum  -a  "name=redis,memcached"</span><br></pre></td></tr></table></figure>
+<p>2.<strong>pip</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible  web  -m  pip  -a  "name=Django==1.11.15"</span><br></pre></td></tr></table></figure>
+<h5 id="定时任务"><a href="#定时任务" class="headerlink" title="定时任务"></a>定时任务</h5><ol>
+<li><strong>cron</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ansible  web  -m  cron  -a  "name=testjob  minute=4  job='echo 哈哈 &gt; /tmp/xx.txt'"  # 创建 name:指定的cron名字  minute:指定分钟  hour:指定小时  day:指定天  month:指定月  weekday:指定周  job:指定要执行的命令</span><br><span class="line">ansible  web  -m  cron  -a  "name=testjob  state=absent"  # 删除任务</span><br><span class="line">ansible  web  -m  cron  -a  "name=testjob  minute=4  disabled=yes  job='echo 哈哈 &gt; /tmp/xx.txt'"  # disabled=yes表示禁用</span><br></pre></td></tr></table></figure>
+<h5 id="用户相关"><a href="#用户相关" class="headerlink" title="用户相关"></a>用户相关</h5><ol>
+<li><strong>user</strong> </li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ansible  web  -m  user  -a  "name=客户1  home=/data/客户1"  # 创建用户并指定家目录</span><br><span class="line">ansible  web  -m  user  -a  "name=客户2  groups='xxx1,xxx2' home=/data/客户2"  # groups='xxx1,xxx2' 指定用户的附加组</span><br></pre></td></tr></table></figure>
+<h5 id="收集系统信息"><a href="#收集系统信息" class="headerlink" title="收集系统信息"></a>收集系统信息</h5><ol>
+<li><strong>setup 收集系统信息</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">"ansible_all_ipv4_addresses" #ipv4简单信息</span><br><span class="line">"ansible_all_ipv6_addresses" #ipv6的简单信息</span><br><span class="line">"ansible_architecture": "x86_64", #系统架构</span><br><span class="line">"ansible_date_time": #系统时间</span><br><span class="line">"ansible_default_ipv4": #详细信息</span><br><span class="line">"ansible_devices": #磁盘信息</span><br><span class="line">"ansible_distribution_major_version": "7",#系统版本</span><br><span class="line">"ansible_distribution": "CentOS", #系统的发行商</span><br><span class="line">"ansible_distribution_file_variety": "RedHat", #系统系列</span><br><span class="line">"ansible_fqdn": "localhost.localdomain", #系统的主机名</span><br><span class="line">"ansible_hostname": "localhost",#简写主机名</span><br><span class="line">"ansible_kernel": "3.10.0-693.el7.x86_64", #系统的内核版本</span><br><span class="line">"ansible_os_family": "RedHat",# 系统的家族</span><br><span class="line">"ansible_processor_vcpus": 2, #cpu的个数</span><br><span class="line">"ansible_python_version": "2.7.5", # ansible所用python的版本</span><br><span class="line"></span><br><span class="line"> ansible web -m setup -a 'filter="*cpu*"'  #filter搜索</span><br></pre></td></tr></table></figure>
+<h5 id="启动应用"><a href="#启动应用" class="headerlink" title="启动应用"></a>启动应用</h5><ol>
+<li><strong>service</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">enabled:#开机启动</span><br><span class="line">name:#服务的名称</span><br><span class="line">state: #操作</span><br></pre></td></tr></table></figure>
+<p><strong>四.playbook的基本使用</strong></p>
+<p><strong>playbook命令</strong>,建议:一个文件做一件事</p>
+<p>1.<strong>基本格式</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ansible-playbook [options] playbook.yml</span><br><span class="line">-C # 干跑,检查</span><br><span class="line">-f FORKS # 用来做并发,来指定并发数</span><br><span class="line">--list-hosts #列出执行命令的主机</span><br><span class="line">--syntax-check # 检查语法</span><br><span class="line">--list-tasks #列出playbook要执行的任务列表</span><br><span class="line">-t TAGS, #指定要运行到tags</span><br><span class="line">-e EXTRA_VARS #给playbook传递变量</span><br></pre></td></tr></table></figure>
+<p>2.<strong>单个playbook</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>单个playbook</span><br><span class="line">- hosts: web  #指定要运行命令的主机</span><br><span class="line">  remote_user: root # 指定运行命令的用户</span><br><span class="line">  tasks: #任务列表</span><br><span class="line">  - name: mkdir # 任务1,name是必须的</span><br><span class="line">    file: path=/data state=directory # 指定的模块: 模块的参数</span><br><span class="line">  - name: copyfile</span><br><span class="line">    copy: src=/etc/fstab dest=/data/f</span><br></pre></td></tr></table></figure>
+<p>3.<strong>多个playbook</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>#多个playbook</span><br><span class="line">- hosts: web</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: mkdir</span><br><span class="line">    file: path=/data state=directory</span><br><span class="line">  - name: copyfile</span><br><span class="line">    copy: src=/etc/fstab dest=/data/f</span><br><span class="line"></span><br><span class="line">- hosts: db</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: wget</span><br><span class="line">    shell: "wget -O /data/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo"</span><br></pre></td></tr></table></figure>
+<p>4.<strong>指定tags</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>#指定tags</span><br><span class="line">- hosts: web</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: mkdir</span><br><span class="line">    file: path=/data state=directory</span><br><span class="line">  - name: copyfile</span><br><span class="line">    copy: src=/etc/fstab dest=/data/f</span><br><span class="line">    tags: copyfile</span><br></pre></td></tr></table></figure>
+<h5 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h5><p>1.<strong>第一种</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span># 传递变量 -e"key=value"</span><br><span class="line">- hosts: web</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum &#123;&#123;pkg_name&#125;&#125; pkg</span><br><span class="line">    yum: name=&#123;&#123;pkg_name&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>2.<strong>第二种</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- hosts: web</span><br><span class="line">  remote_user: root</span><br><span class="line">  vars:</span><br><span class="line">    - pkg_name: memcached</span><br><span class="line">  tasks:</span><br><span class="line">  - name: yum &#123;&#123;pkg_name&#125;&#125; pkg</span><br><span class="line">    yum: name=&#123;&#123;pkg_name&#125;&#125;</span><br></pre></td></tr></table></figure>
+<p>3.<strong>第三种</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>在hosts文件里面写,值可以不同</span><br><span class="line">[web]</span><br><span class="line">192.168.19.9 pkg_name=nginx</span><br><span class="line">192.168.19.26 pkg_name=redis</span><br></pre></td></tr></table></figure>
+<p>4.<strong>第四种</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[web:vars]</span><br><span class="line">pkg_name=nginx</span><br></pre></td></tr></table></figure>
+<p>5.<strong>变量的应用顺序</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-e &gt; yml文件 &gt; hosts文件 #命令行里面是最高的,hosts文件是最低的</span><br></pre></td></tr></table></figure>
+<h5 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h5><ol>
+<li><strong>when 条件判断</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- hosts: cache</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: copyfile1</span><br><span class="line">    copy: content='wusir zhenchou' dest=/tmp/a.txt</span><br><span class="line">    when: ansible_os_family=="RedHat" #只有为真的时候才会执行上面的操作</span><br><span class="line">  - name: copyfile2</span><br><span class="line">    copy: content='alex gengchou' dest=/tmp/b.txt</span><br><span class="line">    when: ansible_os_family=="OpenBSD"</span><br></pre></td></tr></table></figure>
+<h5 id="循环with-items"><a href="#循环with-items" class="headerlink" title="循环with_items"></a>循环with_items</h5><p>1.<strong>循环单个</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- hosts: cache</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: create user</span><br><span class="line">    user: name=&#123;&#123;item&#125;&#125; ## 循环下面的with_items</span><br><span class="line">    with_items:</span><br><span class="line">    - yuchao</span><br><span class="line">    - yantao</span><br><span class="line">  - name: create group</span><br><span class="line">    group: name=&#123;&#123;item&#125;&#125;## 循环下面的with_items</span><br><span class="line">    with_items:</span><br><span class="line">    - yuchao2</span><br><span class="line">    - yantao2</span><br></pre></td></tr></table></figure>
+<p>2.<strong>循环嵌套</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- hosts: cache</span><br><span class="line">  remote_user: root</span><br><span class="line">  tasks:</span><br><span class="line">  - name: create group</span><br><span class="line">    group: name=&#123;&#123;item&#125;&#125;</span><br><span class="line">    with_items:</span><br><span class="line">    - yuchao4</span><br><span class="line">    - yantao4</span><br><span class="line">  - name: create user</span><br><span class="line">    user: name=&#123;&#123;item.name&#125;&#125;  group=&#123;&#123;item.group&#125;&#125; #可以通过字典取值</span><br><span class="line">    with_items:</span><br><span class="line">    - &#123;"name":yuchao3,"group":yuchao4&#125;</span><br><span class="line">    - &#123;"name":yantao3,"group":yuchao4&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="模板文件"><a href="#模板文件" class="headerlink" title="模板文件"></a>模板文件</h5><p>1.<strong>模板的基本使用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- hosts: cache</span><br><span class="line">    remote_user: root</span><br><span class="line">    tasks:</span><br><span class="line">    - name: install redis</span><br><span class="line">      yum: name=redis</span><br><span class="line">    - name: copyfile</span><br><span class="line">      template: src=redis.conf.j2 dest=/etc/redis.conf ## 模板基于jinja2</span><br><span class="line">    - name: start</span><br><span class="line">      service: name=redis state=started</span><br><span class="line">    #模板文件放在templates,可以直接用相对路径去调用配置文件</span><br></pre></td></tr></table></figure>
+<h4 id="roles-高级使用"><a href="#roles-高级使用" class="headerlink" title="roles(高级使用)"></a>roles(高级使用)</h4><ol>
+<li><strong>作用</strong>    <ol>
+<li>结构清晰</li>
+<li>可以重用</li>
+</ol>
+</li>
+<li><strong>结构</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">tasks #目录是必须的,存放任务</span><br><span class="line">templates #是存放模板</span><br><span class="line">vars #用来存放变量    ### 切记,不能加-,加-报错</span><br><span class="line">files #用来存放文件</span><br><span class="line">mkdir -p &#123;nginx,uwsgi,mysql&#125;/&#123;tasks,templates,vars,files&#125; #创建目录结构的命令</span><br></pre></td></tr></table></figure>
+<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p><strong>生成公私钥</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen</span><br></pre></td></tr></table></figure>
+<p><strong>复制公钥到远程主机</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id  192.168.19.99</span><br></pre></td></tr></table></figure>
+<p><strong>ping命令发送的是ICMP协议</strong></p>
+<p><strong>查看用户相关</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tail -l /etc/shadow  查看最后一个用户</span><br><span class="line">echo "testl" | password  --stdin testl 设置用户密码,不需要二次确</span><br><span class="line">useradd  # 创建用户默认的家目录在/home  -d 可以指定用户的家目录</span><br><span class="line">groupadd  # 用来创建用户组,用户组没有家目录</span><br></pre></td></tr></table></figure>
+<p><strong>创建链接</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ln  创建硬链接  链接文件变更 源文件不变</span><br><span class="line">ln  -s  创建软连接  链接文件变更 源文件变</span><br></pre></td></tr></table></figure>
+<p><strong>pip的基本使用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pip  freeze  &gt;  file  # 给当前的python模块做快照</span><br><span class="line">pip  install  -r  xxx.txt   # 安装</span><br><span class="line">pip  list  # 查看所有的python模块</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>crontab定时任务</strong></li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* */5 * * * job  #/n 表示每隔n </span><br><span class="line">0 */5 * * 3,6 job  #3,6 表示周三和周六</span><br><span class="line"><span class="meta">#</span># 切记 最前面不能用*,表示每时每刻都在执行,一定要有一个时间</span><br><span class="line"><span class="meta">#</span># 应用场景: 打包日志,定期的同步时间,备份</span><br><span class="line">-e  # 编辑</span><br><span class="line">-l  # 列出</span><br><span class="line">-r  # 删除</span><br></pre></td></tr></table></figure>
+<p><strong>启动应用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl  restart  nginx  # centos7中的操作应用</span><br><span class="line">service  nginx  restart  # centos6里面的操作</span><br></pre></td></tr></table></figure>
+<p><strong>查看系统内存使用量</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free -m 查看系统的内存使用量</span><br></pre></td></tr></table></figure>
+<p><strong>Ad-hoc</strong>:命令行的意思</p>
+<p><strong>mv 的使用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv redis.conf&#123;,.j2&#125; == mv redis.conf redis.conf.j2</span><br></pre></td></tr></table></figure>
+<p><strong>yum和rpm的基本使用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum remove 卸载</span><br><span class="line">rpm redhat pk manage</span><br><span class="line">yum 自动解决依赖关系</span><br><span class="line">rpm 不会自动解决依赖关系</span><br></pre></td></tr></table></figure>
+<p><strong>CI和CD的基本使用</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CI 持续交付  jenkins  maven war包</span><br><span class="line">CD 持续集成  脚本去做 docker (最大的一个作用,到处运行  )   k8s</span><br></pre></td></tr></table></figure>
+<p><strong>暂时关闭防火墙</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setenforce 0 #暂时关闭selinux</span><br></pre></td></tr></table></figure>
+<p><strong>uwsgi的配置</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[uwsgi]</span><br><span class="line">http = :8000   #端口</span><br><span class="line"><span class="meta">#</span>the local unix socket file than commnuincate to Nginx</span><br><span class="line">socket = /data/mysite/mysite.socket  #socket 只能本机使用</span><br><span class="line"><span class="meta">#</span> the base directory (full path)</span><br><span class="line">chdir = /data/mysite #当前工作目录</span><br><span class="line"><span class="meta">#</span> Django's wsgi file</span><br><span class="line">wsgi-file = mysite/wsgi.py  #要执行的文件</span><br><span class="line"><span class="meta">#</span> maximum number of worker processes</span><br><span class="line">processes = 4 #进程数</span><br><span class="line"><span class="meta">#</span>thread numbers startched in each worker process</span><br><span class="line">threads = 2 #线程数</span><br><span class="line"><span class="meta">#</span> clear environment on exit</span><br><span class="line">vacuum          = true</span><br><span class="line">daemonize = /data/mysite/uwsgi.log  #后台启动,并提供日志</span><br><span class="line">py-autoreload=1 #py文件变更后uwsgi自动重启           </span><br><span class="line">kill -9 可以杀死父进程</span><br></pre></td></tr></table></figure>
+<p><strong>启动uwsgi</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uwsgi --http :8000 --module mysite.wsgi ## --http 启动的端口 --module 项目.wsgi文件</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ansible/" rel="tag"># ansible</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一-简介"><span class="nav-number">1.</span> <span class="nav-text">一.简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二-安装及初步使用"><span class="nav-number">2.</span> <span class="nav-text">二.安装及初步使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三-命令相关"><span class="nav-number">3.</span> <span class="nav-text">三.命令相关</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令相关"><span class="nav-number">3.1.</span> <span class="nav-text">命令相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件相关"><span class="nav-number">3.2.</span> <span class="nav-text">文件相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软件相关"><span class="nav-number">3.3.</span> <span class="nav-text">软件相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时任务"><span class="nav-number">3.4.</span> <span class="nav-text">定时任务</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户相关"><span class="nav-number">3.5.</span> <span class="nav-text">用户相关</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#收集系统信息"><span class="nav-number">3.6.</span> <span class="nav-text">收集系统信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#启动应用"><span class="nav-number">3.7.</span> <span class="nav-text">启动应用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量"><span class="nav-number">3.8.</span> <span class="nav-text">变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#条件"><span class="nav-number">3.9.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环with-items"><span class="nav-number">3.10.</span> <span class="nav-text">循环with_items</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模板文件"><span class="nav-number">3.11.</span> <span class="nav-text">模板文件</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#roles-高级使用"><span class="nav-number">4.</span> <span class="nav-text">roles(高级使用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">5.</span> <span class="nav-text">补充</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
