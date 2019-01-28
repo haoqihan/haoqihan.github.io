@@ -96,21 +96,22 @@
 
 
 
-  <meta name="description" content="IP相关  ip addr ifconfig  关闭防火墙  systemctl    stop    / start / restart  firewalld   关闭/开启/重启 防火墙 systemctl  disable  firewalld  永久关闭防火墙   修改网络配置  systemctl restart network  重启服务   linux的目录结构   根目录    l">
+  <meta name="description" content="查看版本信息 cat /etc/redhat-release :查看版本信息 uname -r 查看内核版本号 uname -m 查看系统多少位 uname -a 查看内核全部信息  IP相关查看ip ip addr ifconfig  ip详细信息 eth0 网卡的代号 lo 回环地址loopback inet IPv4的Ip地址 netmask 子网掩码 broadcast 广播地址 RX/T">
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux基础命令">
 <meta property="og:url" content="http://yoursite.com/2019/01/16/linux基础命令/index.html">
 <meta property="og:site_name" content="郝起瀚的博客">
-<meta property="og:description" content="IP相关  ip addr ifconfig  关闭防火墙  systemctl    stop    / start / restart  firewalld   关闭/开启/重启 防火墙 systemctl  disable  firewalld  永久关闭防火墙   修改网络配置  systemctl restart network  重启服务   linux的目录结构   根目录    l">
+<meta property="og:description" content="查看版本信息 cat /etc/redhat-release :查看版本信息 uname -r 查看内核版本号 uname -m 查看系统多少位 uname -a 查看内核全部信息  IP相关查看ip ip addr ifconfig  ip详细信息 eth0 网卡的代号 lo 回环地址loopback inet IPv4的Ip地址 netmask 子网掩码 broadcast 广播地址 RX/T">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="c:/Users/Administrator/Desktop/learning/docs/img/linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg">
-<meta property="og:image" content="c:/Users/Administrator/Desktop/learning/docs/img/top%E5%9B%BE.jpg">
-<meta property="og:updated_time" content="2019-01-16T04:04:07.461Z">
+<meta property="og:image" content="https://img2018.cnblogs.com/blog/1132884/201809/1132884-20180921150307683-759085586.png">
+<meta property="og:image" content="https://haoqihan.github.io/Learning/img/top%E5%9B%BE.jpg">
+<meta property="og:image" content="c:/Users/Administrator/Desktop/learning/docs/img/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.jpg">
+<meta property="og:updated_time" content="2019-01-16T04:56:01.734Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux基础命令">
-<meta name="twitter:description" content="IP相关  ip addr ifconfig  关闭防火墙  systemctl    stop    / start / restart  firewalld   关闭/开启/重启 防火墙 systemctl  disable  firewalld  永久关闭防火墙   修改网络配置  systemctl restart network  重启服务   linux的目录结构   根目录    l">
-<meta name="twitter:image" content="c:/Users/Administrator/Desktop/learning/docs/img/linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg">
+<meta name="twitter:description" content="查看版本信息 cat /etc/redhat-release :查看版本信息 uname -r 查看内核版本号 uname -m 查看系统多少位 uname -a 查看内核全部信息  IP相关查看ip ip addr ifconfig  ip详细信息 eth0 网卡的代号 lo 回环地址loopback inet IPv4的Ip地址 netmask 子网掩码 broadcast 广播地址 RX/T">
+<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1132884/201809/1132884-20180921150307683-759085586.png">
 
 
 
@@ -419,7 +420,7 @@
                 
               
 
-              <time title="创建时间：2019-01-16 11:23:01 / 修改时间：12:04:07" itemprop="dateCreated datePublished" datetime="2019-01-16T11:23:01+08:00">2019-01-16</time>
+              <time title="创建时间：2019-01-16 11:23:01 / 修改时间：12:56:01" itemprop="dateCreated datePublished" datetime="2019-01-16T11:23:01+08:00">2019-01-16</time>
             
 
             
@@ -475,25 +476,45 @@
       
 
       
-        <p><strong>IP相关</strong></p>
-<ul>
+        <h3 id="查看版本信息"><a href="#查看版本信息" class="headerlink" title="查看版本信息"></a><strong>查看版本信息</strong></h3><ul>
+<li>cat /etc/redhat-release :查看版本信息</li>
+<li>uname -r 查看内核版本号</li>
+<li>uname -m 查看系统多少位</li>
+<li>uname -a 查看内核全部信息</li>
+</ul>
+<h3 id="IP相关"><a href="#IP相关" class="headerlink" title="IP相关"></a><strong>IP相关</strong></h3><h4 id="查看ip"><a href="#查看ip" class="headerlink" title="查看ip"></a>查看ip</h4><ul>
 <li>ip addr</li>
 <li>ifconfig</li>
 </ul>
-<p><strong>关闭防火墙</strong></p>
-<ul>
+<h4 id="ip详细信息"><a href="#ip详细信息" class="headerlink" title="ip详细信息"></a>ip详细信息</h4><ul>
+<li>eth0 网卡的代号</li>
+<li>lo 回环地址loopback</li>
+<li>inet IPv4的Ip地址</li>
+<li>netmask 子网掩码</li>
+<li>broadcast 广播地址</li>
+<li>RX/TX 流量发/收情况 tx是发送（transport），rx是接收(receive)</li>
+<li>packets 数据包数</li>
+<li>errors 数据包错误数</li>
+<li>dropped 数据包有问题被丢弃的数量</li>
+<li>collisions 数据包碰撞情况，数值太多代表网络状况差</li>
+</ul>
+<h3 id="ifup-ifdown-脚本命令-更简单的方式启动关闭网络"><a href="#ifup-ifdown-脚本命令-更简单的方式启动关闭网络" class="headerlink" title="ifup,ifdown 脚本命令,更简单的方式启动关闭网络"></a>ifup,ifdown 脚本命令,更简单的方式启动关闭网络</h3><ul>
+<li>pup + 网卡名</li>
+<li>ipdown + 网卡名</li>
+<li># 编辑网卡配置文件 vim /etc/sysconfig/network-scripts/ifcfg-eth0</li>
+<li># 修改配置参数 ONBOOT=yes</li>
+</ul>
+<h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a><strong>关闭防火墙</strong></h4><ul>
 <li>systemctl    stop    / start / restart  firewalld   关闭/开启/重启 防火墙</li>
 <li>systemctl  disable  firewalld  永久关闭防火墙 </li>
 </ul>
-<p><strong>修改网络配置</strong></p>
-<ul>
+<h4 id="修改网络配置"><a href="#修改网络配置" class="headerlink" title="修改网络配置"></a><strong>修改网络配置</strong></h4><ul>
 <li>systemctl restart network  重启服务 </li>
 </ul>
-<p><strong>linux的目录结构</strong> </p>
-<ul>
+<h4 id="linux的目录结构"><a href="#linux的目录结构" class="headerlink" title="linux的目录结构"></a><strong>linux的目录结构</strong></h4><ul>
 <li>根目录</li>
 </ul>
-<p><img src="C:/Users/Administrator/Desktop/learning/docs/img/linux%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.jpg" alt=""></p>
+<p><img src="https://img2018.cnblogs.com/blog/1132884/201809/1132884-20180921150307683-759085586.png" alt=""></p>
 <ul>
 <li>linux的文件系统<ul>
 <li>Ext3 : 是一款日志文件系统，能够在系统异常宕机时避免文件系统资料丢失，并能 自动修复数据的不一致与错误。 </li>
@@ -561,9 +582,6 @@
 <tr>
 <td>ctrl + c</td>
 <td>终止操作</td>
-</tr>
-<tr>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -706,7 +724,7 @@
 <ul>
 <li><p>top命令用于动态地件事进程活动与系统负载等信息</p>
 <ul>
-<li><p>  <img src="C:/Users/Administrator/Desktop/learning/docs/img/top%E5%9B%BE.jpg" alt=""></p>
+<li><p>  <img src="https://haoqihan.github.io/Learning/img/top%E5%9B%BE.jpg" alt=""></p>
 </li>
 </ul>
 </li>
@@ -789,6 +807,434 @@
 <ul>
 <li>reboot 命令用于重启机器</li>
 <li>poweroff 用于关闭系统</li>
+</ul>
+<p><strong>用户管理和文件权限</strong></p>
+<ul>
+<li>用户管理<ul>
+<li>添加用户<ul>
+<li>useradd 用户名 :添加用户</li>
+<li>passwd 用户名: 增加密码</li>
+</ul>
+</li>
+<li>切换用户<ul>
+<li>su - 用户名</li>
+<li>su命令中间的-号很重要，意味着完全切换到新的用户，即环境变量信息也变更为新用户的信息</li>
+</ul>
+</li>
+<li>查看当前用户<ul>
+<li>whoami</li>
+</ul>
+</li>
+<li>退出用户<ul>
+<li>logout</li>
+<li>ctrl + d</li>
+</ul>
+</li>
+<li>创建用户组<ul>
+<li>grpupadd 组名</li>
+</ul>
+</li>
+<li>删除用户<ul>
+<li>-f 强制删除用户</li>
+<li>-r 同事删除用户以及家目录</li>
+<li>userdel -r 用户名</li>
+</ul>
+</li>
+<li>sudo命令<ul>
+<li>语法<ul>
+<li>sudo 【选项】【参数】</li>
+<li>-b：在后台执行指令；</li>
+<li>-h：显示帮助；</li>
+<li>-H：将HOME环境变量设为新身份的HOME环境变量；</li>
+<li>-k：结束密码的有效期限，也就是下次再执行sudo时便需要输入密码；。</li>
+<li>-l：列出目前用户可执行与无法执行的指令；</li>
+<li>-p：改变询问密码的提示符号；</li>
+<li>-s<shell>：执行指定的shell；</shell></li>
+<li>-u&lt;用户&gt;：以指定的用户作为新的身份。若不加上此参数，则预设以root作为新的身份；</li>
+<li>-v：延长密码有效期限5分钟；</li>
+<li>-V ：显示版本信息。</li>
+</ul>
+</li>
+<li>编辑/etc/sudoers文件,写入 用户名 ALL=(ALL) ALL # 允许chaoge在任何地方，执行任何命令</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>文件权限</strong></p>
+<ul>
+<li><p>图片</p>
+<ul>
+<li><p>  <img src="C:/Users/Administrator/Desktop/learning/docs/img/%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.jpg" alt="img"></p>
+</li>
+</ul>
+</li>
+<li><p>文件类型</p>
+<ul>
+<li>- 一般文件</li>
+<li>d 文件夹</li>
+<li>l 软连接（快捷方式）</li>
+<li>b 块设备，存储媒体文件为主</li>
+<li>c 代表键盘,鼠标等设备</li>
+</ul>
+</li>
+<li><p>文件权限</p>
+<ul>
+<li>r read可读</li>
+<li>w write写入，编辑</li>
+<li>x executable 可以执行</li>
+</ul>
+</li>
+<li><p>查看用户权限命令</p>
+<ul>
+<li>id 用户名</li>
+</ul>
+</li>
+<li><p>需改权限属性</p>
+<ul>
+<li>修改属主<ul>
+<li>chown 属主名 文件名</li>
+</ul>
+</li>
+<li>修改属组<ul>
+<li>chgrp 属组名 文件名</li>
+</ul>
+</li>
+<li>文件权限<ul>
+<li>r —- &gt; 4</li>
+<li>w ——&gt; 2</li>
+<li>x ——-&gt;1</li>
+</ul>
+</li>
+<li>修改权限命令<ul>
+<li>chmod [身份][参数] 　　[文件]</li>
+<li>u(user)　　 +(添加)</li>
+<li>g(group)　 -(减去)</li>
+<li>o(other)　　=(赋值)</li>
+<li>a(all)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>软连接</strong></p>
+<ul>
+<li>ln -s 目标文件 软连接名</li>
+</ul>
+<p><strong>PS1变量</strong></p>
+<ul>
+<li>inux命令提示符由PS1环境变量控制<ul>
+<li>参数<ul>
+<li>可以自行调整全局变量/etc/profile文件用于永久生效 PS1=’[\u@\h \W\t]\$’</li>
+<li>\d　　日期</li>
+<li>\H　　完整主机名</li>
+<li>\h　　主机名第一个名字</li>
+<li>\t　　时间24小时制HHMMSS\T　　时间12小时制</li>
+<li>\A　　时间24小时制HHMM</li>
+<li>\u　　当前用户账号名</li>
+<li>\v　　BASH的版本\w　　完整工作目录</li>
+<li>\W　　利用basename取得工作目录名</li>
+<li>#　　下达的第几个命令</li>
+<li>\$　　提示字符，root为#，普通用户为$</li>
+<li>PS1 &gt; 变量名</li>
+<li>$PS1 &gt; 查看变量内容</li>
+<li>PS1=新内容 重新赋值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>在/etc/profile下增加 export PS1=[你要显示的格式,可永久修改]</li>
+</ul>
+<p><strong>tar解压命令</strong></p>
+<ul>
+<li>语法<ul>
+<li>tar(选项)(参数)</li>
+<li>-A或–catenate：新增文件到以存在的备份文件；</li>
+<li>-B：设置区块大小；</li>
+<li>-c或–create：建立新的备份文件；</li>
+<li>-C &lt;目录&gt;：这个选项用在解压缩，若要在特定目录解压缩，可以使用这个选项。</li>
+<li>-d：记录文件的差别；</li>
+<li>-x或–extract或–get：从备份文件中还原文件；</li>
+<li>-t或–list：列出备份文件的内容；</li>
+<li>-z或–gzip或–ungzip：通过gzip指令处理备份文件；</li>
+<li>-Z或–compress或–uncompress：通过compress指令处理备份文件；</li>
+<li>-f&lt;备份文件&gt;或–file=&lt;备份文件&gt;：指定备份文件；</li>
+<li>-v或–verbose：显示指令执行过程；</li>
+<li>-r：添加文件到已经压缩的文件；</li>
+<li>-u：添加改变了和现有的文件到已经存在的压缩文件；</li>
+<li>-j：支持bzip2解压文件；</li>
+<li>-v：显示操作过程；</li>
+<li>-l：文件系统边界设置；</li>
+<li>-k：保留原有文件不覆盖；</li>
+<li>-m：保留文件不被覆盖；</li>
+<li>-w：确认压缩文件的正确性；</li>
+<li>-p或–same-permissions：用原来的文件权限还原文件；</li>
+<li>-P或–absolute-names：文件名使用绝对名称，不移除文件名称前的“/”号；</li>
+<li>-N &lt;日期格式&gt; 或 –newer=&lt;日期时间&gt;：只将较指定日期更新的文件保存到备份文件里；</li>
+<li>–exclude=&lt;范本样式&gt;：排除符合范本样式的文件。</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>tar -zxvf Python-3.7.0b3.tgz #解压</li>
+<li>tar -czvf oldboy.txt.tar.gz oldboy.txt #压缩oldboy.txt</li>
+<li>上述命令等于 tar -cvf oldboy.tar oldboy.txt</li>
+<li>gzip oldboy.tar</li>
+<li>tar -cf all_pic.tar *.jpg #压缩当前目录所有jpg结尾的文件</li>
+<li>tar -xjf xx.tar.bz2　　#解压缩bz2结尾的文件</li>
+</ul>
+</li>
+</ul>
+<p><strong>gzip命令(压缩)</strong></p>
+<ul>
+<li>语法<ul>
+<li>-d或–decompress或—-uncompress：解开压缩文件；</li>
+<li>-f或——force：强行压缩文件。</li>
+<li>-h或——help：在线帮助；</li>
+<li>-l或——list：列出压缩文件的相关信息；</li>
+<li>-L或——license：显示版本与版权信息；</li>
+<li>-r或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理；</li>
+<li>-v或——verbose：显示指令执行过程；</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>压缩当前目录所有文件为.gz文件</li>
+<li>gzip *</li>
+<li>把上例中每个压缩的文件解压，并列出详细的信息</li>
+<li>gzip -dv *</li>
+<li>显示压缩文件的信息，并不解压</li>
+<li>gzip -l *</li>
+<li>压缩一个tar备份文件，扩展名是tar.gz</li>
+<li>tar -cf my.tar my_first.py</li>
+<li>gzip -r my.tar</li>
+</ul>
+</li>
+</ul>
+<p><strong>netstat命令</strong></p>
+<ul>
+<li>netstat命令用来打印Linux中网络系统的状态信息，可让你得知整个Linux系统的网络情况。</li>
+<li>语法:<ul>
+<li>netstat [选项]</li>
+<li>-t或–tcp：显示TCP传输协议的连线状况；</li>
+<li>-u或–udp：显示UDP传输协议的连线状况；</li>
+<li>-n或–numeric：直接使用ip地址，而不通过域名服务器；</li>
+<li>-l或–listening：显示监控中的服务器的Socket；</li>
+<li>-p或–programs：显示正在使用Socket的程序识别码和程序名称；</li>
+<li>-a或–all：显示所有连线中的Socket；</li>
+</ul>
+</li>
+</ul>
+<p><strong>ps命令</strong></p>
+<ul>
+<li>ps 命令用于查看系统中的进程状态，格式为“ps [参数]”。</li>
+<li>参数<ul>
+<li>-a 显示所有进程</li>
+<li>-u 用户以及其他详细信息</li>
+<li>-x 显示没有控制终端的进程</li>
+</ul>
+</li>
+</ul>
+<p><strong>Kill命令</strong></p>
+<ul>
+<li>kill命令用来删除执行中的程序或工作。kill可将指定的信息送至程序。</li>
+<li>选项<ul>
+<li>-a：当处理当前进程时，不限制命令名和进程号的对应关系；</li>
+<li>-l &lt;信息编号&gt;：若不加&lt;信息编号&gt;选项，则-l参数会列出全部的信息名称；</li>
+<li>-p：指定kill 命令只打印相关进程的进程号，而不发送任何信号；</li>
+<li>-s &lt;信息名称或编号&gt;：指定要送出的信息；</li>
+<li>-u：指定用户。</li>
+</ul>
+</li>
+<li>9种信号<ul>
+<li>HUP     1    终端断线</li>
+<li>INT     2    中断（同 Ctrl + C）</li>
+<li>QUIT    3    退出（同 Ctrl + \）</li>
+<li>TERM   15    终止</li>
+<li>KILL    9    强制终止</li>
+<li>CONT   18    继续（与STOP相反， fg/bg命令）</li>
+<li>STOP   19    暂停（同 Ctrl + Z）</li>
+</ul>
+</li>
+<li>实例<ul>
+<li>先用ps查找进程，然后用kill杀掉：</li>
+<li>ps -ef | grep vim</li>
+<li>root      3268  2884  0 16:21 pts/1    00:00:00 vim install.log</li>
+<li>root      3370  2822  0 16:21 pts/0    00:00:00 grep vim</li>
+<li>kill 3268</li>
+</ul>
+</li>
+</ul>
+<p><strong>killall命令</strong></p>
+<ul>
+<li>通常来讲，复杂软件的服务程序会有多个进程协同为用户提供服务，如果逐个去结束这 些进程会比较麻烦，此时可以使用 killall 命令来批量结束某个服务程序带有的全部进程。</li>
+<li>例子<ul>
+<li>例如nginx启动后有2个进程 killall nginx</li>
+</ul>
+</li>
+</ul>
+<p><strong>SELinux功能</strong></p>
+<ul>
+<li>大多数ssh连接不上虚拟机，都是因为防火墙和selinux阻挡了</li>
+<li>永久关闭<ul>
+<li>1.修改配置文件，永久生效关闭selinux</li>
+<li>cp /etc/selinux/config /etc/selinux/config.bak #修改前备份</li>
+<li>2.修改方式可以vim编辑,找到</li>
+<li># This file controls the state of SELinux on the system.</li>
+<li># SELINUX= can take one of these three values:</li>
+<li>#     enforcing - SELinux security policy is enforced.</li>
+<li>#     permissive - SELinux prints warnings instead of enforcing.</li>
+<li>#     disabled - No SELinux policy is loaded.</li>
+<li>SELINUX=disabled</li>
+<li>3.用sed替换</li>
+<li>sed -i ‘s/SELINUX=enforcing/SELINUX=disabled/‘ /etc/selinux/config</li>
+<li>4.检查状态</li>
+<li>grep “SELINUX=disabled” /etc/selinux/config</li>
+<li>#出现结果即表示修改成功</li>
+</ul>
+</li>
+<li>临时关闭selinux(命令行修改，重启失效)：<ul>
+<li>getenforce #获取selinux状态</li>
+<li>#修改selinux状态</li>
+<li>setenforce</li>
+<li>usage:  setenforce [ Enforcing | Permissive | 1 | 0 ]</li>
+<li>数字0 表示permissive，给出警告，不会阻止，等同disabled</li>
+<li>数字1表示enforcing，表示开启</li>
+</ul>
+</li>
+</ul>
+<p><strong>iptables防火墙</strong></p>
+<ul>
+<li>centos7默认已经使用firewall作为防火墙了</li>
+<li>1.关闭防火墙</li>
+<li>systemctl status firewalld #查看防火墙状态</li>
+<li>systemctl stop firewalld    #关闭防火墙</li>
+<li>systemctl disable firewalld#关闭防火墙开机启动</li>
+<li>systemctl is-enabled firewalld.service#检查防火墙是否启动</li>
+</ul>
+<p><strong>linux中文显示</strong></p>
+<ul>
+<li>1.修改配置文件/etc/locale.conf</li>
+<li>LANG=”zh_CN.UTF-8”</li>
+<li>2.更改后查看系统语言变量:locale</li>
+</ul>
+<p><strong>df 命令</strong></p>
+<ul>
+<li>语法:<ul>
+<li>-h或–human-readable：以可读性较高的方式来显示信息；</li>
+<li>-k或–kilobytes：指定区块大小为1024字节；</li>
+<li>-T或–print-type：显示文件系统的类型；</li>
+<li>–help：显示帮助；</li>
+<li>–version：显示版本信息</li>
+</ul>
+</li>
+</ul>
+<p><strong>tree</strong></p>
+<ul>
+<li>tree命令以树状图列出目录的内容。</li>
+<li>-a：显示所有文件和目录；</li>
+<li>-A：使用ASNI绘图字符显示树状图而非以ASCII字符组合；</li>
+<li>-C：在文件和目录清单加上色彩，便于区分各种类型；</li>
+<li>-d：先是目录名称而非内容；</li>
+<li>-D：列出文件或目录的更改时间；</li>
+<li>-f：在每个文件或目录之前，显示完整的相对路径名称；</li>
+<li>-F：在执行文件，目录，Socket，符号连接，管道名称名称，各自加上”*”，”/“，”@”，”|”号；</li>
+<li>-g：列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码；</li>
+<li>-i：不以阶梯状列出文件和目录名称；</li>
+<li>-l：&lt;范本样式&gt; 不显示符号范本样式的文件或目录名称；</li>
+<li>-l：如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录；</li>
+<li>-n：不在文件和目录清单加上色彩；</li>
+<li>-N：直接列出文件和目录名称，包括控制字符；</li>
+<li>-p：列出权限标示；</li>
+<li>-P：&lt;范本样式&gt; 只显示符合范本样式的文件和目录名称；</li>
+<li>-q：用“？”号取代控制字符，列出文件和目录名称；</li>
+<li>-s：列出文件和目录大小；</li>
+<li>-t：用文件和目录的更改时间排序；</li>
+<li>-u：列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码；</li>
+<li>-x：将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该目录予以排除在寻找范围外。</li>
+<li>tree参数</li>
+</ul>
+<p><strong>DNS配置</strong></p>
+<ul>
+<li>配置文件<ul>
+<li>cat /etc/resolv.conf#dns</li>
+</ul>
+</li>
+<li>服务器地址<ul>
+<li>nameserver 223.5.5.5</li>
+<li>nameserver 119.29.29.29</li>
+</ul>
+</li>
+<li>nslookup命令<ul>
+<li>nslookup命令是常用域名查询工具，就是查DNS信息用的命令。</li>
+<li>例子:nslookup <a href="http://www.oldboyedu.com" target="_blank" rel="noopener">www.oldboyedu.com</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>计划任务crond服务</strong></p>
+<ul>
+<li>语法<ul>
+<li>-e：编辑该用户的计时器设置；</li>
+<li>-l：列出该用户的计时器设置；</li>
+<li>-r：删除该用户的计时器设置；</li>
+<li>-u&lt;用户名称&gt;：指定要设定计时器的用户名称。</li>
+</ul>
+</li>
+<li>格式<ul>
+<li>分钟(0-59)　小时(0-23)　日期(1-31)　月份(1-12)　星期(0-6,0代表星期天)　 命令</li>
+</ul>
+</li>
+<li>软件包管理<ul>
+<li>yum命令<ul>
+<li>参数<ul>
+<li>yum(选项)(参数)</li>
+<li>-h：显示帮助信息；</li>
+<li>-y：对所有的提问都回答“yes”；</li>
+<li>-c：指定配置文件；</li>
+<li>-q：安静模式；</li>
+<li>-v：详细模式；</li>
+<li>-d：设置调试等级（0-10）；</li>
+<li>-e：设置错误等级（0-10）；</li>
+<li>-R：设置yum处理一个命令的最大等待时间；</li>
+<li>-C：完全从缓存中运行，而不去下载或者更新任何头文件。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>yum源配置<ul>
+<li>yum的目录<ul>
+<li>cd /etc/yum.repos.d/</li>
+</ul>
+</li>
+<li><ol>
+<li><a href="https://opsx.alibaba.com/mirror" target="_blank" rel="noopener">https://opsx.alibaba.com/mirror</a> 找到这个网站，然后找到centos7的帮助有第一和第二步操作</li>
+</ol>
+</li>
+<li>3.清空yum缓存并且生成新的yum缓存<ul>
+<li>yum clean all</li>
+<li>yum makecache</li>
+</ul>
+</li>
+<li>4.安装软件扩展源<ul>
+<li>yum install -y epel-release</li>
+</ul>
+</li>
+<li>yum命令<ul>
+<li>yum repolist all 列出所有仓库</li>
+<li>yum list all 列出仓库所有软件包</li>
+<li>yum info 软件包名 查看软件包信息</li>
+<li>yum install 软件包名 安装软件包</li>
+<li>yum reinstall 软件包名 重新安装软件包</li>
+<li>yum update 软件包名 升级软件包</li>
+<li>yum remove 软件包名 移除软件包</li>
+<li>yum clean all 清楚所有仓库缓存</li>
+<li>yum check-update 检查可以更新的软件包</li>
+<li>yum grouplist 查看系统中已安装的软件包</li>
+<li>yum groupinstall 软件包组 安装软件包组</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
       
@@ -910,7 +1356,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-count">25</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -939,7 +1385,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">8</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -982,7 +1434,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1032,7 +1490,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux快捷键"><span class="nav-number">1.</span> <span class="nav-text">linux快捷键</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看版本信息"><span class="nav-number">1.</span> <span class="nav-text">查看版本信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP相关"><span class="nav-number">2.</span> <span class="nav-text">IP相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查看ip"><span class="nav-number">2.1.</span> <span class="nav-text">查看ip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ip详细信息"><span class="nav-number">2.2.</span> <span class="nav-text">ip详细信息</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ifup-ifdown-脚本命令-更简单的方式启动关闭网络"><span class="nav-number">3.</span> <span class="nav-text">ifup,ifdown 脚本命令,更简单的方式启动关闭网络</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">3.1.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改网络配置"><span class="nav-number">3.2.</span> <span class="nav-text">修改网络配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux的目录结构"><span class="nav-number">3.3.</span> <span class="nav-text">linux的目录结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux快捷键"><span class="nav-number">4.</span> <span class="nav-text">linux快捷键</span></a></li></ol></div>
             
 
           </div>
