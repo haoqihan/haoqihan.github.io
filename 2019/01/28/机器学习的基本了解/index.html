@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="机器学习的目标​    机器学习是实现人工智能的手段,其主要研究内容时如何利用数据或经验进行学习,改善算法的性能  多领域交叉,涉及概率论、统计学、算法复杂度理论等多门学科 广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用  机器学习的分类 监督学习（Supervised Learning） 无监督学习（Unsupervised Learning）">
+<meta name="keywords" content="机器学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习的基本了解">
+<meta property="og:url" content="http://yoursite.com/2019/01/28/机器学习的基本了解/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="机器学习的目标​    机器学习是实现人工智能的手段,其主要研究内容时如何利用数据或经验进行学习,改善算法的性能  多领域交叉,涉及概率论、统计学、算法复杂度理论等多门学科 广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用  机器学习的分类 监督学习（Supervised Learning） 无监督学习（Unsupervised Learning）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-28T13:01:24.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习的基本了解">
+<meta name="twitter:description" content="机器学习的目标​    机器学习是实现人工智能的手段,其主要研究内容时如何利用数据或经验进行学习,改善算法的性能  多领域交叉,涉及概率论、统计学、算法复杂度理论等多门学科 广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用  机器学习的分类 监督学习（Supervised Learning） 无监督学习（Unsupervised Learning）">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/01/28/机器学习的基本了解/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>机器学习的基本了解 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/28/机器学习的基本了解/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">机器学习的基本了解
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-28 19:58:04 / 修改时间：21:01:24" itemprop="dateCreated datePublished" datetime="2019-01-28T19:58:04+08:00">2019-01-28</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/机器学习/" itemprop="url" rel="index"><span itemprop="name">机器学习</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="机器学习的目标"><a href="#机器学习的目标" class="headerlink" title="机器学习的目标"></a>机器学习的目标</h3><p>​    机器学习是实现人工智能的手段,其主要研究内容时如何利用数据或经验进行学习,改善算法的性能</p>
+<ul>
+<li>多领域交叉,涉及概率论、统计学、算法复杂度理论等多门学科</li>
+<li>广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用</li>
+</ul>
+<h3 id="机器学习的分类"><a href="#机器学习的分类" class="headerlink" title="机器学习的分类"></a>机器学习的分类</h3><ul>
+<li>监督学习（Supervised Learning）</li>
+<li>无监督学习（Unsupervised Learning）</li>
+<li>强化学习（Reinforcement Learning，增强学习）</li>
+<li>半监督学习（Semi-supervised Learning）</li>
+<li><strong>深度学习</strong>（Deep learning）</li>
+</ul>
+<h3 id="机器学习模块"><a href="#机器学习模块" class="headerlink" title="机器学习模块"></a>机器学习模块</h3><h4 id="Scikit-learn"><a href="#Scikit-learn" class="headerlink" title="Scikit-learn"></a>Scikit-learn</h4><ul>
+<li>一组简单有效的工具集</li>
+<li>依赖python 的Numpy，scipy和matplotlib库</li>
+<li>开源和可复用的</li>
+</ul>
+<h4 id="Scikit-learn常用函数"><a href="#Scikit-learn常用函数" class="headerlink" title="Scikit-learn常用函数"></a>Scikit-learn常用函数</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>应用（Applications）</th>
+<th>算法（Algorithm）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分类（Classification）</td>
+<td>异常检测，图像识别等</td>
+<td>KNN，SVM，etc</td>
+</tr>
+<tr>
+<td>聚类（Clustering）</td>
+<td>图像分割，群体划分，等</td>
+<td>K-Means，谱聚类，etc</td>
+</tr>
+<tr>
+<td>回归（Regression）</td>
+<td>价格预测，趋势预测，等</td>
+<td>线性回归，SVR，etc</td>
+</tr>
+<tr>
+<td>降维（Dimension Reduction）</td>
+<td>可视化</td>
+<td>PCA，NMF，etc</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sklearn库"><a href="#sklearn库" class="headerlink" title="sklearn库"></a>sklearn库</h4><p>sklearn是scikit-learn的简称，是一个基于python的第三方模块，sklearn库集成了一些常见的机器学习方法，在进行机器学习任务时，并不需要实现算法，只需要简单的调用sklearn库中提供的模块就能完成大多数的机器学习任务</p>
+<p>sklearn库是在Numpy，scipy和matplotlib的基础上开发而成的，因此在安装sklearn之前，请先安装这些依赖库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 安装Scikit-learn模块,pip会自动安装其他模块</span></span><br><span class="line">pip3 install Scikit-learn</span><br></pre></td></tr></table></figure>
+<h4 id="sklearn库的基本功能"><a href="#sklearn库的基本功能" class="headerlink" title="sklearn库的基本功能"></a>sklearn库的基本功能</h4><p>sklearn库共分为6大部分,分别用于完成分类任务,回归任务,聚类任务,降维任务,模型选择以及数据的预处理</p>
+<h4 id="分类任务"><a href="#分类任务" class="headerlink" title="分类任务"></a>分类任务</h4><table>
+<thead>
+<tr>
+<th>分类模型</th>
+<th>加载模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最近邻算法</td>
+<td>from sklearn.neighbors import NearestNeighbors</td>
+</tr>
+<tr>
+<td>支持向量机</td>
+<td>from sklearn.svm import SVC</td>
+</tr>
+<tr>
+<td>朴素贝叶斯</td>
+<td>from sklearn.naive_bayes import GaussianNB</td>
+</tr>
+<tr>
+<td>决策树</td>
+<td>from sklearn.tree import DecisionTreeClassifier</td>
+</tr>
+<tr>
+<td>集成方法</td>
+<td>from sklearn.ensemble import BaggingClassifier</td>
+</tr>
+<tr>
+<td>神经网络</td>
+<td>from sklearn.neural_network import MLPClassifier</td>
+</tr>
+</tbody>
+</table>
+<h4 id="回归任务"><a href="#回归任务" class="headerlink" title="回归任务"></a>回归任务</h4><table>
+<thead>
+<tr>
+<th>回归模型</th>
+<th>加载模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>岭回归</td>
+<td>from sklearn.linear_model import Ridge</td>
+</tr>
+<tr>
+<td>Lasso回归</td>
+<td>from sklearn.linear_model import Lasso</td>
+</tr>
+<tr>
+<td>弹性网络</td>
+<td>from sklearn.linear_model import ElasticNet</td>
+</tr>
+<tr>
+<td>最小角回归</td>
+<td>from sklearn.linear_model import Lars</td>
+</tr>
+<tr>
+<td>贝叶斯回归</td>
+<td>from sklearn.linear_model import BayesianRidge</td>
+</tr>
+<tr>
+<td>逻辑回归</td>
+<td>from sklearn.linear_model import LogisticRegression</td>
+</tr>
+<tr>
+<td>多项式回归</td>
+<td>from sklearn.preprocessing import PolynomialFeatures</td>
+</tr>
+</tbody>
+</table>
+<h4 id="聚类任务"><a href="#聚类任务" class="headerlink" title="聚类任务"></a>聚类任务</h4><table>
+<thead>
+<tr>
+<th>聚类方法</th>
+<th>加载模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>K-means</td>
+<td>from sklearn.cluster import KMeans</td>
+</tr>
+<tr>
+<td>AP聚类</td>
+<td>from sklearn.cluster import AffinityPropagation</td>
+</tr>
+<tr>
+<td>均值漂移</td>
+<td>from sklearn.cluster import MeanShift</td>
+</tr>
+<tr>
+<td>层次聚类</td>
+<td>from sklearn.cluster import AgglomerativeClustering</td>
+</tr>
+<tr>
+<td>DBSCAN</td>
+<td>from sklearn.cluster import DBSCAN</td>
+</tr>
+<tr>
+<td>BIRCH</td>
+<td>from sklearn.cluster import Birch</td>
+</tr>
+<tr>
+<td>谱聚类</td>
+<td>from sklearn.cluster import SpectralClustering</td>
+</tr>
+</tbody>
+</table>
+<h4 id="降维任务"><a href="#降维任务" class="headerlink" title="降维任务"></a>降维任务</h4><table>
+<thead>
+<tr>
+<th>降维方法</th>
+<th>加载模块</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主成分分析</td>
+<td>from sklearn.decomposition import PCA</td>
+</tr>
+<tr>
+<td>截断SVD和LSA</td>
+<td>from sklearn.decomposition import TruncatedSVD</td>
+</tr>
+<tr>
+<td>字典学习</td>
+<td>from sklearn.decomposition import SparseCoder</td>
+</tr>
+<tr>
+<td>因子分析</td>
+<td>from sklearn.decomposition import FactorAnalysis</td>
+</tr>
+<tr>
+<td>独立成分分析</td>
+<td>from sklearn.decomposition import FastICA</td>
+</tr>
+<tr>
+<td>非负矩阵分解</td>
+<td>from sklearn.decomposition import NMF</td>
+</tr>
+<tr>
+<td>LDA</td>
+<td>from sklearn.decomposition import LatentDirichletAllocation</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"># 机器学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/28/机器学习之有监督学习/" rel="next" title="机器学习之有监督学习">
+                <i class="fa fa-chevron-left"></i> 机器学习之有监督学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/06/DevOps和云计算的初识/" rel="prev" title="DevOps和云计算的初识">
+                DevOps和云计算的初识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习的目标"><span class="nav-number">1.</span> <span class="nav-text">机器学习的目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习的分类"><span class="nav-number">2.</span> <span class="nav-text">机器学习的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习模块"><span class="nav-number">3.</span> <span class="nav-text">机器学习模块</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Scikit-learn"><span class="nav-number">3.1.</span> <span class="nav-text">Scikit-learn</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scikit-learn常用函数"><span class="nav-number">3.2.</span> <span class="nav-text">Scikit-learn常用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sklearn库"><span class="nav-number">3.3.</span> <span class="nav-text">sklearn库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sklearn库的基本功能"><span class="nav-number">3.4.</span> <span class="nav-text">sklearn库的基本功能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分类任务"><span class="nav-number">3.5.</span> <span class="nav-text">分类任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#回归任务"><span class="nav-number">3.6.</span> <span class="nav-text">回归任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#聚类任务"><span class="nav-number">3.7.</span> <span class="nav-text">聚类任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#降维任务"><span class="nav-number">3.8.</span> <span class="nav-text">降维任务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

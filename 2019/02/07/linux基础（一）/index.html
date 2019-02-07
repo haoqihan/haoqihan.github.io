@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中：	root（1）： 当前登录用户	root（2）：主机名	~ 		：当前所在目录（~ 表示家目录）	#		：超级用户">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux基础（一）">
+<meta property="og:url" content="http://yoursite.com/2019/02/07/linux基础（一）/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中：	root（1）： 当前登录用户	root（2）：主机名	~ 		：当前所在目录（~ 表示家目录）	#		：超级用户">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-07T15:19:40.670Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux基础（一）">
+<meta name="twitter:description" content="Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中：	root（1）： 当前登录用户	root（2）：主机名	~ 		：当前所在目录（~ 表示家目录）	#		：超级用户">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/07/linux基础（一）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>linux基础（一） | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/07/linux基础（一）/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">linux基础（一）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-07 18:00:44 / 修改时间：23:19:40" itemprop="dateCreated datePublished" datetime="2019-02-07T18:00:44+08:00">2019-02-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Linux安装"><a href="#Linux安装" class="headerlink" title="Linux安装"></a>Linux安装</h3><h4 id="虚拟机的安装"><a href="#虚拟机的安装" class="headerlink" title="虚拟机的安装"></a>虚拟机的安装</h4><p><a href="http://vmware.com" target="_blank" rel="noopener">Vmware官网</a></p>
+<h4 id="虚拟机的使用"><a href="#虚拟机的使用" class="headerlink" title="虚拟机的使用"></a>虚拟机的使用</h4><h4 id="系统分区"><a href="#系统分区" class="headerlink" title="系统分区"></a>系统分区</h4><h4 id="linux系统安装"><a href="#linux系统安装" class="headerlink" title="linux系统安装"></a>linux系统安装</h4><p>centos6的文件系统类型是ext4</p>
+<p>linux安装时至少划分根分区 / 和SWAP分区</p>
+<p>setup工具配置IP地址</p>
+<h3 id="linux的常用命令"><a href="#linux的常用命令" class="headerlink" title="linux的常用命令"></a>linux的常用命令</h3><h4 id="命令基础格式"><a href="#命令基础格式" class="headerlink" title="命令基础格式"></a>命令基础格式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@root ~]# </span><br><span class="line">其中：</span><br><span class="line">	root（1）： 当前登录用户</span><br><span class="line">	root（2）：主机名</span><br><span class="line">	~ 		：当前所在目录（~ 表示家目录）</span><br><span class="line">	#		：超级用户提示符</span><br><span class="line">	$		:普通用户的提示符</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">命令 [选项] [参数]</span><br><span class="line">注意：个别命令使用不遵循此格式</span><br><span class="line">	当有多个选项的时候，可以写在一起</span><br><span class="line">	简化选项和完整选项</span><br><span class="line">		-a 等于 --al</span><br></pre></td></tr></table></figure>
+<p>查询目录中的内容： ls</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ls 【选项】 【文件或目录】</span><br><span class="line">选项：</span><br><span class="line">	-a 显示所有文件，包括隐藏文件</span><br><span class="line">	-l 显示详细信息</span><br><span class="line">	-d 查看目录属性</span><br><span class="line">	-h 人性化显示文件大小</span><br><span class="line">	-i 显示inode</span><br><span class="line">-rw-r--r-- 1 root root     332 Feb  6 19:26 main.go</span><br><span class="line">	- 文件类型（-文件 d 目录 |软链接文件）</span><br><span class="line">		rw-			r--		r--</span><br><span class="line">		u所有者	  g所属组	o其他人</span><br><span class="line">	r读  w写 x执行</span><br><span class="line">	root 		属主</span><br><span class="line">	root 		属组</span><br><span class="line">	332  		文件大小</span><br><span class="line">	Feb  6 19:26 最后一次更改的时间</span><br><span class="line">	main.go  	文件名称</span><br></pre></td></tr></table></figure>
+<h4 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h4><h5 id="目录处理命令"><a href="#目录处理命令" class="headerlink" title="目录处理命令"></a>目录处理命令</h5><p>建立目录： mkdir</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p [目录名]</span><br><span class="line">	-p 递归创建</span><br><span class="line">	命令英文原意： make directories</span><br></pre></td></tr></table></figure>
+<p>切换所在目录： cd</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">切换所在目录： cd</span><br><span class="line">	命令英文原意： change directory</span><br><span class="line">简化操作</span><br><span class="line">	cd ~	进入当前用户的家目录</span><br><span class="line">	cd		和cd ~一样</span><br><span class="line">	cd -	进入上一次目录</span><br><span class="line">	cd ..	进入上一级目录</span><br><span class="line">	cd .	进入当前目录</span><br><span class="line">	</span><br><span class="line">相对路径和绝对路径</span><br><span class="line">	相对路径：参照当前所在目录，进行查找</span><br><span class="line">	绝对路径：从根目录开始指定，一级一级递归查找，在任何目录下都能进入指定位置</span><br></pre></td></tr></table></figure>
+<p>查询所在目录位置： pwd</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pwd</span><br><span class="line">命令英文原意：print working directory</span><br></pre></td></tr></table></figure>
+<p>删除空目录：rmdir</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rmdir [目录名]</span><br><span class="line">命令英文原意：remove empty directories</span><br></pre></td></tr></table></figure>
+<h5 id="文件处理命令-1"><a href="#文件处理命令-1" class="headerlink" title="文件处理命令"></a>文件处理命令</h5><p>删除文件或目录：rm</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rm -rf [文件或目录]</span><br><span class="line">	命令英文原意：remove</span><br><span class="line">选项：</span><br><span class="line">	-r 删除目录</span><br><span class="line">	-f 强制</span><br></pre></td></tr></table></figure>
+<p>复制命令：cp</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cp [选项] [原文件或目录] [目标目录]</span><br><span class="line">命令英文原意：copy</span><br><span class="line">选项：</span><br><span class="line">	-r	复制目录</span><br><span class="line">	-p	连带文件属性复制</span><br><span class="line">	-d	若源文件是链接文件，则复制链接属性</span><br><span class="line">	-a	相当于 -pdr</span><br></pre></td></tr></table></figure>
+<p>剪切或改名命令：mv</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv [原文件或目录] [目标目录]</span><br><span class="line">命令英文原意：move</span><br></pre></td></tr></table></figure>
+<p>常用的目录</p>
+<ul>
+<li>/ 根目录</li>
+<li>/bin 命令保存目录(普通用户可以读取命令)</li>
+<li>/boot 启动目录，启动相关文件</li>
+<li>/dev 设备文件保存目录</li>
+<li>/etc 配置文件保存目录</li>
+<li>/home 普通用户的家目录</li>
+<li>/lib 系统库保存目录</li>
+<li>/mnt 系统挂载目录</li>
+<li>/media 挂载目录</li>
+<li>/ root 超级用户的家目录</li>
+<li>/tmp 临时目录</li>
+<li>/sbin 命令保存目录（超级用户才能使用的目录）</li>
+<li>/proc 直接写入内存的</li>
+<li>/sys</li>
+<li>/user 系统软件资源目录<ul>
+<li>/user/bin/系统命令 （普通用户）</li>
+<li>/user/sbin/系统命令 （超级用户）</li>
+</ul>
+</li>
+<li>/var 系统相关文档内容</li>
+</ul>
+<h5 id="链接命令"><a href="#链接命令" class="headerlink" title="链接命令"></a>链接命令</h5><p>链接命令：ln</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ln -s [原文件] [目标文件]</span><br><span class="line">命令英文原意：link</span><br><span class="line">功能描述：生成链接文件</span><br><span class="line">	选项： -s 创建软连接</span><br><span class="line">硬链接的特征：</span><br><span class="line">	1.拥有相同的i节点和存储block块，可以看做同一个文件</span><br><span class="line">	2.可通过i节点识别</span><br><span class="line">	3.不能跨分区</span><br><span class="line">	4.不能针对目录使用</span><br><span class="line">软连接特征</span><br><span class="line">	1.类似windows快捷方式</span><br><span class="line">	2.软链接拥有自己的i节点和block块，但数据块只保存原文件的文件名和i节点，并没有实际的文件数据</span><br><span class="line">	3.lrwxrwxrwx l软连接，软连接的文件权限都是lrwxrwxrwx</span><br><span class="line">	4.修改任意文件，另一个都改变</span><br><span class="line">	5.删除原文件，软连接不能使用</span><br></pre></td></tr></table></figure>
+<h4 id="文件搜索命令"><a href="#文件搜索命令" class="headerlink" title="文件搜索命令"></a>文件搜索命令</h4><h5 id="locate命令格式"><a href="#locate命令格式" class="headerlink" title="locate命令格式"></a>locate命令格式</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">locate 文件名</span><br><span class="line">在后台数据库中按文件名搜索，搜索速度更快</span><br><span class="line"></span><br><span class="line">./var/lib/mlocate</span><br><span class="line"><span class="meta">#</span><span class="bash"> locate命令所搜索的后台数据库</span></span><br><span class="line"></span><br><span class="line">updatedb</span><br><span class="line">更新数据库</span><br><span class="line"></span><br><span class="line">updatedb的配置文件/etc/updatedb.conf</span><br><span class="line">cat /etc/updatedb.conf </span><br><span class="line">	PRUNE_BIND_MOUNTS = "yes"</span><br><span class="line">	PRUNEFS = "9p afs anon_inodefs auto autofs bdev binfmt_misc cgroup cifs coda configfs cpuset debugfs devpts ecryptfs exofs fuse fuse.sshfs fusectl gfs gfs2 gpfs hugetlbfs inotifyfs iso9660 jffs2 lustre mqueue ncpfs nfs nfs4 nfsd pipefs proc ramfs rootfs rpc_pipefs securityfs selinuxfs sfs sockfs sysfs tmpfs ubifs udf usbfs fuse.glusterfs ceph fuse.ceph"</span><br><span class="line">	PRUNENAMES = ".git .hg .svn"</span><br><span class="line">	PRUNEPATHS = "/afs /media /mnt /net /sfs /tmp /udev /var/cache/ccache /var/lib/yum/yumdb /var/spool/cups /var/spool/squid /var/tmp /var/lib/ceph"</span><br><span class="line">	</span><br><span class="line">第一行PRUNE_BIND_MOUNTS="yes"的意思是：是否进行限制搜索。</span><br><span class="line"></span><br><span class="line">第二行是排除检索的文件系统类型，即列出的文件系统类型不进行检索。</span><br><span class="line"></span><br><span class="line">第三行表示对哪些后缀的文件排除检索，也就是列在这里面的后缀的文件跳过不进行检索。不同后缀之间用空格隔开。</span><br><span class="line"></span><br><span class="line">第四行是排除检索的路径，即列出的路径下的文件和子文件夹均跳过不进行检索。updatedb之后使用locate仍然找不到想要文件可以检查挂载的目录是否被忽略了</span><br></pre></td></tr></table></figure>
+<h5 id="命令搜索命令whereis与which"><a href="#命令搜索命令whereis与which" class="headerlink" title="命令搜索命令whereis与which"></a>命令搜索命令whereis与which</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">whereis 命令名</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 搜索命令所在路径及帮助文档所在位置</span></span><br><span class="line">选项：</span><br><span class="line">	-a：	查看所有的选项</span><br><span class="line">	-b：	只查找可执行文件</span><br><span class="line">	-m：	只查找帮助文件</span><br><span class="line">which 命令名</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash">PATH :系统环境</span></span><br></pre></td></tr></table></figure>
+<h5 id="文件搜索命令find"><a href="#文件搜索命令find" class="headerlink" title="文件搜索命令find"></a>文件搜索命令find</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">find [搜索范围] [搜索条件]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 搜索文件</span></span><br><span class="line"></span><br><span class="line">find / -name main.go</span><br><span class="line"><span class="meta">#</span><span class="bash"> 避免大范围搜索，会非常耗费系统资源</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> find是在系统当中搜索符合条件的文件名，如果需要匹配，使用通配符匹配，通配符是完全匹配</span></span><br><span class="line"></span><br><span class="line">linux的通配符</span><br><span class="line">*	匹配任意内容</span><br><span class="line">？	匹配任意一个字符</span><br><span class="line">[]	匹配任意一个括号内的字符</span><br><span class="line"></span><br><span class="line">find /root -iname main.go</span><br><span class="line"><span class="meta">#</span><span class="bash"> 不区分大小写</span></span><br><span class="line"></span><br><span class="line">find /root -user root</span><br><span class="line"><span class="meta">#</span><span class="bash"> 按照所有者搜索</span></span><br><span class="line"></span><br><span class="line">find /root -nouser</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找没有所有者的文件</span></span><br><span class="line"></span><br><span class="line">find /var/log/ -mtime +10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找10天前修改的文件</span></span><br><span class="line"></span><br><span class="line">-10	10天内修改的文件</span><br><span class="line">10	10天当天修改的文件</span><br><span class="line">+10	10天前修改的文件</span><br><span class="line"></span><br><span class="line">atime	文件访问时间</span><br><span class="line">ctime	改变文件属性</span><br><span class="line">mtime	修改文件内容</span><br><span class="line"></span><br><span class="line">find . -size 25k</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找当前目录大小是25kb的文件</span></span><br><span class="line"></span><br><span class="line">-25k	小于25kb的文件</span><br><span class="line">25k		等于25kb的文件</span><br><span class="line">+25k	大于25kb的文件</span><br><span class="line"></span><br><span class="line">find . inum 262422</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找i节点是262422的文件</span></span><br><span class="line"></span><br><span class="line">find /etc -size +20k -a -size -50k</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找/etc目录下，大于20kb并且小于50kb的文件</span></span><br><span class="line">-a and 逻辑与，两个条件都满足</span><br><span class="line">-o or  逻辑或，两个条件满足一个即可</span><br><span class="line"></span><br><span class="line">find /etc -size +20k -a -size -50k -exec ls -lh &#123;&#125;\;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查找/etc目录下，大于20kb并且小于50kb的文件，并显示详细信息</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> -<span class="built_in">exec</span>/-ok 命令 &#123;&#125;\; 对搜索结果执行操作</span></span><br></pre></td></tr></table></figure>
+<h5 id="字符串搜索命令grep"><a href="#字符串搜索命令grep" class="headerlink" title="字符串搜索命令grep"></a>字符串搜索命令grep</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">grep [选项] 字符串 文件名</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在文件当中匹配符合条件的字符串</span></span><br><span class="line">选项：</span><br><span class="line">	-i 忽略大小写</span><br><span class="line">	-v 取反</span><br><span class="line"></span><br><span class="line">find命令和grep命令的区别</span><br><span class="line">find命令：在系统当中搜索符合条件的文件名，如果匹配，使用通配符，通配符是完全匹配</span><br><span class="line">grep命令：在文件中搜索符合条件的字符串，如果需要匹配，使用正则进行匹配，正则表达式包含匹配</span><br></pre></td></tr></table></figure>
+<h4 id="帮助命令"><a href="#帮助命令" class="headerlink" title="帮助命令"></a>帮助命令</h4><h5 id="帮助命令man"><a href="#帮助命令man" class="headerlink" title="帮助命令man"></a>帮助命令man</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">man 命令</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取指定命令帮助</span></span><br><span class="line"></span><br><span class="line">man ls</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看ls的帮助</span></span><br><span class="line"></span><br><span class="line">man的级别</span><br><span class="line">1：	查看命令的帮助</span><br><span class="line">2：	查看可被内核调用的函数的帮助</span><br><span class="line">3：	查看函数和函数库的帮助</span><br><span class="line">4：	查看特殊文件的帮助（主要是/dev目录下的文件）</span><br><span class="line">5：	查看配置文件的帮助</span><br><span class="line">6：	查看游戏的帮助</span><br><span class="line">7：	查看其它杂项的帮助</span><br><span class="line">8：	查看系统管理员可用命令的帮助</span><br><span class="line">9：	查看内核相关的帮助</span><br><span class="line"></span><br><span class="line">man f 命令 == whatis 命令</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看命令有几个级别</span></span><br><span class="line"></span><br><span class="line">man -1 passwd</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看passwd命令帮助</span></span><br><span class="line"></span><br><span class="line">apropos 命令</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有包含该命令帮助</span></span><br></pre></td></tr></table></figure>
+<h5 id="其他帮助命令"><a href="#其他帮助命令" class="headerlink" title="其他帮助命令"></a>其他帮助命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">命令 --help</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取命令选项的帮助</span></span><br><span class="line"></span><br><span class="line">例如：</span><br><span class="line">	ls --help</span><br><span class="line"></span><br><span class="line">help shell内部命令</span><br><span class="line"><span class="meta">#</span><span class="bash"> 获取shell 内部命令的帮助</span></span><br><span class="line"></span><br><span class="line">例如</span><br><span class="line">	whereis cd</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 确定是否是shell内部命令</span></span><br><span class="line">	help cd</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 获取内部命令的帮助</span></span><br><span class="line"></span><br><span class="line">info 命令</span><br><span class="line"> -回车：	进入子帮助页面（带有*号标记）</span><br><span class="line"> -u：	  进入上一层页面</span><br><span class="line"> -n：	  进入下一层帮助小节</span><br><span class="line"> -p：	  进入上一个帮助小节</span><br><span class="line"> -q：	  退出</span><br></pre></td></tr></table></figure>
+<h4 id="压缩与解压缩命令"><a href="#压缩与解压缩命令" class="headerlink" title="压缩与解压缩命令"></a>压缩与解压缩命令</h4><h4 id="关机和重启命令"><a href="#关机和重启命令" class="headerlink" title="关机和重启命令"></a>关机和重启命令</h4><h4 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h4>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/06/devops导论-1/" rel="next" title="devops导论">
+                <i class="fa fa-chevron-left"></i> devops导论
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">32</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux安装"><span class="nav-number">1.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的安装"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的使用"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟机的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统分区"><span class="nav-number">1.3.</span> <span class="nav-text">系统分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux系统安装"><span class="nav-number">1.4.</span> <span class="nav-text">linux系统安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux的常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令基础格式"><span class="nav-number">2.1.</span> <span class="nav-text">命令基础格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件处理命令"><span class="nav-number">2.2.</span> <span class="nav-text">文件处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录处理命令"><span class="nav-number">2.2.1.</span> <span class="nav-text">目录处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件处理命令-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">文件处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接命令"><span class="nav-number">2.2.3.</span> <span class="nav-text">链接命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件搜索命令"><span class="nav-number">2.3.</span> <span class="nav-text">文件搜索命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#locate命令格式"><span class="nav-number">2.3.1.</span> <span class="nav-text">locate命令格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令搜索命令whereis与which"><span class="nav-number">2.3.2.</span> <span class="nav-text">命令搜索命令whereis与which</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件搜索命令find"><span class="nav-number">2.3.3.</span> <span class="nav-text">文件搜索命令find</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串搜索命令grep"><span class="nav-number">2.3.4.</span> <span class="nav-text">字符串搜索命令grep</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助命令"><span class="nav-number">2.4.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#帮助命令man"><span class="nav-number">2.4.1.</span> <span class="nav-text">帮助命令man</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他帮助命令"><span class="nav-number">2.4.2.</span> <span class="nav-text">其他帮助命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩与解压缩命令"><span class="nav-number">2.5.</span> <span class="nav-text">压缩与解压缩命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关机和重启命令"><span class="nav-number">2.6.</span> <span class="nav-text">关机和重启命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他常用命令"><span class="nav-number">2.7.</span> <span class="nav-text">其他常用命令</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,6 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[linux基础（一）]]></title>
+    <url>%2F2019%2F02%2F07%2Flinux%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中： root（1）： 当前登录用户 root（2）：主机名 ~ ：当前所在目录（~ 表示家目录） # ：超级用户提示符 $ :普通用户的提示符 12345命令 [选项] [参数]注意：个别命令使用不遵循此格式 当有多个选项的时候，可以写在一起 简化选项和完整选项 -a 等于 --al 查询目录中的内容： ls 1234567891011121314151617ls 【选项】 【文件或目录】选项： -a 显示所有文件，包括隐藏文件 -l 显示详细信息 -d 查看目录属性 -h 人性化显示文件大小 -i 显示inode-rw-r--r-- 1 root root 332 Feb 6 19:26 main.go - 文件类型（-文件 d 目录 |软链接文件） rw- r-- r-- u所有者 g所属组 o其他人 r读 w写 x执行 root 属主 root 属组 332 文件大小 Feb 6 19:26 最后一次更改的时间 main.go 文件名称 文件处理命令目录处理命令建立目录： mkdir 123mkdir -p [目录名] -p 递归创建 命令英文原意： make directories 切换所在目录： cd 123456789101112切换所在目录： cd 命令英文原意： change directory简化操作 cd ~ 进入当前用户的家目录 cd 和cd ~一样 cd - 进入上一次目录 cd .. 进入上一级目录 cd . 进入当前目录 相对路径和绝对路径 相对路径：参照当前所在目录，进行查找 绝对路径：从根目录开始指定，一级一级递归查找，在任何目录下都能进入指定位置 查询所在目录位置： pwd 12pwd命令英文原意：print working directory 删除空目录：rmdir 12rmdir [目录名]命令英文原意：remove empty directories 文件处理命令删除文件或目录：rm 12345rm -rf [文件或目录] 命令英文原意：remove选项： -r 删除目录 -f 强制 复制命令：cp 1234567cp [选项] [原文件或目录] [目标目录]命令英文原意：copy选项： -r 复制目录 -p 连带文件属性复制 -d 若源文件是链接文件，则复制链接属性 -a 相当于 -pdr 剪切或改名命令：mv 12mv [原文件或目录] [目标目录]命令英文原意：move 常用的目录 / 根目录 /bin 命令保存目录(普通用户可以读取命令) /boot 启动目录，启动相关文件 /dev 设备文件保存目录 /etc 配置文件保存目录 /home 普通用户的家目录 /lib 系统库保存目录 /mnt 系统挂载目录 /media 挂载目录 / root 超级用户的家目录 /tmp 临时目录 /sbin 命令保存目录（超级用户才能使用的目录） /proc 直接写入内存的 /sys /user 系统软件资源目录 /user/bin/系统命令 （普通用户） /user/sbin/系统命令 （超级用户） /var 系统相关文档内容 链接命令链接命令：ln 123456789101112131415ln -s [原文件] [目标文件]命令英文原意：link功能描述：生成链接文件 选项： -s 创建软连接硬链接的特征： 1.拥有相同的i节点和存储block块，可以看做同一个文件 2.可通过i节点识别 3.不能跨分区 4.不能针对目录使用软连接特征 1.类似windows快捷方式 2.软链接拥有自己的i节点和block块，但数据块只保存原文件的文件名和i节点，并没有实际的文件数据 3.lrwxrwxrwx l软连接，软连接的文件权限都是lrwxrwxrwx 4.修改任意文件，另一个都改变 5.删除原文件，软连接不能使用 文件搜索命令locate命令格式1234567891011121314151617181920212223locate 文件名在后台数据库中按文件名搜索，搜索速度更快./var/lib/mlocate# locate命令所搜索的后台数据库updatedb更新数据库updatedb的配置文件/etc/updatedb.confcat /etc/updatedb.conf PRUNE_BIND_MOUNTS = "yes" PRUNEFS = "9p afs anon_inodefs auto autofs bdev binfmt_misc cgroup cifs coda configfs cpuset debugfs devpts ecryptfs exofs fuse fuse.sshfs fusectl gfs gfs2 gpfs hugetlbfs inotifyfs iso9660 jffs2 lustre mqueue ncpfs nfs nfs4 nfsd pipefs proc ramfs rootfs rpc_pipefs securityfs selinuxfs sfs sockfs sysfs tmpfs ubifs udf usbfs fuse.glusterfs ceph fuse.ceph" PRUNENAMES = ".git .hg .svn" PRUNEPATHS = "/afs /media /mnt /net /sfs /tmp /udev /var/cache/ccache /var/lib/yum/yumdb /var/spool/cups /var/spool/squid /var/tmp /var/lib/ceph" 第一行PRUNE_BIND_MOUNTS="yes"的意思是：是否进行限制搜索。第二行是排除检索的文件系统类型，即列出的文件系统类型不进行检索。第三行表示对哪些后缀的文件排除检索，也就是列在这里面的后缀的文件跳过不进行检索。不同后缀之间用空格隔开。第四行是排除检索的路径，即列出的路径下的文件和子文件夹均跳过不进行检索。updatedb之后使用locate仍然找不到想要文件可以检查挂载的目录是否被忽略了 命令搜索命令whereis与which123456789whereis 命令名 # 搜索命令所在路径及帮助文档所在位置选项： -a： 查看所有的选项 -b： 只查找可执行文件 -m： 只查找帮助文件which 命令名$PATH :系统环境 文件搜索命令find1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950find [搜索范围] [搜索条件]# 搜索文件find / -name main.go# 避免大范围搜索，会非常耗费系统资源# find是在系统当中搜索符合条件的文件名，如果需要匹配，使用通配符匹配，通配符是完全匹配linux的通配符* 匹配任意内容？ 匹配任意一个字符[] 匹配任意一个括号内的字符find /root -iname main.go# 不区分大小写find /root -user root# 按照所有者搜索find /root -nouser# 查找没有所有者的文件find /var/log/ -mtime +10# 查找10天前修改的文件-10 10天内修改的文件10 10天当天修改的文件+10 10天前修改的文件atime 文件访问时间ctime 改变文件属性mtime 修改文件内容find . -size 25k# 查找当前目录大小是25kb的文件-25k 小于25kb的文件25k 等于25kb的文件+25k 大于25kb的文件find . inum 262422# 查找i节点是262422的文件find /etc -size +20k -a -size -50k# 查找/etc目录下，大于20kb并且小于50kb的文件-a and 逻辑与，两个条件都满足-o or 逻辑或，两个条件满足一个即可find /etc -size +20k -a -size -50k -exec ls -lh &#123;&#125;\;# 查找/etc目录下，大于20kb并且小于50kb的文件，并显示详细信息# -exec/-ok 命令 &#123;&#125;\; 对搜索结果执行操作 字符串搜索命令grep123456789grep [选项] 字符串 文件名# 在文件当中匹配符合条件的字符串选项： -i 忽略大小写 -v 取反find命令和grep命令的区别find命令：在系统当中搜索符合条件的文件名，如果匹配，使用通配符，通配符是完全匹配grep命令：在文件中搜索符合条件的字符串，如果需要匹配，使用正则进行匹配，正则表达式包含匹配 帮助命令帮助命令man12345678910111213141516171819202122232425man 命令# 获取指定命令帮助man ls# 查看ls的帮助man的级别1： 查看命令的帮助2： 查看可被内核调用的函数的帮助3： 查看函数和函数库的帮助4： 查看特殊文件的帮助（主要是/dev目录下的文件）5： 查看配置文件的帮助6： 查看游戏的帮助7： 查看其它杂项的帮助8： 查看系统管理员可用命令的帮助9： 查看内核相关的帮助man f 命令 == whatis 命令# 查看命令有几个级别man -1 passwd# 查看passwd命令帮助apropos 命令# 查看所有包含该命令帮助 其他帮助命令123456789101112131415161718192021命令 --help# 获取命令选项的帮助例如： ls --helphelp shell内部命令# 获取shell 内部命令的帮助例如 whereis cd # 确定是否是shell内部命令 help cd # 获取内部命令的帮助info 命令 -回车： 进入子帮助页面（带有*号标记） -u： 进入上一层页面 -n： 进入下一层帮助小节 -p： 进入上一个帮助小节 -q： 退出 压缩与解压缩命令关机和重启命令其他常用命令]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[devops导论]]></title>
+    <url>%2F2019%2F02%2F06%2Fdevops%E5%AF%BC%E8%AE%BA-1%2F</url>
+    <content type="text"><![CDATA[DevOps概述个体软件过程敏捷软件开发软件架构演化云原生和容器技术Xaas和IT服务标准DevOps工具链]]></content>
+      <categories>
+        <category>运维开发之路</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[devops导论]]></title>
+    <url>%2F2019%2F02%2F06%2Fdevops%E5%AF%BC%E8%AE%BA%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[DevOps和云计算的初识]]></title>
+    <url>%2F2019%2F02%2F06%2FDevOps%E5%92%8C%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9A%84%E5%88%9D%E8%AF%86%2F</url>
+    <content type="text"><![CDATA[什么是云计算云计算跟云没有任何关系 虚拟化（Virtualization）是基础（计算，存储，网络等） 产品服务化（laas，Paas，Saas，Xaas） 弹性伸缩，没有边界 云计算分类 公有云（Aws，阿里云，Azure等） 私有云（Vmware等） 混合云（Azure，Rackspace） 公有云 云服务提供商对基础设施维护 多租户 Pay For Use 私有云 自己维护基础措施 单租户或狭义上的多租户 Pay For Cloud 混合云(专属云) 云服务提供商维护自己的云设施 用户范围内租户隔离 Pay For Use of Cloud 什么是DevOps DevOps = Development + Operations 极速的迭代和快速的用户反馈]]></content>
+      <categories>
+        <category>运维开发之路</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[机器学习的基本了解]]></title>
+    <url>%2F2019%2F01%2F28%2F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BA%86%E8%A7%A3%2F</url>
+    <content type="text"><![CDATA[机器学习的目标​ 机器学习是实现人工智能的手段,其主要研究内容时如何利用数据或经验进行学习,改善算法的性能 多领域交叉,涉及概率论、统计学、算法复杂度理论等多门学科 广泛应用于网络搜索、垃圾邮件过滤、推荐系统、广告投放、信用评价、欺诈检测、股票交易和医疗诊断等应用 机器学习的分类 监督学习（Supervised Learning） 无监督学习（Unsupervised Learning） 强化学习（Reinforcement Learning，增强学习） 半监督学习（Semi-supervised Learning） 深度学习（Deep learning） 机器学习模块Scikit-learn 一组简单有效的工具集 依赖python 的Numpy，scipy和matplotlib库 开源和可复用的 Scikit-learn常用函数 应用（Applications） 算法（Algorithm） 分类（Classification） 异常检测，图像识别等 KNN，SVM，etc 聚类（Clustering） 图像分割，群体划分，等 K-Means，谱聚类，etc 回归（Regression） 价格预测，趋势预测，等 线性回归，SVR，etc 降维（Dimension Reduction） 可视化 PCA，NMF，etc sklearn库sklearn是scikit-learn的简称，是一个基于python的第三方模块，sklearn库集成了一些常见的机器学习方法，在进行机器学习任务时，并不需要实现算法，只需要简单的调用sklearn库中提供的模块就能完成大多数的机器学习任务 sklearn库是在Numpy，scipy和matplotlib的基础上开发而成的，因此在安装sklearn之前，请先安装这些依赖库 12# 安装Scikit-learn模块,pip会自动安装其他模块pip3 install Scikit-learn sklearn库的基本功能sklearn库共分为6大部分,分别用于完成分类任务,回归任务,聚类任务,降维任务,模型选择以及数据的预处理 分类任务 分类模型 加载模块 最近邻算法 from sklearn.neighbors import NearestNeighbors 支持向量机 from sklearn.svm import SVC 朴素贝叶斯 from sklearn.naive_bayes import GaussianNB 决策树 from sklearn.tree import DecisionTreeClassifier 集成方法 from sklearn.ensemble import BaggingClassifier 神经网络 from sklearn.neural_network import MLPClassifier 回归任务 回归模型 加载模块 岭回归 from sklearn.linear_model import Ridge Lasso回归 from sklearn.linear_model import Lasso 弹性网络 from sklearn.linear_model import ElasticNet 最小角回归 from sklearn.linear_model import Lars 贝叶斯回归 from sklearn.linear_model import BayesianRidge 逻辑回归 from sklearn.linear_model import LogisticRegression 多项式回归 from sklearn.preprocessing import PolynomialFeatures 聚类任务 聚类方法 加载模块 K-means from sklearn.cluster import KMeans AP聚类 from sklearn.cluster import AffinityPropagation 均值漂移 from sklearn.cluster import MeanShift 层次聚类 from sklearn.cluster import AgglomerativeClustering DBSCAN from sklearn.cluster import DBSCAN BIRCH from sklearn.cluster import Birch 谱聚类 from sklearn.cluster import SpectralClustering 降维任务 降维方法 加载模块 主成分分析 from sklearn.decomposition import PCA 截断SVD和LSA from sklearn.decomposition import TruncatedSVD 字典学习 from sklearn.decomposition import SparseCoder 因子分析 from sklearn.decomposition import FactorAnalysis 独立成分分析 from sklearn.decomposition import FastICA 非负矩阵分解 from sklearn.decomposition import NMF LDA from sklearn.decomposition import LatentDirichletAllocation]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[机器学习之有监督学习]]></title>
+    <url>%2F2019%2F01%2F28%2F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%9C%89%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[机器学习之无监督学习]]></title>
+    <url>%2F2019%2F01%2F28%2F%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AD%A6%E4%B9%A0%2F</url>
+    <content type="text"><![CDATA[无监督学习的目标利用无标签的数据学习数据的分布或数据与数据之间的关系被称作为无监督学习 有监督学习与无监督学习最大的区别在于数据是否有标签 无监督学习最常用的场景是聚类和降维 聚类聚类,就是根据数据的”相似性”将数据分为多类的过程 评估两个不同样本之间的相似性,通常使用的方法就是计算两个样本之间的距离,使用不同的方法计算样本间的距离会关系到聚类结果的好坏 欧式距离欧式距离是最常用的一种距离度量方法,源于欧式空间中两点之间的距离 曼哈顿距离曼哈顿距离也称作”城市街区距离”,类似于在城市之中驾车行驶,从一个十字路口到另一个十字路口的距离 马氏距离马氏距离表示数据的协方差距离,是一种尺度无关的度量方式也就是说马氏距离会先将样本点的各个属性标准化,再计算样本间的距离 夹角余弦余弦相似度用向量空间中两个向量夹角的余弦作为衡量两个样本差异的大小,余弦越接近1,说明两个向量夹角越接近0度,表明两个向量越相似 降维降维,就是在保证数据所具有代表性特征或分布的情况下,将高维数据转化为低维数据的过程 数据可视化 精简数据 sklearn.decomposition 算法名称 参数 可扩展性 适用任务 PCA 所降维度和其他超参 大规模数据 信号处理 FastICA 所降维度和其他超参 超大规模数据 图形图像特征提取 NMF 所降维度和其他超参 大规模数据 图形图像特征提取 LDA 所降维度和其他超参 大规模数据 文本数据,主题挖掘 K-means聚类算法k-means算法以k为参数,把N个对象分为k个簇,使簇内具有较高的相似度,而簇间的相似度较低 随机选择k个点作为初始的聚类中心 对于剩下的点,根据与聚类中心的距离,将其归为最近的簇 对每个簇,计算所有点的均值作为新的聚类中心 重复2,3直到聚类中心不再发生改变]]></content>
+      <categories>
+        <category>机器学习</category>
+      </categories>
+      <tags>
+        <tag>机器学习</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[vim的使用]]></title>
     <url>%2F2019%2F01%2F16%2Fvim%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
     <content type="text"></content>
