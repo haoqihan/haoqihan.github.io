@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="软件包管理软件包的分类 源码包 二进制包  源码包的优点 开源，如果有足够能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高 卸载方便  源码包的缺点 安装麻烦，尤其是一些比较大的集合软件 编译过程时间比较长，安装比二进制安装时间长 因为是编译安装，一旦出错会很麻烦  二进制包的优点 包管理系统简单，只通过几个命令就可以实现包的安装，升级，查询">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux软件安装管理">
+<meta property="og:url" content="http://yoursite.com/2019/02/12/Linux软件安装管理/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="软件包管理软件包的分类 源码包 二进制包  源码包的优点 开源，如果有足够能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高 卸载方便  源码包的缺点 安装麻烦，尤其是一些比较大的集合软件 编译过程时间比较长，安装比二进制安装时间长 因为是编译安装，一旦出错会很麻烦  二进制包的优点 包管理系统简单，只通过几个命令就可以实现包的安装，升级，查询">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-12T15:40:05.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux软件安装管理">
+<meta name="twitter:description" content="软件包管理软件包的分类 源码包 二进制包  源码包的优点 开源，如果有足够能力，可以修改源代码 可以自由选择所需的功能 软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高 卸载方便  源码包的缺点 安装麻烦，尤其是一些比较大的集合软件 编译过程时间比较长，安装比二进制安装时间长 因为是编译安装，一旦出错会很麻烦  二进制包的优点 包管理系统简单，只通过几个命令就可以实现包的安装，升级，查询">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/12/Linux软件安装管理/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Linux软件安装管理 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/Linux软件安装管理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux软件安装管理
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-12 21:17:22 / 修改时间：23:40:05" itemprop="dateCreated datePublished" datetime="2019-02-12T21:17:22+08:00">2019-02-12</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="软件包管理"><a href="#软件包管理" class="headerlink" title="软件包管理"></a>软件包管理</h3><h4 id="软件包的分类"><a href="#软件包的分类" class="headerlink" title="软件包的分类"></a>软件包的分类</h4><ul>
+<li>源码包</li>
+<li>二进制包</li>
+</ul>
+<h5 id="源码包的优点"><a href="#源码包的优点" class="headerlink" title="源码包的优点"></a>源码包的优点</h5><ul>
+<li>开源，如果有足够能力，可以修改源代码</li>
+<li>可以自由选择所需的功能</li>
+<li>软件是编译安装，所有更加适合自己的系统，更加稳定也效率更高</li>
+<li>卸载方便</li>
+</ul>
+<h5 id="源码包的缺点"><a href="#源码包的缺点" class="headerlink" title="源码包的缺点"></a>源码包的缺点</h5><ul>
+<li>安装麻烦，尤其是一些比较大的集合软件</li>
+<li>编译过程时间比较长，安装比二进制安装时间长</li>
+<li>因为是编译安装，一旦出错会很麻烦</li>
+</ul>
+<h5 id="二进制包的优点"><a href="#二进制包的优点" class="headerlink" title="二进制包的优点"></a>二进制包的优点</h5><ul>
+<li>包管理系统简单，只通过几个命令就可以实现包的安装，升级，查询和卸载</li>
+<li>安装速度比源码包要快</li>
+</ul>
+<h5 id="二进制的缺点"><a href="#二进制的缺点" class="headerlink" title="二进制的缺点"></a>二进制的缺点</h5><ul>
+<li>经过编译，不能看到源代码了</li>
+<li>功能选择不如源码包灵活</li>
+<li>依赖性</li>
+</ul>
+<h3 id="rpm命令管理"><a href="#rpm命令管理" class="headerlink" title="rpm命令管理"></a>rpm命令管理</h3><h4 id="RPM包命名规则"><a href="#RPM包命名规则" class="headerlink" title="RPM包命名规则"></a>RPM包命名规则</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">httpd-2.2.15-15.el6.centos.1.i686.rpm</span><br><span class="line">	- httpd		软件包名</span><br><span class="line">	- 2.2.15	软件版本</span><br><span class="line">	- 15		软件发布的次数</span><br><span class="line">	- el6.centos 适合的linux的平台</span><br><span class="line">    - i686		适合的硬件平台</span><br><span class="line">    - rpm		rpm包的扩展名</span><br></pre></td></tr></table></figure>
+<h5 id="RPM包的依赖性"><a href="#RPM包的依赖性" class="headerlink" title="RPM包的依赖性"></a>RPM包的依赖性</h5><ul>
+<li>树形依赖：a -&gt; b -&gt; c</li>
+<li>环形依赖：a - &gt; b -&gt; c -&gt; a</li>
+<li>模块依赖：查询网站：<a href="http://www.rpmfind.net" target="_blank" rel="noopener">www.rpmfind.net</a></li>
+</ul>
+<h4 id="安装命令"><a href="#安装命令" class="headerlink" title="安装命令"></a>安装命令</h4><h5 id="包全名与包名"><a href="#包全名与包名" class="headerlink" title="包全名与包名"></a>包全名与包名</h5><ul>
+<li>包全名：操作的包是没有按照的软件包时，使用包全名，而且要注意路径</li>
+<li>包名：操作已经安装的软件包时，使用包名是搜索/var/lib/rpm 中的数据库</li>
+</ul>
+<h5 id="RPM安装"><a href="#RPM安装" class="headerlink" title="RPM安装"></a>RPM安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh 包全名</span><br><span class="line">选项：</span><br><span class="line">	-i			安装</span><br><span class="line">	-v			显示详细信息</span><br><span class="line">	-h			显示进度</span><br><span class="line">	--nodeps	不检测依赖性</span><br></pre></td></tr></table></figure>
+<h4 id="升级和卸载"><a href="#升级和卸载" class="headerlink" title="升级和卸载"></a>升级和卸载</h4><h5 id="RPM包升级"><a href="#RPM包升级" class="headerlink" title="RPM包升级"></a>RPM包升级</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -Uvh 包全名</span><br><span class="line">选项：</span><br><span class="line">	-U	升级</span><br></pre></td></tr></table></figure>
+<h5 id="RPM包卸载"><a href="#RPM包卸载" class="headerlink" title="RPM包卸载"></a>RPM包卸载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -e 包名</span><br><span class="line">选项：</span><br><span class="line">	-e			卸载</span><br><span class="line">	--nodeps	不检查依赖性</span><br></pre></td></tr></table></figure>
+<h4 id="RPM包查询"><a href="#RPM包查询" class="headerlink" title="RPM包查询"></a>RPM包查询</h4><h5 id="查询是否安装"><a href="#查询是否安装" class="headerlink" title="查询是否安装"></a>查询是否安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">rpm -q 包名</span><br><span class="line"><span class="meta">#</span> 查询是否安装</span><br><span class="line">-q	查询</span><br><span class="line"></span><br><span class="line">rpm -qa</span><br><span class="line"><span class="meta">#</span> 查询所有安装的rpm包</span><br></pre></td></tr></table></figure>
+<h5 id="查询软件包的详细信息"><a href="#查询软件包的详细信息" class="headerlink" title="查询软件包的详细信息"></a>查询软件包的详细信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -qi 包名</span><br><span class="line">选项：</span><br><span class="line">	-i	查询软件信息</span><br><span class="line">	-p	查询未安装包信息</span><br></pre></td></tr></table></figure>
+<h5 id="查询包中文件安装位置"><a href="#查询包中文件安装位置" class="headerlink" title="查询包中文件安装位置"></a>查询包中文件安装位置</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -ql 包名</span><br><span class="line">选项：</span><br><span class="line">	-l	列表</span><br><span class="line">	-p	查询未安装包信息</span><br></pre></td></tr></table></figure>
+<h5 id="RPM包默认安装位置"><a href="#RPM包默认安装位置" class="headerlink" title="RPM包默认安装位置"></a>RPM包默认安装位置</h5><table>
+<thead>
+<tr>
+<th>地址</th>
+<th>详细</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/etc/</td>
+<td>配置文件安装目录</td>
+</tr>
+<tr>
+<td>/usr/bin/</td>
+<td>可执行的命令安装目录</td>
+</tr>
+<tr>
+<td>/usr/lib/</td>
+<td>程序所使用的函数库保存位置</td>
+</tr>
+<tr>
+<td>/usr/share/doc/</td>
+<td>基本的软件使用手册保存位置</td>
+</tr>
+<tr>
+<td>/usr/share/man/</td>
+<td>帮助文件保存位置</td>
+</tr>
+</tbody>
+</table>
+<h4 id="查询系统文件属于哪个rpm包"><a href="#查询系统文件属于哪个rpm包" class="headerlink" title="查询系统文件属于哪个rpm包"></a>查询系统文件属于哪个rpm包</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -qf 系统文件名</span><br><span class="line">选项：</span><br><span class="line">	-f	查询系统文件属于哪个软件包</span><br></pre></td></tr></table></figure>
+<h4 id="查询软件包的依赖性"><a href="#查询软件包的依赖性" class="headerlink" title="查询软件包的依赖性"></a>查询软件包的依赖性</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rpm -qR 包名</span><br><span class="line">选项：</span><br><span class="line">	-R	查询软件包的依赖性</span><br><span class="line">	-p	查询未安装包的信息</span><br></pre></td></tr></table></figure>
+<h4 id="RPM包校验"><a href="#RPM包校验" class="headerlink" title="RPM包校验"></a>RPM包校验</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">rpm -V 已安装的包名</span><br><span class="line">选项：</span><br><span class="line">	-V	校验指定RPM包的文件</span><br><span class="line">	</span><br><span class="line">验证内容中的8个信息的具体内容</span><br><span class="line">	s	文件大小是否改变</span><br><span class="line">	M	文件的类型或文件权限（rwx）是否被改变</span><br><span class="line">	5	文件MD5校验是否改变（可以看成文件内容是否被改变）</span><br><span class="line">	D	设备的主从代码是否改变</span><br><span class="line">	L	文件路径是否改变</span><br><span class="line">	U	文件的属主（所有者）是否改变</span><br><span class="line">	G	文件的属组是否改变</span><br><span class="line">	T	文件的修改实际是否改变</span><br><span class="line"></span><br><span class="line">文件类型</span><br><span class="line">	c	配置文件</span><br><span class="line">	d	普通文件</span><br><span class="line">	g	“鬼”文件，就是该文件不应该被这个RPM所包含的</span><br><span class="line">	L	授权文件</span><br><span class="line">	r	描述文件</span><br></pre></td></tr></table></figure>
+<h5 id="RPM包中的文件提取"><a href="#RPM包中的文件提取" class="headerlink" title="RPM包中的文件提取"></a>RPM包中的文件提取</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">rpm2cpio 包全名 | cpio -idv .文件绝对路径</span><br><span class="line"></span><br><span class="line">rpm2cpio</span><br><span class="line"><span class="meta">#</span> 将rpm包转换为cpio格式的命令</span><br><span class="line"></span><br><span class="line">cpio </span><br><span class="line"><span class="meta">#</span> 是一个标准工具，他用于创建软件档案文件和从档案文件中提取文件</span><br><span class="line"></span><br><span class="line">cpio 选项 &lt; [文件|设备]</span><br><span class="line">选项：</span><br><span class="line">	-i	copy-in模式，还原</span><br><span class="line">	-d	还原时自动新建目录</span><br><span class="line">	-v	显示还原过程</span><br></pre></td></tr></table></figure>
+<h3 id="yum在线安装"><a href="#yum在线安装" class="headerlink" title="yum在线安装"></a>yum在线安装</h3><h4 id="yum源文件"><a href="#yum源文件" class="headerlink" title="yum源文件"></a>yum源文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/yum.repos.d/CentOS-Base.repo </span><br><span class="line"></span><br><span class="line">[base]		容器说明，一定要放在[]中</span><br><span class="line">name 		容器说明，可以自己随便写</span><br><span class="line">mirrorlist	镜像站点，这个可以注释</span><br><span class="line">baseurl		yum源服务器的地址，可以自己更改自己喜欢的yum源</span><br><span class="line">enabled		此容器是否生效，1代表生效，0代表不生效</span><br><span class="line">gpgcheck	如果是1是指RPM数字保证书生效，如果是0则是不生效</span><br><span class="line">gpgkey		数字保证书的公钥文件保存位置，不用修改</span><br><span class="line">failovermethod=priority</span><br></pre></td></tr></table></figure>
+<h4 id="光盘搭建yum源"><a href="#光盘搭建yum源" class="headerlink" title="光盘搭建yum源"></a>光盘搭建yum源</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1.挂载光盘</span><br><span class="line">mkdir /mnt/cdrom</span><br><span class="line"><span class="meta">#</span> 建立挂载点</span><br><span class="line"></span><br><span class="line">mount /dev/cdrom /mnt/cdrom/</span><br><span class="line"><span class="meta">#</span> 挂载光盘</span><br><span class="line"></span><br><span class="line">2.使网络yum源失效</span><br><span class="line">cd /etc/yum.repos.d/</span><br><span class="line"><span class="meta">#</span> 进入yum源目录</span><br><span class="line">mv CentOS-Base.repo CentOS-Base.repo.bak</span><br><span class="line"><span class="meta">#</span> 修改yum源文件后缀名，使其失效</span><br><span class="line"></span><br><span class="line">3.使光盘yum源生效</span><br><span class="line">vim CentOS-Media.repo</span><br><span class="line"><span class="meta">#</span> 修改位置为光盘挂载位置</span><br></pre></td></tr></table></figure>
+<h4 id="yum命令"><a href="#yum命令" class="headerlink" title="yum命令"></a>yum命令</h4><h5 id="常用yum命令"><a href="#常用yum命令" class="headerlink" title="常用yum命令"></a>常用yum命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">查询</span><br><span class="line">yum list</span><br><span class="line"><span class="meta">#</span> 查询所有可用软件包列表</span><br><span class="line"></span><br><span class="line">yum search 关键字</span><br><span class="line"><span class="meta">#</span> 搜索服务器上所有和关键字相关的包</span><br><span class="line"></span><br><span class="line">安装</span><br><span class="line">yum -y install 包名</span><br><span class="line">选项：</span><br><span class="line">	install	安装</span><br><span class="line">	-y		自动回答yes</span><br><span class="line">	</span><br><span class="line">升级</span><br><span class="line">yum -y update 包名</span><br><span class="line">选项：</span><br><span class="line">	update	升级</span><br><span class="line">	</span><br><span class="line">卸载</span><br><span class="line">yum -y remove 包名</span><br><span class="line">选项：</span><br><span class="line">	remove	卸载</span><br></pre></td></tr></table></figure>
+<h5 id="yum软件组管理命令"><a href="#yum软件组管理命令" class="headerlink" title="yum软件组管理命令"></a>yum软件组管理命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum grouplist</span><br><span class="line"><span class="meta">#</span> 列出所有可用的软件组列表</span><br><span class="line"></span><br><span class="line">yum grouplist 软件组名</span><br><span class="line"><span class="meta">#</span> 安装指定软件组，组名可用由grouplist查询出来</span><br><span class="line"></span><br><span class="line">yum groupremove 软件组名</span><br><span class="line"><span class="meta">#</span> 卸载指定软件组</span><br></pre></td></tr></table></figure>
+<h3 id="源码包安装"><a href="#源码包安装" class="headerlink" title="源码包安装"></a>源码包安装</h3><h3 id="脚本安装"><a href="#脚本安装" class="headerlink" title="脚本安装"></a>脚本安装</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/11/linux网络管理/" rel="next" title="linux网络管理">
+                <i class="fa fa-chevron-left"></i> linux网络管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">33</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#软件包管理"><span class="nav-number">1.</span> <span class="nav-text">软件包管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#软件包的分类"><span class="nav-number">1.1.</span> <span class="nav-text">软件包的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#源码包的优点"><span class="nav-number">1.1.1.</span> <span class="nav-text">源码包的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#源码包的缺点"><span class="nav-number">1.1.2.</span> <span class="nav-text">源码包的缺点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制包的优点"><span class="nav-number">1.1.3.</span> <span class="nav-text">二进制包的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二进制的缺点"><span class="nav-number">1.1.4.</span> <span class="nav-text">二进制的缺点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rpm命令管理"><span class="nav-number">2.</span> <span class="nav-text">rpm命令管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RPM包命名规则"><span class="nav-number">2.1.</span> <span class="nav-text">RPM包命名规则</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM包的依赖性"><span class="nav-number">2.1.1.</span> <span class="nav-text">RPM包的依赖性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#安装命令"><span class="nav-number">2.2.</span> <span class="nav-text">安装命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#包全名与包名"><span class="nav-number">2.2.1.</span> <span class="nav-text">包全名与包名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM安装"><span class="nav-number">2.2.2.</span> <span class="nav-text">RPM安装</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#升级和卸载"><span class="nav-number">2.3.</span> <span class="nav-text">升级和卸载</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM包升级"><span class="nav-number">2.3.1.</span> <span class="nav-text">RPM包升级</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM包卸载"><span class="nav-number">2.3.2.</span> <span class="nav-text">RPM包卸载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPM包查询"><span class="nav-number">2.4.</span> <span class="nav-text">RPM包查询</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查询是否安装"><span class="nav-number">2.4.1.</span> <span class="nav-text">查询是否安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询软件包的详细信息"><span class="nav-number">2.4.2.</span> <span class="nav-text">查询软件包的详细信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询包中文件安装位置"><span class="nav-number">2.4.3.</span> <span class="nav-text">查询包中文件安装位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM包默认安装位置"><span class="nav-number">2.4.4.</span> <span class="nav-text">RPM包默认安装位置</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询系统文件属于哪个rpm包"><span class="nav-number">2.5.</span> <span class="nav-text">查询系统文件属于哪个rpm包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询软件包的依赖性"><span class="nav-number">2.6.</span> <span class="nav-text">查询软件包的依赖性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RPM包校验"><span class="nav-number">2.7.</span> <span class="nav-text">RPM包校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#RPM包中的文件提取"><span class="nav-number">2.7.1.</span> <span class="nav-text">RPM包中的文件提取</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#yum在线安装"><span class="nav-number">3.</span> <span class="nav-text">yum在线安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#yum源文件"><span class="nav-number">3.1.</span> <span class="nav-text">yum源文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#光盘搭建yum源"><span class="nav-number">3.2.</span> <span class="nav-text">光盘搭建yum源</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yum命令"><span class="nav-number">3.3.</span> <span class="nav-text">yum命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#常用yum命令"><span class="nav-number">3.3.1.</span> <span class="nav-text">常用yum命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#yum软件组管理命令"><span class="nav-number">3.3.2.</span> <span class="nav-text">yum软件组管理命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码包安装"><span class="nav-number">4.</span> <span class="nav-text">源码包安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本安装"><span class="nav-number">5.</span> <span class="nav-text">脚本安装</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
