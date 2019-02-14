@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="郝起瀚的博客">
 <meta property="og:description" content="Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中：	root（1）： 当前登录用户	root（2）：主机名	~ 		：当前所在目录（~ 表示家目录）	#		：超级用户">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-10T15:05:06.375Z">
+<meta property="og:updated_time" content="2019-02-14T02:00:52.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux基础（一）">
 <meta name="twitter:description" content="Linux安装虚拟机的安装Vmware官网 虚拟机的使用系统分区linux系统安装centos6的文件系统类型是ext4 linux安装时至少划分根分区 / 和SWAP分区 setup工具配置IP地址 linux的常用命令命令基础格式1234567[root@root ~]# 其中：	root（1）： 当前登录用户	root（2）：主机名	~ 		：当前所在目录（~ 表示家目录）	#		：超级用户">
@@ -433,7 +433,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-10 23:05:06" itemprop="dateModified" datetime="2019-02-10T23:05:06+08:00">2019-02-10</time>
+                <time title="修改时间：2019-02-14 10:00:52" itemprop="dateModified" datetime="2019-02-14T10:00:52+08:00">2019-02-14</time>
               
             
           </span>
@@ -581,157 +581,7 @@
 </table>
 <h4 id="其他常用命令"><a href="#其他常用命令" class="headerlink" title="其他常用命令"></a>其他常用命令</h4><h5 id="挂载命令"><a href="#挂载命令" class="headerlink" title="挂载命令"></a>挂载命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">1.查询与自动挂载</span><br><span class="line">mount</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询系统中已经挂载的设备</span></span><br><span class="line"></span><br><span class="line">mount -a</span><br><span class="line"><span class="meta">#</span><span class="bash"> 依据配置文件/etc/fstab内容自动挂载</span></span><br><span class="line"></span><br><span class="line">2.挂载命令格式</span><br><span class="line">mount [-t 文件系统] [-o 特殊选项] 设备文件名 挂载点</span><br><span class="line">选项：</span><br><span class="line">	-t 文件系统：加入文件系统类型来指定挂载类型，可以ext3，ext4，iso9660等文件系统</span><br><span class="line">	-o 特殊选项：可以指定挂载的额外选项</span><br><span class="line">	</span><br><span class="line">3.挂载光盘</span><br><span class="line">mkdir /mnt/cdrom/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 建立挂载点</span></span><br><span class="line"></span><br><span class="line">mount -t iso9660 /dev/cdrom  /mnt/cdrom/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 挂载光盘</span></span><br><span class="line"></span><br><span class="line">mount /dev/sr0  /mnt/cdrom/</span><br><span class="line"><span class="meta">#</span><span class="bash"> 挂载光盘</span></span><br><span class="line"></span><br><span class="line">4.卸载命令</span><br><span class="line">umount 设备文件名或挂载点</span><br><span class="line"></span><br><span class="line">umount /mnt/cdrom</span><br><span class="line"></span><br><span class="line">5.挂载u盘</span><br><span class="line">fdisk -l</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看U盘设备名称</span></span><br><span class="line">mount -t vfat /dev/sdb1  /mnt/usb/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意：Linux默认是不支持NTFS文件系统的</span></span><br></pre></td></tr></table></figure>
 <h5 id="用户登录查看"><a href="#用户登录查看" class="headerlink" title="用户登录查看"></a>用户登录查看</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">w 用户名</span><br><span class="line">命令输出：</span><br><span class="line">	USER	登录的用户名</span><br><span class="line">	TTY		登录终端</span><br><span class="line">	FROM	从哪个ip地址登录的</span><br><span class="line">	LOGIN@	登录时间</span><br><span class="line">	IDLE	用户闲置时间</span><br><span class="line">	JCPU	指的是该终端连接的所有进程占用的时间，这个时间并不包括过去的后台作业时间，但却包括当前正在运行的后台作业所占用的时间</span><br><span class="line">	PCPU	是指当前进程所占用的时间</span><br><span class="line">	WGAT	当前正在运行的命令</span><br><span class="line"></span><br><span class="line">who</span><br><span class="line">命令输出</span><br><span class="line">	用户名</span><br><span class="line">	登录终端</span><br><span class="line">	登录时间（登录来源ip地址）</span><br><span class="line"></span><br><span class="line">last和lastlog</span><br><span class="line">last命令默认读取/var/log/wtmp文件数据</span><br><span class="line">命令输出</span><br><span class="line">	用户名称</span><br><span class="line">	登录终端</span><br><span class="line">	登录ip</span><br><span class="line">	登录时间</span><br><span class="line">	退出时间（在线时间）</span><br></pre></td></tr></table></figure>
-<h3 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h3><h4 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h4><p>1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/shells  # 查看支持的shell</span><br></pre></td></tr></table></figure>
-<h4 id="脚本执行方式"><a href="#脚本执行方式" class="headerlink" title="脚本执行方式"></a>脚本执行方式</h4><h5 id="echo输出命令"><a href="#echo输出命令" class="headerlink" title="echo输出命令"></a>echo输出命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo [选项] [输出内容]</span><br><span class="line">选项：</span><br><span class="line">	-e 支持反斜线控制的字符转换</span><br></pre></td></tr></table></figure>
-<h4 id="Bash的基本功能"><a href="#Bash的基本功能" class="headerlink" title="Bash的基本功能"></a>Bash的基本功能</h4><h5 id="命令别名和快捷键"><a href="#命令别名和快捷键" class="headerlink" title="命令别名和快捷键"></a>命令别名和快捷键</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alias </span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有命令的别名</span></span><br><span class="line"></span><br><span class="line">alias 别名="原命令"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设定命令别名</span></span><br><span class="line"></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash"> 写入环境变量配置文件</span></span><br><span class="line"></span><br><span class="line">unalias 别名</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除别名</span></span><br></pre></td></tr></table></figure>
-<p><strong>命令生效顺序</strong></p>
-<ul>
-<li>第一顺位执行用绝对路径或相对路径执行的命令</li>
-<li>第二顺位执行别名</li>
-<li>第三顺位执行Bash的内部命令</li>
-<li>第四顺位执行按照￥PATH环境变量定义的目录查找顺序找到的第一个命令</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>快捷键</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ctrl + c</td>
-<td>强制终止当前命令</td>
-</tr>
-<tr>
-<td>ctrl + l</td>
-<td>清屏</td>
-</tr>
-<tr>
-<td>ctrl + a</td>
-<td>光标移动到行首</td>
-</tr>
-<tr>
-<td>ctrl + e</td>
-<td>光标移动到行尾</td>
-</tr>
-<tr>
-<td>ctrl + u</td>
-<td>从光标所在位置删除到行首</td>
-</tr>
-<tr>
-<td>Ctrl + z</td>
-<td>把命令放入后台</td>
-</tr>
-<tr>
-<td>Ctrl + r</td>
-<td>在历史命令中搜索</td>
-</tr>
-</tbody>
-</table>
-<h5 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history [选项] [历史命令保存文件]</span><br><span class="line">选项：</span><br><span class="line">	-c	清空历史命令</span><br><span class="line">	-w	把缓存中的历史命令写入历史命令保存文件~/.bash_history</span><br><span class="line"><span class="meta">#</span><span class="bash"> 历史命令默认保存1000条，可以在环境变量配置文件/etc/profile中进行修改</span></span><br></pre></td></tr></table></figure>
-<h5 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">标准输出重定向</span><br><span class="line">	命令 &gt; 文件 # 直接写入，里面有内容就覆盖</span><br><span class="line">	命令 &gt;&gt; 文件 # 追加内容</span><br><span class="line">标准错误输出重定向：</span><br><span class="line">	命令 2&gt; 文件 # 以覆盖的方式把错误信息写入文件</span><br><span class="line">	命令 2&gt;&gt; 文件 # 追加写入到文件</span><br><span class="line">正确输出和错误输出同时保存</span><br><span class="line">	命令 &gt; 文件 2&gt;&amp;1 </span><br><span class="line">	命令 &gt;&gt; 文件 2&gt;&amp;1</span><br><span class="line">	命令 &amp;&gt; 文件</span><br><span class="line">	命令 &amp;&gt;&gt; 文件</span><br><span class="line">	命令 &gt;&gt; 文件1 2&gt;&gt; 文件2</span><br><span class="line"></span><br><span class="line">/dev/null # 黑洞</span><br></pre></td></tr></table></figure>
-<h5 id="输入重定向"><a href="#输入重定向" class="headerlink" title="输入重定向"></a>输入重定向</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wc [选项] [文件名]</span><br><span class="line">选项：</span><br><span class="line">	-c	统计字节数</span><br><span class="line">	-w	统计单词数</span><br><span class="line">	-l	统计行数</span><br></pre></td></tr></table></figure>
-<h5 id="多命令顺序执行"><a href="#多命令顺序执行" class="headerlink" title="多命令顺序执行"></a>多命令顺序执行</h5><table>
-<thead>
-<tr>
-<th>多命令执行符</th>
-<th>格式</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>：</td>
-<td>命令1：命令2</td>
-<td>多个命令顺序执行，命令之间没有任何逻辑联系</td>
-</tr>
-<tr>
-<td>&amp;&amp;</td>
-<td>命令1&amp;&amp;命令2</td>
-<td>逻辑与 当命令1正确执行，命令2才会执行，否则就不会执行</td>
-</tr>
-<tr>
-<td>\</td>
-<td>\</td>
-<td></td>
-<td>命令1 \</td>
-<td>\</td>
-<td>命令2</td>
-<td>逻辑或 命令1执行不正确，2才会执行，命令1正确，2就不会执行</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">管道符</span><br><span class="line">命令格式：</span><br><span class="line">	命令1 | 命令2</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 命令1的正确输出作为命令2的操作对象</span></span><br><span class="line">netstat -an</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看端口连接和用户连接</span></span><br></pre></td></tr></table></figure>
-<h5 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h5><table>
-<thead>
-<tr>
-<th>通配符</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>？</td>
-<td>匹配一个任意字符</td>
-</tr>
-<tr>
-<td>*</td>
-<td>匹配0个或多个任意字符</td>
-</tr>
-<tr>
-<td>[]</td>
-<td>匹配括号中任意一个字符</td>
-</tr>
-<tr>
-<td>[-]</td>
-<td>匹配括号中任意一个字符如：[a-z]</td>
-</tr>
-<tr>
-<td>[^]</td>
-<td>l逻辑非，表示匹配不是括号中的任意字符 [ ^0-9],表示不匹配数字</td>
-</tr>
-</tbody>
-</table>
-<h5 id="Bash中其他特殊符号"><a href="#Bash中其他特殊符号" class="headerlink" title="Bash中其他特殊符号"></a>Bash中其他特殊符号</h5><table>
-<thead>
-<tr>
-<th>符号</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>‘ ‘</td>
-<td>单引号，在单引号中所有特殊符号，如“$ `（反引号） ”都没有特殊含义</td>
-</tr>
-<tr>
-<td>“ “</td>
-<td>双引号，在单引号中所有特殊符号，都没有特殊含义，但“$ `（反引号） 和 \ 是一个例外”都没有特殊含义</td>
-</tr>
-<tr>
-<td><code></code></td>
-<td>反引号，反引号括起来的是命令系统，在bash中会先执行它，和$()作用一样，不过推荐使用 \$ (),因为反引号容易看错</td>
-</tr>
-<tr>
-<td>$()</td>
-<td>和反引号的作用一样</td>
-</tr>
-<tr>
-<td>#</td>
-<td># 号代表注释</td>
-</tr>
-<tr>
-<td>$</td>
-<td>用于调用变量值，如$PATH</td>
-</tr>
-<tr>
-<td>\</td>
-<td>转意符，跟在\后面的符号将失去特殊含义</td>
-</tr>
-</tbody>
-</table>
+<p>### </p>
 
       
     </div>
@@ -852,7 +702,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -994,7 +844,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux安装"><span class="nav-number">1.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的安装"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的使用"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟机的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统分区"><span class="nav-number">1.3.</span> <span class="nav-text">系统分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux系统安装"><span class="nav-number">1.4.</span> <span class="nav-text">linux系统安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux的常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令基础格式"><span class="nav-number">2.1.</span> <span class="nav-text">命令基础格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件处理命令"><span class="nav-number">2.2.</span> <span class="nav-text">文件处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录处理命令"><span class="nav-number">2.2.1.</span> <span class="nav-text">目录处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件处理命令-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">文件处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接命令"><span class="nav-number">2.2.3.</span> <span class="nav-text">链接命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件搜索命令"><span class="nav-number">2.3.</span> <span class="nav-text">文件搜索命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#locate命令格式"><span class="nav-number">2.3.1.</span> <span class="nav-text">locate命令格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令搜索命令whereis与which"><span class="nav-number">2.3.2.</span> <span class="nav-text">命令搜索命令whereis与which</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件搜索命令find"><span class="nav-number">2.3.3.</span> <span class="nav-text">文件搜索命令find</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串搜索命令grep"><span class="nav-number">2.3.4.</span> <span class="nav-text">字符串搜索命令grep</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助命令"><span class="nav-number">2.4.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#帮助命令man"><span class="nav-number">2.4.1.</span> <span class="nav-text">帮助命令man</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他帮助命令"><span class="nav-number">2.4.2.</span> <span class="nav-text">其他帮助命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩与解压缩命令"><span class="nav-number">2.5.</span> <span class="nav-text">压缩与解压缩命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#zip压缩格式"><span class="nav-number">2.5.1.</span> <span class="nav-text">.zip压缩格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gz格式压缩"><span class="nav-number">2.5.2.</span> <span class="nav-text">.gz格式压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bz2格式压缩"><span class="nav-number">2.5.3.</span> <span class="nav-text">.bz2格式压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打包命令tar"><span class="nav-number">2.5.4.</span> <span class="nav-text">打包命令tar</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar-gz压缩格式"><span class="nav-number">2.5.5.</span> <span class="nav-text">.tar.gz压缩格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar-bz2压缩格式"><span class="nav-number">2.5.6.</span> <span class="nav-text">.tar.bz2压缩格式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关机和重启命令"><span class="nav-number">2.6.</span> <span class="nav-text">关机和重启命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#shutdown命令"><span class="nav-number">2.6.1.</span> <span class="nav-text">shutdown命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统运行级别"><span class="nav-number">2.6.2.</span> <span class="nav-text">系统运行级别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他常用命令"><span class="nav-number">2.7.</span> <span class="nav-text">其他常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">挂载命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户登录查看"><span class="nav-number">2.7.2.</span> <span class="nav-text">用户登录查看</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shell基础"><span class="nav-number">3.</span> <span class="nav-text">shell基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell概述"><span class="nav-number">3.1.</span> <span class="nav-text">shell概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本执行方式"><span class="nav-number">3.2.</span> <span class="nav-text">脚本执行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#echo输出命令"><span class="nav-number">3.2.1.</span> <span class="nav-text">echo输出命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bash的基本功能"><span class="nav-number">3.3.</span> <span class="nav-text">Bash的基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令别名和快捷键"><span class="nav-number">3.3.1.</span> <span class="nav-text">命令别名和快捷键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#历史命令"><span class="nav-number">3.3.2.</span> <span class="nav-text">历史命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出重定向"><span class="nav-number">3.3.3.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入重定向"><span class="nav-number">3.3.4.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多命令顺序执行"><span class="nav-number">3.3.5.</span> <span class="nav-text">多命令顺序执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通配符"><span class="nav-number">3.3.6.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bash中其他特殊符号"><span class="nav-number">3.3.7.</span> <span class="nav-text">Bash中其他特殊符号</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Linux安装"><span class="nav-number">1.</span> <span class="nav-text">Linux安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的安装"><span class="nav-number">1.1.</span> <span class="nav-text">虚拟机的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟机的使用"><span class="nav-number">1.2.</span> <span class="nav-text">虚拟机的使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统分区"><span class="nav-number">1.3.</span> <span class="nav-text">系统分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linux系统安装"><span class="nav-number">1.4.</span> <span class="nav-text">linux系统安装</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux的常用命令"><span class="nav-number">2.</span> <span class="nav-text">linux的常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令基础格式"><span class="nav-number">2.1.</span> <span class="nav-text">命令基础格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件处理命令"><span class="nav-number">2.2.</span> <span class="nav-text">文件处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目录处理命令"><span class="nav-number">2.2.1.</span> <span class="nav-text">目录处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件处理命令-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">文件处理命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#链接命令"><span class="nav-number">2.2.3.</span> <span class="nav-text">链接命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件搜索命令"><span class="nav-number">2.3.</span> <span class="nav-text">文件搜索命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#locate命令格式"><span class="nav-number">2.3.1.</span> <span class="nav-text">locate命令格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#命令搜索命令whereis与which"><span class="nav-number">2.3.2.</span> <span class="nav-text">命令搜索命令whereis与which</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#文件搜索命令find"><span class="nav-number">2.3.3.</span> <span class="nav-text">文件搜索命令find</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串搜索命令grep"><span class="nav-number">2.3.4.</span> <span class="nav-text">字符串搜索命令grep</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#帮助命令"><span class="nav-number">2.4.</span> <span class="nav-text">帮助命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#帮助命令man"><span class="nav-number">2.4.1.</span> <span class="nav-text">帮助命令man</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他帮助命令"><span class="nav-number">2.4.2.</span> <span class="nav-text">其他帮助命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#压缩与解压缩命令"><span class="nav-number">2.5.</span> <span class="nav-text">压缩与解压缩命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#zip压缩格式"><span class="nav-number">2.5.1.</span> <span class="nav-text">.zip压缩格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#gz格式压缩"><span class="nav-number">2.5.2.</span> <span class="nav-text">.gz格式压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#bz2格式压缩"><span class="nav-number">2.5.3.</span> <span class="nav-text">.bz2格式压缩</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打包命令tar"><span class="nav-number">2.5.4.</span> <span class="nav-text">打包命令tar</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar-gz压缩格式"><span class="nav-number">2.5.5.</span> <span class="nav-text">.tar.gz压缩格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#tar-bz2压缩格式"><span class="nav-number">2.5.6.</span> <span class="nav-text">.tar.bz2压缩格式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关机和重启命令"><span class="nav-number">2.6.</span> <span class="nav-text">关机和重启命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#shutdown命令"><span class="nav-number">2.6.1.</span> <span class="nav-text">shutdown命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#系统运行级别"><span class="nav-number">2.6.2.</span> <span class="nav-text">系统运行级别</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他常用命令"><span class="nav-number">2.7.</span> <span class="nav-text">其他常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#挂载命令"><span class="nav-number">2.7.1.</span> <span class="nav-text">挂载命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#用户登录查看"><span class="nav-number">2.7.2.</span> <span class="nav-text">用户登录查看</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

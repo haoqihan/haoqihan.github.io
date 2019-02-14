@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="shell基础shell概述1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh 1vi /etc/shells  # 查看支持的shell 脚本执行方式echo输出命令123echo [选项] [输出内容]选项：	-e 支持反斜线控制的字符转换 Bash的基本功能命令别名和快捷键123456">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux之shell基础">
+<meta property="og:url" content="http://yoursite.com/2019/02/14/Linux之shell基础/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="shell基础shell概述1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh 1vi /etc/shells  # 查看支持的shell 脚本执行方式echo输出命令123echo [选项] [输出内容]选项：	-e 支持反斜线控制的字符转换 Bash的基本功能命令别名和快捷键123456">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-14T11:33:42.108Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux之shell基础">
+<meta name="twitter:description" content="shell基础shell概述1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh 1vi /etc/shells  # 查看支持的shell 脚本执行方式echo输出命令123echo [选项] [输出内容]选项：	-e 支持反斜线控制的字符转换 Bash的基本功能命令别名和快捷键123456">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/14/Linux之shell基础/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Linux之shell基础 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/14/Linux之shell基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux之shell基础
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-02-14 09:52:56 / 修改时间：19:33:42" itemprop="dateCreated datePublished" datetime="2019-02-14T09:52:56+08:00">2019-02-14</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="shell基础"><a href="#shell基础" class="headerlink" title="shell基础"></a>shell基础</h3><h4 id="shell概述"><a href="#shell概述" class="headerlink" title="shell概述"></a>shell概述</h4><p>1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/shells  # 查看支持的shell</span><br></pre></td></tr></table></figure>
+<h4 id="脚本执行方式"><a href="#脚本执行方式" class="headerlink" title="脚本执行方式"></a>脚本执行方式</h4><h5 id="echo输出命令"><a href="#echo输出命令" class="headerlink" title="echo输出命令"></a>echo输出命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo [选项] [输出内容]</span><br><span class="line">选项：</span><br><span class="line">	-e 支持反斜线控制的字符转换</span><br></pre></td></tr></table></figure>
+<h4 id="Bash的基本功能"><a href="#Bash的基本功能" class="headerlink" title="Bash的基本功能"></a>Bash的基本功能</h4><h5 id="命令别名和快捷键"><a href="#命令别名和快捷键" class="headerlink" title="命令别名和快捷键"></a>命令别名和快捷键</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">alias </span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有命令的别名</span></span><br><span class="line"></span><br><span class="line">alias 别名="原命令"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 设定命令别名</span></span><br><span class="line"></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"><span class="meta">#</span><span class="bash"> 写入环境变量配置文件</span></span><br><span class="line"></span><br><span class="line">unalias 别名</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除别名</span></span><br></pre></td></tr></table></figure>
+<p><strong>命令生效顺序</strong></p>
+<ul>
+<li>第一顺位执行用绝对路径或相对路径执行的命令</li>
+<li>第二顺位执行别名</li>
+<li>第三顺位执行Bash的内部命令</li>
+<li>第四顺位执行按照￥PATH环境变量定义的目录查找顺序找到的第一个命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ctrl + c</td>
+<td>强制终止当前命令</td>
+</tr>
+<tr>
+<td>ctrl + l</td>
+<td>清屏</td>
+</tr>
+<tr>
+<td>ctrl + a</td>
+<td>光标移动到行首</td>
+</tr>
+<tr>
+<td>ctrl + e</td>
+<td>光标移动到行尾</td>
+</tr>
+<tr>
+<td>ctrl + u</td>
+<td>从光标所在位置删除到行首</td>
+</tr>
+<tr>
+<td>Ctrl + z</td>
+<td>把命令放入后台</td>
+</tr>
+<tr>
+<td>Ctrl + r</td>
+<td>在历史命令中搜索</td>
+</tr>
+</tbody>
+</table>
+<h5 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">history [选项] [历史命令保存文件]</span><br><span class="line">选项：</span><br><span class="line">	-c	清空历史命令</span><br><span class="line">	-w	把缓存中的历史命令写入历史命令保存文件~/.bash_history</span><br><span class="line"><span class="meta">#</span><span class="bash"> 历史命令默认保存1000条，可以在环境变量配置文件/etc/profile中进行修改</span></span><br></pre></td></tr></table></figure>
+<h5 id="输出重定向"><a href="#输出重定向" class="headerlink" title="输出重定向"></a>输出重定向</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">标准输出重定向</span><br><span class="line">	命令 &gt; 文件 # 直接写入，里面有内容就覆盖</span><br><span class="line">	命令 &gt;&gt; 文件 # 追加内容</span><br><span class="line">标准错误输出重定向：</span><br><span class="line">	命令 2&gt; 文件 # 以覆盖的方式把错误信息写入文件</span><br><span class="line">	命令 2&gt;&gt; 文件 # 追加写入到文件</span><br><span class="line">正确输出和错误输出同时保存</span><br><span class="line">	命令 &gt; 文件 2&gt;&amp;1 </span><br><span class="line">	命令 &gt;&gt; 文件 2&gt;&amp;1</span><br><span class="line">	命令 &amp;&gt; 文件</span><br><span class="line">	命令 &amp;&gt;&gt; 文件</span><br><span class="line">	命令 &gt;&gt; 文件1 2&gt;&gt; 文件2</span><br><span class="line"></span><br><span class="line">/dev/null # 黑洞</span><br></pre></td></tr></table></figure>
+<h5 id="输入重定向"><a href="#输入重定向" class="headerlink" title="输入重定向"></a>输入重定向</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wc [选项] [文件名]</span><br><span class="line">选项：</span><br><span class="line">	-c	统计字节数</span><br><span class="line">	-w	统计单词数</span><br><span class="line">	-l	统计行数</span><br></pre></td></tr></table></figure>
+<h5 id="多命令顺序执行"><a href="#多命令顺序执行" class="headerlink" title="多命令顺序执行"></a>多命令顺序执行</h5><table>
+<thead>
+<tr>
+<th>多命令执行符</th>
+<th>格式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>：</td>
+<td>命令1：命令2</td>
+<td>多个命令顺序执行，命令之间没有任何逻辑联系</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>命令1&amp;&amp;命令2</td>
+<td>逻辑与 当命令1正确执行，命令2才会执行，否则就不会执行</td>
+</tr>
+<tr>
+<td>\</td>
+<td>\</td>
+<td></td>
+<td>命令1 \</td>
+<td>\</td>
+<td>命令2</td>
+<td>逻辑或 命令1执行不正确，2才会执行，命令1正确，2就不会执行</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">管道符</span><br><span class="line">命令格式：</span><br><span class="line">	命令1 | 命令2</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 命令1的正确输出作为命令2的操作对象</span></span><br><span class="line">netstat -an</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看端口连接和用户连接</span></span><br></pre></td></tr></table></figure>
+<h5 id="通配符"><a href="#通配符" class="headerlink" title="通配符"></a>通配符</h5><table>
+<thead>
+<tr>
+<th>通配符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>？</td>
+<td>匹配一个任意字符</td>
+</tr>
+<tr>
+<td>*</td>
+<td>匹配0个或多个任意字符</td>
+</tr>
+<tr>
+<td>[]</td>
+<td>匹配括号中任意一个字符</td>
+</tr>
+<tr>
+<td>[-]</td>
+<td>匹配括号中任意一个字符如：[a-z]</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td>l逻辑非，表示匹配不是括号中的任意字符 [ ^0-9],表示不匹配数字</td>
+</tr>
+</tbody>
+</table>
+<h5 id="Bash中其他特殊符号"><a href="#Bash中其他特殊符号" class="headerlink" title="Bash中其他特殊符号"></a>Bash中其他特殊符号</h5><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>‘ ‘</td>
+<td>单引号，在单引号中所有特殊符号，如“$ `（反引号） ”都没有特殊含义</td>
+</tr>
+<tr>
+<td>“ “</td>
+<td>双引号，在单引号中所有特殊符号，都没有特殊含义，但“$ `（反引号） 和 \ 是一个例外”都没有特殊含义</td>
+</tr>
+<tr>
+<td><code></code></td>
+<td>反引号，反引号括起来的是命令系统，在bash中会先执行它，和$()作用一样，不过推荐使用 \$ (),因为反引号容易看错</td>
+</tr>
+<tr>
+<td>$()</td>
+<td>和反引号的作用一样</td>
+</tr>
+<tr>
+<td>#</td>
+<td># 号代表注释</td>
+</tr>
+<tr>
+<td>$</td>
+<td>用于调用变量值，如$PATH</td>
+</tr>
+<tr>
+<td>\</td>
+<td>转意符，跟在\后面的符号将失去特殊含义</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Bash变量"><a href="#Bash变量" class="headerlink" title="Bash变量"></a>Bash变量</h3><h4 id="什么是变量与变量的分类"><a href="#什么是变量与变量的分类" class="headerlink" title="什么是变量与变量的分类"></a>什么是变量与变量的分类</h4><h5 id="什么是变量"><a href="#什么是变量" class="headerlink" title="什么是变量"></a>什么是变量</h5><ul>
+<li>变量是计算机内存的单元，其中存放的值可以改变</li>
+<li>变量让你能够把程序中准备使用的每一段数据都赋给一个简短、易于记忆的名字</li>
+</ul>
+<h5 id="变量命名规则"><a href="#变量命名规则" class="headerlink" title="变量命名规则"></a>变量命名规则</h5><ul>
+<li>变量名必须以字母或下划线开头，名字中间只能由字母、数字和下滑线组成</li>
+<li>变量长度不得超过255个字符</li>
+<li>变量名在有效范围之内必须唯一</li>
+<li>在Bash中，变量的默认类型必须是字符串类型</li>
+</ul>
+<h5 id="变量的分类"><a href="#变量的分类" class="headerlink" title="变量的分类"></a>变量的分类</h5><ul>
+<li>用户自定义变量</li>
+<li>环境变量</li>
+<li>位置参数变量</li>
+<li>预定义变量</li>
+</ul>
+<h4 id="用户自定义变量"><a href="#用户自定义变量" class="headerlink" title="用户自定义变量"></a>用户自定义变量</h4><h5 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">变量名=变量值</span><br><span class="line">例如：</span><br><span class="line">	x=5</span><br><span class="line">	name="xxx"</span><br></pre></td></tr></table></figure>
+<h5 id="变量调用"><a href="#变量调用" class="headerlink" title="变量调用"></a>变量调用</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo $变量名</span><br><span class="line">例如：</span><br><span class="line">	echo $x</span><br><span class="line">	echo $name</span><br></pre></td></tr></table></figure>
+<h5 id="变量叠加"><a href="#变量叠加" class="headerlink" title="变量叠加"></a>变量叠加</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x=123</span><br><span class="line">x="$x"456</span><br><span class="line">x=$&#123;x&#125;789</span><br></pre></td></tr></table></figure>
+<h5 id="变量查看"><a href="#变量查看" class="headerlink" title="变量查看"></a>变量查看</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set</span><br><span class="line">选项：</span><br><span class="line">	-u	如果设定此选项，调用未声明变量时会报错（默认无任何提示）</span><br></pre></td></tr></table></figure>
+<h5 id="变量删除"><a href="#变量删除" class="headerlink" title="变量删除"></a>变量删除</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset 变量名</span><br></pre></td></tr></table></figure>
+<h4 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h4><h5 id="环境变量与用户自定义变量的区别"><a href="#环境变量与用户自定义变量的区别" class="headerlink" title="环境变量与用户自定义变量的区别"></a>环境变量与用户自定义变量的区别</h5><ul>
+<li>环境变量是全局变量</li>
+<li>用户自定义变量是局部变量</li>
+</ul>
+<h5 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export 变量名=变量值</span><br><span class="line">或</span><br><span class="line">变量名=变量值</span><br><span class="line">export 变量名</span><br></pre></td></tr></table></figure>
+<h5 id="查看环境变量"><a href="#查看环境变量" class="headerlink" title="查看环境变量"></a>查看环境变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">set </span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看所有变量</span></span><br><span class="line"></span><br><span class="line">env</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看环境变量</span></span><br></pre></td></tr></table></figure>
+<h5 id="删除变量"><a href="#删除变量" class="headerlink" title="删除变量"></a>删除变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unset 变量名</span><br></pre></td></tr></table></figure>
+<h5 id="常用环境变量"><a href="#常用环境变量" class="headerlink" title="常用环境变量"></a>常用环境变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HOSTNAME	主机名</span><br><span class="line">SHELL		当前的shell</span><br><span class="line">TERM		终端环境</span><br><span class="line">HISTSIZE	历史命令条数</span><br><span class="line">SSH_CLIENT	当前操作环境是用ssh连接的，这里记录客户端ip</span><br><span class="line">SSH_TTY		ssh连接的终端pts/1</span><br><span class="line">USER		当前登录用户</span><br></pre></td></tr></table></figure>
+<p>PATH环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PATH变量	系统查找命令的路径</span><br><span class="line"></span><br><span class="line">echo $PATH</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看PATH环境变量</span></span><br><span class="line"></span><br><span class="line">PATH="$PATH":/root/sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> 增加PATH变量值</span></span><br></pre></td></tr></table></figure>
+<h5 id="PS1环境变量"><a href="#PS1环境变量" class="headerlink" title="PS1环境变量"></a>PS1环境变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">PS1变量	命令提示符设置</span><br><span class="line">以自行调整全局变量/etc/profile文件用于永久生效 PS1='[\u@\h \W\t]\$'</span><br><span class="line">\d　　日期</span><br><span class="line">\H　　完整主机名</span><br><span class="line">\h　　主机名第一个名字</span><br><span class="line">\t　　时间24小时制HHMMSS</span><br><span class="line">\T　　时间12小时制</span><br><span class="line">\A　　时间24小时制HHMM</span><br><span class="line">\u　　当前用户账号名</span><br><span class="line">\v　　BASH的版本</span><br><span class="line">\w　　完整工作目录</span><br><span class="line">\W　　利用basename取得工作目录名</span><br><span class="line">\#　　下达的第几个命令</span><br><span class="line">\$　　提示字符，root为"#"，普通用户为"$"</span><br><span class="line"></span><br><span class="line">PS1显示ip地址</span><br><span class="line">export PS1="[\u@\h `/sbin/ifconfig ens33 | sed -nr 's/.*inet (addr:)?(([0-9]*\.)&#123;3&#125;[0-9]*).*/\2/p'` \w]\$"</span><br></pre></td></tr></table></figure>
+<h5 id="当前语系查询"><a href="#当前语系查询" class="headerlink" title="当前语系查询"></a>当前语系查询</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">locale</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询当前系统语系</span></span><br><span class="line">	LANG	定义系统主语系的变量</span><br><span class="line">	LC_ALL	定义整体语系的变量</span><br><span class="line">	</span><br><span class="line">echo $LANG</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看系统当前语系</span></span><br><span class="line"></span><br><span class="line">locale -a	| more</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看linux支持的所有语系</span></span><br></pre></td></tr></table></figure>
+<h5 id="查询系统默认语系"><a href="#查询系统默认语系" class="headerlink" title="查询系统默认语系"></a>查询系统默认语系</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/sysconfig/i18n</span><br><span class="line"><span class="meta">#</span><span class="bash"> centos 6</span></span><br></pre></td></tr></table></figure>
+<h5 id="Linux中文支持"><a href="#Linux中文支持" class="headerlink" title="Linux中文支持"></a>Linux中文支持</h5><p>前提条件，正确安装的中文字体和中文语系</p>
+<ul>
+<li>如果有图形界面，可以正确支持中文显示</li>
+<li>如果使用第三方远程工具，只要语系设定正确，可以支持中文显示</li>
+<li>如果使用纯字符界面，必须使用第三方插件（如zhcon等）</li>
+</ul>
+<h4 id="位置参数变量"><a href="#位置参数变量" class="headerlink" title="位置参数变量"></a>位置参数变量</h4><table>
+<thead>
+<tr>
+<th>位置参数变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$n</td>
+<td>n为数字，$0代表命令背书，$1-$9代表第一到第九个参数，十以上的需要用大括号包括，如${10}</td>
+</tr>
+<tr>
+<td>$*</td>
+<td>这个变量代表命令行中所有参数，$*把所有的参数都看做一个整体</td>
+</tr>
+<tr>
+<td>$@</td>
+<td>这个变量也代表命令行中所有的参数，不过$@把每个参数区分对待</td>
+</tr>
+<tr>
+<td>$#</td>
+<td>这个变量代表命令行中所有参数的个数</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">例子1：</span><br><span class="line">    #!/bin/bash</span><br><span class="line">    nun1=$1</span><br><span class="line">    num2=$2</span><br><span class="line">    sum=$(($num1+$num2))</span><br><span class="line">    # 变量sum是num1和num2的和</span><br><span class="line">    echo $sum</span><br><span class="line">    # 打印变量sum的值</span><br><span class="line">    </span><br><span class="line">例子2：</span><br><span class="line"><span class="meta">	#</span><span class="bash">!/bin/bash</span></span><br><span class="line">	echo "这是$*"</span><br><span class="line">	echo "这是$@"</span><br><span class="line">	echo "这是$#"</span><br><span class="line">	</span><br><span class="line">例子3:</span><br><span class="line"><span class="meta">	$</span><span class="bash">* 	是指一个整体，只能循环一次</span></span><br><span class="line"><span class="meta">	$</span><span class="bash">@	类似于一个列表，可以循环一个个的取出</span></span><br></pre></td></tr></table></figure>
+<h4 id="预定变量"><a href="#预定变量" class="headerlink" title="预定变量"></a>预定变量</h4><table>
+<thead>
+<tr>
+<th>预定义变量</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$?</td>
+<td>最后一次执行命令的返回状态，如果这个变量的值为0，证明上一个命令正确执行，如果值非0（具体哪个数，由命令自己决定），则证明上一个命令执行不正确</td>
+</tr>
+<tr>
+<td>$$</td>
+<td>当前进程的进程号（PID）</td>
+</tr>
+<tr>
+<td>$!</td>
+<td>后台运行的最后一个进程的进程号（PID）</td>
+</tr>
+</tbody>
+</table>
+<h5 id="接收键盘输入"><a href="#接收键盘输入" class="headerlink" title="接收键盘输入"></a>接收键盘输入</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">read [选项] [变量名]</span><br><span class="line">选项：</span><br><span class="line">	-p	提示信息，等待read输入时，输出提示信息</span><br><span class="line">	-t	描述，read命令会一直等待用户输入，使用此选项可以指定等待时间</span><br><span class="line">	-n	字符数，read命令只接受指定字符数，就会执行</span><br><span class="line">	-s	隐藏输入数据，适用于机密信息输入</span><br><span class="line">例子：</span><br><span class="line"><span class="meta">	#</span><span class="bash">!/bin/bash</span></span><br><span class="line">	</span><br><span class="line">	read -p "请输入用户名：" name</span><br><span class="line">	echo $name</span><br></pre></td></tr></table></figure>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><h4 id="declare命令"><a href="#declare命令" class="headerlink" title="declare命令"></a>declare命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">declare 声明变量类型</span><br><span class="line">declare [+/-] [选项] 变量名</span><br><span class="line">选项：</span><br><span class="line">	-	给变量设定类型属性</span><br><span class="line">	+	取消变量的类型属性</span><br><span class="line">	-a	声明变量类型为数组</span><br><span class="line">	-i	将变量声明为整数型</span><br><span class="line">	-x	将变量声明为环境变量</span><br><span class="line">	-r	将变量声明为只读类型</span><br><span class="line">	-p	显示指定变量的被声明的类型</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">	aa=1</span><br><span class="line">	bb=2</span><br><span class="line">	declare -i cc=$aa+$bb</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 声明变量cc的类型是整数型，他的值是aa和bb的和</span></span><br></pre></td></tr></table></figure>
+<h5 id="声明数组变量"><a href="#声明数组变量" class="headerlink" title="声明数组变量"></a>声明数组变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 定义数组</span></span><br><span class="line">movie[0]=zp</span><br><span class="line">movie[1]=tp</span><br><span class="line">declare -a movie[2]=live</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看数组</span></span><br><span class="line">echo $&#123;movie&#125;</span><br><span class="line">echo $&#123;movie[2]&#125;</span><br><span class="line">echo $&#123;movie[*]&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="声明环境变量"><a href="#声明环境变量" class="headerlink" title="声明环境变量"></a>声明环境变量</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare -x test=123</span><br><span class="line"><span class="meta">#</span><span class="bash"> 和<span class="built_in">export</span>作用相似，但其实是<span class="built_in">declare</span>命令的作用</span></span><br></pre></td></tr></table></figure>
+<h5 id="声明变量只读属性"><a href="#声明变量只读属性" class="headerlink" title="声明变量只读属性"></a>声明变量只读属性</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare -r test</span><br><span class="line"><span class="meta">#</span><span class="bash"> 给<span class="built_in">test</span>赋予只读属性，但是注意只读属性会让变量不能修改和删除，甚至不能取消只读属性</span></span><br></pre></td></tr></table></figure>
+<h5 id="查询变量的属性"><a href="#查询变量的属性" class="headerlink" title="查询变量的属性"></a>查询变量的属性</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">declare -p</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询所有变量的属性</span></span><br><span class="line">declare -p 变量名</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查询指定变量的属性</span></span><br></pre></td></tr></table></figure>
+<h4 id="数值运算的方法"><a href="#数值运算的方法" class="headerlink" title="数值运算的方法"></a>数值运算的方法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">expr和let数值运算工具</span><br><span class="line"></span><br><span class="line">dd=$(expr $aa + $bb)</span><br><span class="line"><span class="meta">#</span><span class="bash"> dd的值是aa和bb的和，注意+号两边必须加空格</span></span><br></pre></td></tr></table></figure>
+<h5 id="运算式-或-运算式"><a href="#运算式-或-运算式" class="headerlink" title="\$ ((运算式))或 $[运算式]"></a>\$ ((运算式))或 $[运算式]</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ff = $(($aa+$bb))</span><br><span class="line">gg=$[$aa+$bb]</span><br></pre></td></tr></table></figure>
+<h5 id="运算符-1"><a href="#运算符-1" class="headerlink" title="运算符"></a>运算符</h5><table>
+<thead>
+<tr>
+<th>优先级</th>
+<th>运算符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>13</td>
+<td>-,+</td>
+<td>单目负，单目正</td>
+</tr>
+<tr>
+<td>12</td>
+<td>!,~</td>
+<td>逻辑非，按位取反或补码</td>
+</tr>
+<tr>
+<td>11</td>
+<td>* / %</td>
+<td>乘，除、取模</td>
+</tr>
+<tr>
+<td>10</td>
+<td>+,-</td>
+<td>加、减</td>
+</tr>
+<tr>
+<td>9</td>
+<td>&lt;&lt;,  &gt;&gt;</td>
+<td>按位左移，按位右移</td>
+</tr>
+<tr>
+<td>8</td>
+<td>&lt; = ,&gt;= ,&lt; ,&gt;</td>
+<td>小于或等于，大于或等于，大于，小于</td>
+</tr>
+<tr>
+<td>7</td>
+<td>== ,!=</td>
+<td>等于，不等于</td>
+</tr>
+<tr>
+<td>6</td>
+<td>&amp;</td>
+<td>按位与</td>
+</tr>
+<tr>
+<td>5</td>
+<td>^</td>
+<td>按位异或</td>
+</tr>
+<tr>
+<td>4</td>
+<td>\</td>
+<td></td>
+<td>按位或</td>
+</tr>
+<tr>
+<td>3</td>
+<td>&amp;&amp;</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>2</td>
+<td>\</td>
+<td>\</td>
+<td></td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>1</td>
+<td>=,+=,-=,*=,/=,%=,&amp;=,^=,\</td>
+<td>=,&lt;&lt;=,&gt;&gt;=</td>
+<td>赋值，运算且赋值</td>
+</tr>
+</tbody>
+</table>
+<h4 id="变量测试"><a href="#变量测试" class="headerlink" title="变量测试"></a>变量测试</h4><h3 id="环境变量-1"><a href="#环境变量-1" class="headerlink" title="环境变量"></a>环境变量</h3><h4 id="配置文件简介"><a href="#配置文件简介" class="headerlink" title="配置文件简介"></a>配置文件简介</h4><p>PATH,HISTSIZE,PS1,HOSTNAME等环境变量写入对应的环境变量配置文件</p>
+<p>环境变量配置文件中主要是定义系统操作环境生效的系统默认环境变量，如PATH等</p>
+<ul>
+<li>/etc/profile</li>
+<li>/etc/profile.d/*.sh</li>
+<li>~/.bash_profile</li>
+<li>~/.bashrc</li>
+<li>/etc/bashrc</li>
+</ul>
+<h5 id="source命令"><a href="#source命令" class="headerlink" title="source命令"></a>source命令</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">source 配置文件</span><br><span class="line">或</span><br><span class="line">. 配置文件</span><br><span class="line"><span class="meta">#</span><span class="bash"> 修改文件之后，必须注销重新登录才能登录也可以<span class="built_in">source</span>一下</span></span><br></pre></td></tr></table></figure>
+<h4 id="配置文件的功能"><a href="#配置文件的功能" class="headerlink" title="配置文件的功能"></a>配置文件的功能</h4><h5 id="etc-profile的作用"><a href="#etc-profile的作用" class="headerlink" title="/etc/profile的作用"></a>/etc/profile的作用</h5><ul>
+<li>USER变量</li>
+<li>LOGNAME变量</li>
+<li>MAIL变量</li>
+<li>HOSTNAME变量</li>
+<li>HISTSIZE变量</li>
+<li>umask变量</li>
+<li>调用/etc/profile.d/*.sh文件</li>
+</ul>
+<h4 id="其他配置文件"><a href="#其他配置文件" class="headerlink" title="其他配置文件"></a>其他配置文件</h4><h5 id="注销时生效的环境变量配置文件"><a href="#注销时生效的环境变量配置文件" class="headerlink" title="注销时生效的环境变量配置文件"></a>注销时生效的环境变量配置文件</h5><ul>
+<li>~/.bash_logout</li>
+</ul>
+<h5 id="其他配置文件-1"><a href="#其他配置文件-1" class="headerlink" title="其他配置文件"></a>其他配置文件</h5><ul>
+<li>~./bash_history</li>
+</ul>
+<h5 id="shell登录信息"><a href="#shell登录信息" class="headerlink" title="shell登录信息"></a>shell登录信息</h5><ul>
+<li>本地终端登录信息 ： /etc/issue</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>转义符</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>显示当前系统日期</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>显示操作系统名称</td>
+</tr>
+<tr>
+<td>\l</td>
+<td>显示登录终端号，这个比较常用</td>
+</tr>
+<tr>
+<td>\m</td>
+<td>先试试硬件体系结构如i386 i686等</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>显示主机名</td>
+</tr>
+<tr>
+<td>\o</td>
+<td>显示域名</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>显示内核版本</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>显示当前系统时间</td>
+</tr>
+<tr>
+<td>\u</td>
+<td>显示当前登录用户的序列号</td>
+</tr>
+</tbody>
+</table>
+<h5 id="远程终端欢迎信息"><a href="#远程终端欢迎信息" class="headerlink" title="远程终端欢迎信息"></a>远程终端欢迎信息</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/issue.net</span><br><span class="line">转义符在/etc/issue.net文件中不能使用</span><br><span class="line">是否显示欢迎信息，由ssh的配置文件/etc/ssh/sshd_config决定，加入"Banner/etc/issue.net" 行才能显示（记得重启ssh服务）</span><br></pre></td></tr></table></figure>
+<h5 id="登录后欢迎信息：-etc-motd"><a href="#登录后欢迎信息：-etc-motd" class="headerlink" title="登录后欢迎信息：/etc/motd"></a>登录后欢迎信息：/etc/motd</h5><ul>
+<li>不管是本地登录，还是远程登录，都可以显示欢迎信息</li>
+</ul>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/linux权限管理之特殊权限/" rel="next" title="linux权限管理之特殊权限">
+                <i class="fa fa-chevron-left"></i> linux权限管理之特殊权限
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/02/14/Linux之shell实战/" rel="prev" title="Linux之shell实战">
+                Linux之shell实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">13</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">20</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell基础"><span class="nav-number">1.</span> <span class="nav-text">shell基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell概述"><span class="nav-number">1.1.</span> <span class="nav-text">shell概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本执行方式"><span class="nav-number">1.2.</span> <span class="nav-text">脚本执行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#echo输出命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">echo输出命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bash的基本功能"><span class="nav-number">1.3.</span> <span class="nav-text">Bash的基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令别名和快捷键"><span class="nav-number">1.3.1.</span> <span class="nav-text">命令别名和快捷键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#历史命令"><span class="nav-number">1.3.2.</span> <span class="nav-text">历史命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.3.3.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入重定向"><span class="nav-number">1.3.4.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多命令顺序执行"><span class="nav-number">1.3.5.</span> <span class="nav-text">多命令顺序执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通配符"><span class="nav-number">1.3.6.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bash中其他特殊符号"><span class="nav-number">1.3.7.</span> <span class="nav-text">Bash中其他特殊符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash变量"><span class="nav-number">2.</span> <span class="nav-text">Bash变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是变量与变量的分类"><span class="nav-number">2.1.</span> <span class="nav-text">什么是变量与变量的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">什么是变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量命名规则"><span class="nav-number">2.1.2.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量的分类"><span class="nav-number">2.1.3.</span> <span class="nav-text">变量的分类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户自定义变量"><span class="nav-number">2.2.</span> <span class="nav-text">用户自定义变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义变量"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量叠加"><span class="nav-number">2.2.3.</span> <span class="nav-text">变量叠加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量查看"><span class="nav-number">2.2.4.</span> <span class="nav-text">变量查看</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量删除"><span class="nav-number">2.2.5.</span> <span class="nav-text">变量删除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量与用户自定义变量的区别"><span class="nav-number">2.3.1.</span> <span class="nav-text">环境变量与用户自定义变量的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置环境变量"><span class="nav-number">2.3.2.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看环境变量"><span class="nav-number">2.3.3.</span> <span class="nav-text">查看环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除变量"><span class="nav-number">2.3.4.</span> <span class="nav-text">删除变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用环境变量"><span class="nav-number">2.3.5.</span> <span class="nav-text">常用环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PS1环境变量"><span class="nav-number">2.3.6.</span> <span class="nav-text">PS1环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当前语系查询"><span class="nav-number">2.3.7.</span> <span class="nav-text">当前语系查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询系统默认语系"><span class="nav-number">2.3.8.</span> <span class="nav-text">查询系统默认语系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux中文支持"><span class="nav-number">2.3.9.</span> <span class="nav-text">Linux中文支持</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数变量"><span class="nav-number">2.4.</span> <span class="nav-text">位置参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预定变量"><span class="nav-number">2.5.</span> <span class="nav-text">预定变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接收键盘输入"><span class="nav-number">2.5.1.</span> <span class="nav-text">接收键盘输入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">3.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#declare命令"><span class="nav-number">3.1.</span> <span class="nav-text">declare命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#声明数组变量"><span class="nav-number">3.1.1.</span> <span class="nav-text">声明数组变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明环境变量"><span class="nav-number">3.1.2.</span> <span class="nav-text">声明环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明变量只读属性"><span class="nav-number">3.1.3.</span> <span class="nav-text">声明变量只读属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询变量的属性"><span class="nav-number">3.1.4.</span> <span class="nav-text">查询变量的属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数值运算的方法"><span class="nav-number">3.2.</span> <span class="nav-text">数值运算的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运算式-或-运算式"><span class="nav-number">3.2.1.</span> <span class="nav-text">\$ ((运算式))或 $[运算式]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运算符-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量测试"><span class="nav-number">3.3.</span> <span class="nav-text">变量测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量-1"><span class="nav-number">4.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件简介"><span class="nav-number">4.1.</span> <span class="nav-text">配置文件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#source命令"><span class="nav-number">4.1.1.</span> <span class="nav-text">source命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件的功能"><span class="nav-number">4.2.</span> <span class="nav-text">配置文件的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#etc-profile的作用"><span class="nav-number">4.2.1.</span> <span class="nav-text">/etc/profile的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">其他配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注销时生效的环境变量配置文件"><span class="nav-number">4.3.1.</span> <span class="nav-text">注销时生效的环境变量配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他配置文件-1"><span class="nav-number">4.3.2.</span> <span class="nav-text">其他配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell登录信息"><span class="nav-number">4.3.3.</span> <span class="nav-text">shell登录信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#远程终端欢迎信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">远程终端欢迎信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#登录后欢迎信息：-etc-motd"><span class="nav-number">4.3.5.</span> <span class="nav-text">登录后欢迎信息：/etc/motd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">5.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件判断"><span class="nav-number">6.</span> <span class="nav-text">条件判断</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
