@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="郝起瀚的博客">
 <meta property="og:description" content="shell基础shell概述1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh 1vi /etc/shells  # 查看支持的shell 脚本执行方式echo输出命令123echo [选项] [输出内容]选项：	-e 支持反斜线控制的字符转换 Bash的基本功能命令别名和快捷键123456">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-14T11:33:42.108Z">
+<meta property="og:updated_time" content="2019-02-17T09:34:09.030Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之shell基础">
 <meta name="twitter:description" content="shell基础shell概述1.shell的两种主要语法类型有Bourne和C，这两种语法彼此不兼容，Bourne家族主要包括sh、Bash、psh、zsh；C家族包括：csh、tcsh 1vi /etc/shells  # 查看支持的shell 脚本执行方式echo输出命令123echo [选项] [输出内容]选项：	-e 支持反斜线控制的字符转换 Bash的基本功能命令别名和快捷键123456">
@@ -416,12 +416,24 @@
                 
               
 
-              <time title="创建时间：2019-02-14 09:52:56 / 修改时间：19:33:42" itemprop="dateCreated datePublished" datetime="2019-02-14T09:52:56+08:00">2019-02-14</time>
+              <time title="创建时间：2019-02-14 09:52:56" itemprop="dateCreated datePublished" datetime="2019-02-14T09:52:56+08:00">2019-02-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-17 17:34:09" itemprop="dateModified" datetime="2019-02-17T17:34:09+08:00">2019-02-17</time>
               
             
           </span>
@@ -878,7 +890,219 @@
 <h5 id="登录后欢迎信息：-etc-motd"><a href="#登录后欢迎信息：-etc-motd" class="headerlink" title="登录后欢迎信息：/etc/motd"></a>登录后欢迎信息：/etc/motd</h5><ul>
 <li>不管是本地登录，还是远程登录，都可以显示欢迎信息</li>
 </ul>
-<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3>
+<h3 id="正则表达式之字符截取命令"><a href="#正则表达式之字符截取命令" class="headerlink" title="正则表达式之字符截取命令"></a>正则表达式之字符截取命令</h3><h4 id="cut字段提取命令"><a href="#cut字段提取命令" class="headerlink" title="cut字段提取命令"></a>cut字段提取命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cut [选项] 文件名</span><br><span class="line">选项：</span><br><span class="line">	-f	列号：提取第几列</span><br><span class="line">	-d	分隔符：按照指定分隔符分隔</span><br><span class="line">例子：</span><br><span class="line">	cut -d ":" -f 1,3 /etc/passwd</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 截取以：分隔的第一列和第三列</span></span><br></pre></td></tr></table></figure>
+<h4 id="printf命令"><a href="#printf命令" class="headerlink" title="printf命令"></a>printf命令</h4><ul>
+<li>printf  ‘输出类型输出格式’ 输出内容</li>
+<li>输出类型<ul>
+<li>%ns：输出字符串，n是数字代指输出几个字符</li>
+<li>%ni：输出整数，n是数字代指输出几个数字</li>
+<li>%m.nf :输出浮点数，m和n是数字，代指输出的整数位和小数位，如%8.2f代表共输出8位数，其中2位是小数，6位是整数</li>
+</ul>
+</li>
+<li>输出格式<ul>
+<li>\a:输出警告声音</li>
+<li>\b:输出退格键，也就是backspace键</li>
+<li>\f：清除屏幕</li>
+<li>\n:换行</li>
+<li>\r:回车</li>
+<li>\t:水平输出退格符</li>
+<li>\v:垂直输出退格符</li>
+</ul>
+</li>
+</ul>
+<h4 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">awk '条件1&#123;动作1&#125;条件2&#123;动作2&#125;..' 文件名</span><br><span class="line">条件（pattern）</span><br><span class="line">	一般使用关系表达式作为条件</span><br><span class="line">	x &gt; 10 判断变量x是否大于10</span><br><span class="line">	x &gt;= 10 判断变量x是否大于等于10</span><br><span class="line">	x &lt;= 10 判断变量x是否小于等于10</span><br><span class="line">动作（action）</span><br><span class="line">	格式化输出</span><br><span class="line">	流程控制语句</span><br><span class="line">	</span><br><span class="line">例子1：</span><br><span class="line">	df -h | awk '&#123;print $5 &#125;'</span><br><span class="line"></span><br><span class="line">BEGIN	在开始执行的东西</span><br><span class="line">END		在结束执行的命令</span><br><span class="line">例子2：</span><br><span class="line">	df -h | awk'END&#123;print "end"&#125;&#123;print $5&#125;'</span><br><span class="line"></span><br><span class="line">FS内置变量</span><br><span class="line">例子：</span><br><span class="line">	awk 'BEGIN&#123;FS=":"&#125;&#123;print $1&#125;'</span><br><span class="line">	</span><br><span class="line">关系运算符</span><br><span class="line">    例子：awk '$4 &gt;= 70&#123;print $2&#125;'</span><br></pre></td></tr></table></figure>
+<h4 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">sed [选项] '[动作]' 文件名</span><br><span class="line">选项：</span><br><span class="line">	-n	一般sed命令会把所有数据都输出到屏幕，如果加入此选择则只会经过sed命令处理的行输出到屏幕</span><br><span class="line">	-e	允许对输入数据应用多条sed命令编辑</span><br><span class="line">	-i	用sed的修改结果直接修改数据的文件，而不是屏幕输出</span><br><span class="line">动作：</span><br><span class="line">	-a	追加，在当前行后添加一行或多行</span><br><span class="line">	-c	行替换，用c后面的字符串替换原有数据行</span><br><span class="line">	-i+	插入，在当期行前插入一行或多行</span><br><span class="line">	-d	删除，删除指定的行</span><br><span class="line">	-p	打印，输出指定行</span><br><span class="line">	-s	字符串替换，用一个字符串替换另一个字符串，格式为"行范围s/旧字符串/新字符串/g"类似于vim的替换</span><br><span class="line"></span><br><span class="line">例子：</span><br><span class="line">	sed '2，d' student.txt</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 删除第二行到第四行</span></span><br><span class="line">	sed '2a nnnnn' student.txt</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 在第二行后面加入 nnnnn</span></span><br><span class="line">	sed '2i nnnnn' student.txt</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 在第二行插入 nnnnn</span></span><br><span class="line">	sed '4c dasdasda' student.txt</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 把文件第四行替换为dasdasda</span></span><br><span class="line"></span><br><span class="line">字符串替换</span><br><span class="line">sed 's/旧的/新的/g'</span><br><span class="line"></span><br><span class="line">sed '3s/60/90/g' student.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> 把第三行数据的60替换为90</span></span><br><span class="line"></span><br><span class="line">sed -e 's/xx//g;s/oo//g' student.txt</span><br><span class="line"><span class="meta">#</span><span class="bash"> -e执行多条，用；分隔</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符处理命令"><a href="#字符处理命令" class="headerlink" title="字符处理命令"></a>字符处理命令</h3><h4 id="sort命令"><a href="#sort命令" class="headerlink" title="sort命令"></a>sort命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sort [选项] 文件名</span><br><span class="line">选项：</span><br><span class="line">	-f	忽略大小写</span><br><span class="line">	-n	以数值型进行排序，默认使用字符串进行排序</span><br><span class="line">	-r	反向排序</span><br><span class="line">	-t	指定分隔符</span><br><span class="line">	-k n[,m] 按照指定的字段排序，从第n个字段开始，m字段结束（默认行尾）</span><br><span class="line">例子：</span><br><span class="line">	sort -n -t ":" -k 3,3 /etc/passwd</span><br><span class="line"><span class="meta">	#</span><span class="bash"> 指定分隔符是：，用第三段开头，第三段结尾排序，就是只用第三段进行排序</span></span><br></pre></td></tr></table></figure>
+<h4 id="统计命令wc命令"><a href="#统计命令wc命令" class="headerlink" title="统计命令wc命令"></a>统计命令wc命令</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wc [选项] 文件名</span><br><span class="line">选项：</span><br><span class="line">	-l	只统计行数</span><br><span class="line">	-w	只统计单词数</span><br><span class="line">	-m	只统计字符数</span><br></pre></td></tr></table></figure>
+<h3 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h3><h4 id="条件判断式"><a href="#条件判断式" class="headerlink" title="条件判断式"></a>条件判断式</h4><h5 id="按照文件类型进行判断"><a href="#按照文件类型进行判断" class="headerlink" title="按照文件类型进行判断"></a>按照文件类型进行判断</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-b 文件</td>
+<td>判断该文件是否存在，并且是否为块设备文件（是块设备文件为真）</td>
+</tr>
+<tr>
+<td>-c 文件</td>
+<td>判断该文件是否存在，并且是否为字符设备文件（是字符设备文件为真）</td>
+</tr>
+<tr>
+<td>-d 文件</td>
+<td>判断该文件是否存在，并且是否为目录文件（是目录文件为真）</td>
+</tr>
+<tr>
+<td>-e 文件</td>
+<td>判断该文件是否存在（存在为真）</td>
+</tr>
+<tr>
+<td>-f 文件</td>
+<td>判断该文件是否存在，并且是否为普通文件（是普通文件为真）</td>
+</tr>
+<tr>
+<td>-L 文件</td>
+<td>判断该文件是否存在，并且是否为符号链接文件（是符号链接文件为真）</td>
+</tr>
+<tr>
+<td>-p 文件</td>
+<td>判断该文件是否存在，并且是否为管道文件（是管道文件为真）</td>
+</tr>
+<tr>
+<td>-s 文件</td>
+<td>判断该文件是否存在，并且是否为非空（非空为真）</td>
+</tr>
+<tr>
+<td>-S 文件</td>
+<td>判断该文件是否存在，并且是否为套接字文件（是套接字文件为真）</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">两种判断格式</span><br><span class="line">test -e /root/1.log</span><br><span class="line">[-e /root/1.log]  # 推荐</span><br><span class="line"></span><br><span class="line">[-d /root] &amp;&amp; echo "yes" || echo "no"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 第一条为真则为yes，否则为no</span></span><br></pre></td></tr></table></figure>
+<h5 id="按照文件权限来判断"><a href="#按照文件权限来判断" class="headerlink" title="按照文件权限来判断"></a>按照文件权限来判断</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-r 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的读权限（有读权限为真）</td>
+</tr>
+<tr>
+<td>-w 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的写权限（有写权限为真）</td>
+</tr>
+<tr>
+<td>-x 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的执行权限（有执行权限为真）</td>
+</tr>
+<tr>
+<td>-u 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的SUID权限（有SUID权限为真）</td>
+</tr>
+<tr>
+<td>-u 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的SGID权限（有SGID权限为真）</td>
+</tr>
+<tr>
+<td>-k 文件</td>
+<td>判断该文件是否存在，并且拥有该文件的SBit权限（有SBit权限为真）</td>
+</tr>
+</tbody>
+</table>
+<h5 id="两个文件之间进行比较"><a href="#两个文件之间进行比较" class="headerlink" title="两个文件之间进行比较"></a>两个文件之间进行比较</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>文件1 -nt 文件 2</td>
+<td>判断文件1的修改时间是否比文件2新（如果新则为真）</td>
+</tr>
+<tr>
+<td>文件1 -ot 文件2</td>
+<td>判断文件1的修改时间是否比文件2旧（如果旧则为真）</td>
+</tr>
+<tr>
+<td>文件1 -ef 文件2</td>
+<td>判断文件1是否和文件2的inode号一致，可以理解问是否是同一文件，这个是判断硬链接的一种方式</td>
+</tr>
+</tbody>
+</table>
+<h5 id="两个整数之间比较"><a href="#两个整数之间比较" class="headerlink" title="两个整数之间比较"></a>两个整数之间比较</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整数1 -eq 整数2</td>
+<td>判断整数1是否和整数2相等（相等为真）</td>
+</tr>
+<tr>
+<td>整数1 -ne 整数2</td>
+<td>判断整数1是否和整数2不相等（不相等为真）</td>
+</tr>
+<tr>
+<td>整数1 -gt 整数2</td>
+<td>判断整数1是否大于整数2（大于为真）</td>
+</tr>
+<tr>
+<td>整数1 -lt 整数2</td>
+<td>判断整数1是否小于整数2（小于为真）</td>
+</tr>
+<tr>
+<td>整数1 -ge整数2</td>
+<td>判断整数1是否大于等于整数2（大于等于为真）</td>
+</tr>
+<tr>
+<td>整数1 -le整数2</td>
+<td>判断整数1是否小于等于整数2（小于等于为真）</td>
+</tr>
+</tbody>
+</table>
+<h5 id="字符串的判断"><a href="#字符串的判断" class="headerlink" title="字符串的判断"></a>字符串的判断</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-z 字符串</td>
+<td>判断字符串是否为空（为空返回真）</td>
+</tr>
+<tr>
+<td>-n 字符串</td>
+<td>判断字符串是否为非空（非空返回真）</td>
+</tr>
+<tr>
+<td>字符串1 == 字符串2</td>
+<td>判断字符串1是否和字符串2相等（相等返回真）</td>
+</tr>
+<tr>
+<td>字符串1 ！= 字符串2</td>
+<td>判断字符串1是否和字符串2不相等（不相等返回真）</td>
+</tr>
+</tbody>
+</table>
+<h5 id="多重条件判断"><a href="#多重条件判断" class="headerlink" title="多重条件判断"></a>多重条件判断</h5><table>
+<thead>
+<tr>
+<th>测试选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>判断1 -a 判断2</td>
+<td>逻辑与</td>
+</tr>
+<tr>
+<td>判断1 -o 判断2</td>
+<td>逻辑或</td>
+</tr>
+<tr>
+<td>！ 判断</td>
+<td>逻辑非</td>
+</tr>
+</tbody>
+</table>
+<h4 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">单分支if语句格式：</span><br><span class="line">if [条件判断式]；then</span><br><span class="line">	程序</span><br><span class="line">fi</span><br><span class="line">或者</span><br><span class="line">if [条件判断式]</span><br><span class="line">	then</span><br><span class="line">	程序</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">双分支if语句</span><br><span class="line">if [条件判断式]</span><br><span class="line">	then</span><br><span class="line">	条件成立</span><br><span class="line">	else</span><br><span class="line">	条件不成立</span><br><span class="line">fi </span><br><span class="line">www.netcraft.com</span><br><span class="line"></span><br><span class="line">多分支if语句</span><br><span class="line">if [条件判断1]</span><br><span class="line">	then</span><br><span class="line">	条件1成立</span><br><span class="line">	elif [条件2]</span><br><span class="line">	then</span><br><span class="line">	条件2成立执行的</span><br><span class="line">	else</span><br><span class="line">	都不成立要执行的</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<h4 id="case语句"><a href="#case语句" class="headerlink" title="case语句"></a>case语句</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">case $变量名 in "值1"）</span><br><span class="line">	如果变量的值等于值1，则执行程序1</span><br><span class="line">	；；</span><br><span class="line">	"值2"）</span><br><span class="line">	如果变量的值等于值2，则执行程序1</span><br><span class="line">	*）</span><br><span class="line">	如果都不等于，执行它</span><br><span class="line">	；；</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">语法1</span><br><span class="line">for 变量 in 值1 值2 值3</span><br><span class="line">	do</span><br><span class="line">		程序</span><br><span class="line">	done</span><br></pre></td></tr></table></figure>
+<h4 id="while循环和until循环"><a href="#while循环和until循环" class="headerlink" title="while循环和until循环"></a>while循环和until循环</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while [条件]</span><br><span class="line">	do</span><br><span class="line">		循环体</span><br><span class="line">	done</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -998,7 +1222,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1140,7 +1364,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell基础"><span class="nav-number">1.</span> <span class="nav-text">shell基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell概述"><span class="nav-number">1.1.</span> <span class="nav-text">shell概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本执行方式"><span class="nav-number">1.2.</span> <span class="nav-text">脚本执行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#echo输出命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">echo输出命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bash的基本功能"><span class="nav-number">1.3.</span> <span class="nav-text">Bash的基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令别名和快捷键"><span class="nav-number">1.3.1.</span> <span class="nav-text">命令别名和快捷键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#历史命令"><span class="nav-number">1.3.2.</span> <span class="nav-text">历史命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.3.3.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入重定向"><span class="nav-number">1.3.4.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多命令顺序执行"><span class="nav-number">1.3.5.</span> <span class="nav-text">多命令顺序执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通配符"><span class="nav-number">1.3.6.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bash中其他特殊符号"><span class="nav-number">1.3.7.</span> <span class="nav-text">Bash中其他特殊符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash变量"><span class="nav-number">2.</span> <span class="nav-text">Bash变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是变量与变量的分类"><span class="nav-number">2.1.</span> <span class="nav-text">什么是变量与变量的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">什么是变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量命名规则"><span class="nav-number">2.1.2.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量的分类"><span class="nav-number">2.1.3.</span> <span class="nav-text">变量的分类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户自定义变量"><span class="nav-number">2.2.</span> <span class="nav-text">用户自定义变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义变量"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量叠加"><span class="nav-number">2.2.3.</span> <span class="nav-text">变量叠加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量查看"><span class="nav-number">2.2.4.</span> <span class="nav-text">变量查看</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量删除"><span class="nav-number">2.2.5.</span> <span class="nav-text">变量删除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量与用户自定义变量的区别"><span class="nav-number">2.3.1.</span> <span class="nav-text">环境变量与用户自定义变量的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置环境变量"><span class="nav-number">2.3.2.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看环境变量"><span class="nav-number">2.3.3.</span> <span class="nav-text">查看环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除变量"><span class="nav-number">2.3.4.</span> <span class="nav-text">删除变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用环境变量"><span class="nav-number">2.3.5.</span> <span class="nav-text">常用环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PS1环境变量"><span class="nav-number">2.3.6.</span> <span class="nav-text">PS1环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当前语系查询"><span class="nav-number">2.3.7.</span> <span class="nav-text">当前语系查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询系统默认语系"><span class="nav-number">2.3.8.</span> <span class="nav-text">查询系统默认语系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux中文支持"><span class="nav-number">2.3.9.</span> <span class="nav-text">Linux中文支持</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数变量"><span class="nav-number">2.4.</span> <span class="nav-text">位置参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预定变量"><span class="nav-number">2.5.</span> <span class="nav-text">预定变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接收键盘输入"><span class="nav-number">2.5.1.</span> <span class="nav-text">接收键盘输入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">3.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#declare命令"><span class="nav-number">3.1.</span> <span class="nav-text">declare命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#声明数组变量"><span class="nav-number">3.1.1.</span> <span class="nav-text">声明数组变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明环境变量"><span class="nav-number">3.1.2.</span> <span class="nav-text">声明环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明变量只读属性"><span class="nav-number">3.1.3.</span> <span class="nav-text">声明变量只读属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询变量的属性"><span class="nav-number">3.1.4.</span> <span class="nav-text">查询变量的属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数值运算的方法"><span class="nav-number">3.2.</span> <span class="nav-text">数值运算的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运算式-或-运算式"><span class="nav-number">3.2.1.</span> <span class="nav-text">\$ ((运算式))或 $[运算式]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运算符-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量测试"><span class="nav-number">3.3.</span> <span class="nav-text">变量测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量-1"><span class="nav-number">4.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件简介"><span class="nav-number">4.1.</span> <span class="nav-text">配置文件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#source命令"><span class="nav-number">4.1.1.</span> <span class="nav-text">source命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件的功能"><span class="nav-number">4.2.</span> <span class="nav-text">配置文件的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#etc-profile的作用"><span class="nav-number">4.2.1.</span> <span class="nav-text">/etc/profile的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">其他配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注销时生效的环境变量配置文件"><span class="nav-number">4.3.1.</span> <span class="nav-text">注销时生效的环境变量配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他配置文件-1"><span class="nav-number">4.3.2.</span> <span class="nav-text">其他配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell登录信息"><span class="nav-number">4.3.3.</span> <span class="nav-text">shell登录信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#远程终端欢迎信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">远程终端欢迎信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#登录后欢迎信息：-etc-motd"><span class="nav-number">4.3.5.</span> <span class="nav-text">登录后欢迎信息：/etc/motd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式"><span class="nav-number">5.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件判断"><span class="nav-number">6.</span> <span class="nav-text">条件判断</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#shell基础"><span class="nav-number">1.</span> <span class="nav-text">shell基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#shell概述"><span class="nav-number">1.1.</span> <span class="nav-text">shell概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本执行方式"><span class="nav-number">1.2.</span> <span class="nav-text">脚本执行方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#echo输出命令"><span class="nav-number">1.2.1.</span> <span class="nav-text">echo输出命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Bash的基本功能"><span class="nav-number">1.3.</span> <span class="nav-text">Bash的基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命令别名和快捷键"><span class="nav-number">1.3.1.</span> <span class="nav-text">命令别名和快捷键</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#历史命令"><span class="nav-number">1.3.2.</span> <span class="nav-text">历史命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输出重定向"><span class="nav-number">1.3.3.</span> <span class="nav-text">输出重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#输入重定向"><span class="nav-number">1.3.4.</span> <span class="nav-text">输入重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多命令顺序执行"><span class="nav-number">1.3.5.</span> <span class="nav-text">多命令顺序执行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通配符"><span class="nav-number">1.3.6.</span> <span class="nav-text">通配符</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Bash中其他特殊符号"><span class="nav-number">1.3.7.</span> <span class="nav-text">Bash中其他特殊符号</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash变量"><span class="nav-number">2.</span> <span class="nav-text">Bash变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是变量与变量的分类"><span class="nav-number">2.1.</span> <span class="nav-text">什么是变量与变量的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么是变量"><span class="nav-number">2.1.1.</span> <span class="nav-text">什么是变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量命名规则"><span class="nav-number">2.1.2.</span> <span class="nav-text">变量命名规则</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量的分类"><span class="nav-number">2.1.3.</span> <span class="nav-text">变量的分类</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用户自定义变量"><span class="nav-number">2.2.</span> <span class="nav-text">用户自定义变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定义变量"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量调用"><span class="nav-number">2.2.2.</span> <span class="nav-text">变量调用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量叠加"><span class="nav-number">2.2.3.</span> <span class="nav-text">变量叠加</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量查看"><span class="nav-number">2.2.4.</span> <span class="nav-text">变量查看</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#变量删除"><span class="nav-number">2.2.5.</span> <span class="nav-text">变量删除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#环境变量"><span class="nav-number">2.3.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#环境变量与用户自定义变量的区别"><span class="nav-number">2.3.1.</span> <span class="nav-text">环境变量与用户自定义变量的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置环境变量"><span class="nav-number">2.3.2.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看环境变量"><span class="nav-number">2.3.3.</span> <span class="nav-text">查看环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#删除变量"><span class="nav-number">2.3.4.</span> <span class="nav-text">删除变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用环境变量"><span class="nav-number">2.3.5.</span> <span class="nav-text">常用环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#PS1环境变量"><span class="nav-number">2.3.6.</span> <span class="nav-text">PS1环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#当前语系查询"><span class="nav-number">2.3.7.</span> <span class="nav-text">当前语系查询</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询系统默认语系"><span class="nav-number">2.3.8.</span> <span class="nav-text">查询系统默认语系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux中文支持"><span class="nav-number">2.3.9.</span> <span class="nav-text">Linux中文支持</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数变量"><span class="nav-number">2.4.</span> <span class="nav-text">位置参数变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#预定变量"><span class="nav-number">2.5.</span> <span class="nav-text">预定变量</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#接收键盘输入"><span class="nav-number">2.5.1.</span> <span class="nav-text">接收键盘输入</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运算符"><span class="nav-number">3.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#declare命令"><span class="nav-number">3.1.</span> <span class="nav-text">declare命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#声明数组变量"><span class="nav-number">3.1.1.</span> <span class="nav-text">声明数组变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明环境变量"><span class="nav-number">3.1.2.</span> <span class="nav-text">声明环境变量</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#声明变量只读属性"><span class="nav-number">3.1.3.</span> <span class="nav-text">声明变量只读属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查询变量的属性"><span class="nav-number">3.1.4.</span> <span class="nav-text">查询变量的属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数值运算的方法"><span class="nav-number">3.2.</span> <span class="nav-text">数值运算的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#运算式-或-运算式"><span class="nav-number">3.2.1.</span> <span class="nav-text">\$ ((运算式))或 $[运算式]</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#运算符-1"><span class="nav-number">3.2.2.</span> <span class="nav-text">运算符</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变量测试"><span class="nav-number">3.3.</span> <span class="nav-text">变量测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量-1"><span class="nav-number">4.</span> <span class="nav-text">环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件简介"><span class="nav-number">4.1.</span> <span class="nav-text">配置文件简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#source命令"><span class="nav-number">4.1.1.</span> <span class="nav-text">source命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置文件的功能"><span class="nav-number">4.2.</span> <span class="nav-text">配置文件的功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#etc-profile的作用"><span class="nav-number">4.2.1.</span> <span class="nav-text">/etc/profile的作用</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他配置文件"><span class="nav-number">4.3.</span> <span class="nav-text">其他配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注销时生效的环境变量配置文件"><span class="nav-number">4.3.1.</span> <span class="nav-text">注销时生效的环境变量配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他配置文件-1"><span class="nav-number">4.3.2.</span> <span class="nav-text">其他配置文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell登录信息"><span class="nav-number">4.3.3.</span> <span class="nav-text">shell登录信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#远程终端欢迎信息"><span class="nav-number">4.3.4.</span> <span class="nav-text">远程终端欢迎信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#登录后欢迎信息：-etc-motd"><span class="nav-number">4.3.5.</span> <span class="nav-text">登录后欢迎信息：/etc/motd</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正则表达式之字符截取命令"><span class="nav-number">5.</span> <span class="nav-text">正则表达式之字符截取命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#cut字段提取命令"><span class="nav-number">5.1.</span> <span class="nav-text">cut字段提取命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#printf命令"><span class="nav-number">5.2.</span> <span class="nav-text">printf命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#awk命令"><span class="nav-number">5.3.</span> <span class="nav-text">awk命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sed命令"><span class="nav-number">5.4.</span> <span class="nav-text">sed命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符处理命令"><span class="nav-number">6.</span> <span class="nav-text">字符处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#sort命令"><span class="nav-number">6.1.</span> <span class="nav-text">sort命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#统计命令wc命令"><span class="nav-number">6.2.</span> <span class="nav-text">统计命令wc命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件判断"><span class="nav-number">7.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#条件判断式"><span class="nav-number">7.1.</span> <span class="nav-text">条件判断式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#按照文件类型进行判断"><span class="nav-number">7.1.1.</span> <span class="nav-text">按照文件类型进行判断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按照文件权限来判断"><span class="nav-number">7.1.2.</span> <span class="nav-text">按照文件权限来判断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两个文件之间进行比较"><span class="nav-number">7.1.3.</span> <span class="nav-text">两个文件之间进行比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#两个整数之间比较"><span class="nav-number">7.1.4.</span> <span class="nav-text">两个整数之间比较</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#字符串的判断"><span class="nav-number">7.1.5.</span> <span class="nav-text">字符串的判断</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多重条件判断"><span class="nav-number">7.1.6.</span> <span class="nav-text">多重条件判断</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#if语句"><span class="nav-number">7.2.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#case语句"><span class="nav-number">7.3.</span> <span class="nav-text">case语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#for循环"><span class="nav-number">7.4.</span> <span class="nav-text">for循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#while循环和until循环"><span class="nav-number">7.5.</span> <span class="nav-text">while循环和until循环</span></a></li></ol></li></ol></div>
             
 
           </div>
