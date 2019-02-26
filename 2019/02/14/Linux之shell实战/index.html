@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="郝起瀚的博客">
 <meta property="og:description" content="主控脚本实现vim编辑器设置12345678语法高亮	syntax on显示行号	set number自动缩进	set autoindent	set cindent自动加入文件头 shell编程高级知识shell高亮显示12345基本格式：	echo -e 终端颜色 + 内容 + 结束后的颜色例子：	echo -e &quot;\e[1;30m 内容 \e[1;0m&quot;	echo -e &quot;\e[1;30&quot; &quot;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-17T14:50:07.732Z">
+<meta property="og:updated_time" content="2019-02-18T06:46:43.513Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux之shell实战">
 <meta name="twitter:description" content="主控脚本实现vim编辑器设置12345678语法高亮	syntax on显示行号	set number自动缩进	set autoindent	set cindent自动加入文件头 shell编程高级知识shell高亮显示12345基本格式：	echo -e 终端颜色 + 内容 + 结束后的颜色例子：	echo -e &quot;\e[1;30m 内容 \e[1;0m&quot;	echo -e &quot;\e[1;30&quot; &quot;">
@@ -433,7 +433,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-17 22:50:07" itemprop="dateModified" datetime="2019-02-17T22:50:07+08:00">2019-02-17</time>
+                <time title="修改时间：2019-02-18 14:46:43" itemprop="dateModified" datetime="2019-02-18T14:46:43+08:00">2019-02-18</time>
               
             
           </span>
@@ -523,9 +523,53 @@
 </table>
 <ul>
 <li>CPU负载概念</li>
+</ul>
+<h3 id="nginx和mysql应用状态分析"><a href="#nginx和mysql应用状态分析" class="headerlink" title="nginx和mysql应用状态分析"></a>nginx和mysql应用状态分析</h3><h4 id="应用运行状态监控脚本"><a href="#应用运行状态监控脚本" class="headerlink" title="应用运行状态监控脚本"></a>应用运行状态监控脚本</h4><h5 id="利用操作系统命令"><a href="#利用操作系统命令" class="headerlink" title="利用操作系统命令"></a>利用操作系统命令</h5><p>网络命令：ping、nslookup、nm-tool、tracer、traceroute、dig、telnet、nc、curl</p>
+<p>监控进程：ps、netstat、pgrep</p>
+<p>应用客户端：mysql、ab、mongo、php、jstack</p>
+<p>第三方工具包：nginxstatus、nagios-libexec</p>
+<p>服务端接口支持</p>
+<ul>
+<li>nginx -http_stub_status_module</li>
+<li>nutcracker监控集群（redis、memcache）状态</li>
+<li>Mongodb</li>
+</ul>
+<p>监控mysql主从复制状态</p>
+<ul>
+<li>搭建主从复制环境</li>
+<li>基于mysql客户端连接，获取主从复制状态</li>
+<li>myslq &gt; show slave status\G</li>
+<li>Slave_IO_Running-IO线程是否有连接到主服务器上</li>
+<li>Seconds_Behind_Master 主从同步的延时时间</li>
 <li></li>
 </ul>
-<h3 id="nginx和mysql应用状态分析"><a href="#nginx和mysql应用状态分析" class="headerlink" title="nginx和mysql应用状态分析"></a>nginx和mysql应用状态分析</h3><h3 id="应用日志分析"><a href="#应用日志分析" class="headerlink" title="应用日志分析"></a>应用日志分析</h3>
+<h3 id="应用日志分析"><a href="#应用日志分析" class="headerlink" title="应用日志分析"></a>应用日志分析</h3><h4 id="系统日志文件"><a href="#系统日志文件" class="headerlink" title="系统日志文件"></a>系统日志文件</h4><ul>
+<li>/var/log/messages  // 系统主日志文件</li>
+<li>/var/log/secure  // 认证，安全</li>
+<li>/var/log/dmesg  //和系统启动相关</li>
+</ul>
+<h4 id="应用服务"><a href="#应用服务" class="headerlink" title="应用服务"></a>应用服务</h4><ul>
+<li>access.log  //nginx访问日志</li>
+<li>mysqld.log  //mysql运行日志</li>
+<li>xferlog  //和访问FTP服务器相关</li>
+</ul>
+<h4 id="程序脚本"><a href="#程序脚本" class="headerlink" title="程序脚本"></a>程序脚本</h4><ul>
+<li>开发语言：c、C++、java、php</li>
+<li>框架：Django、MVC、servlet</li>
+<li>脚本语言：shell、python</li>
+</ul>
+<h4 id="Http状态码"><a href="#Http状态码" class="headerlink" title="Http状态码"></a>Http状态码</h4><ul>
+<li>1**    信息服务收到请求，需要请求者进一步操作</li>
+<li>2**    成功，操作被成功接收并处理</li>
+<li>3**    重定向，需要进一步的操作以完成请求</li>
+<li>4**    客户端错误</li>
+<li>5**    服务器错误</li>
+</ul>
+<h4 id="脚本功能介绍"><a href="#脚本功能介绍" class="headerlink" title="脚本功能介绍"></a>脚本功能介绍</h4><ul>
+<li>功能一、分析HTTP状态码在100，200,300,400,500之间及以上的请求条数</li>
+<li>分析日志中http状态码为404,500的请求条数</li>
+</ul>
+
       
     </div>
 
@@ -645,7 +689,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">38</span>
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -684,7 +728,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">13</span>
+                      
+                    
+                    <span class="site-state-item-count">14</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -737,7 +783,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">20</span>
+                      
+                    
+                    <span class="site-state-item-count">21</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -787,7 +835,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主控脚本实现"><span class="nav-number">1.</span> <span class="nav-text">主控脚本实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vim编辑器设置"><span class="nav-number">1.1.</span> <span class="nav-text">vim编辑器设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell编程高级知识"><span class="nav-number">1.2.</span> <span class="nav-text">shell编程高级知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#shell高亮显示"><span class="nav-number">1.2.1.</span> <span class="nav-text">shell高亮显示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell中的关联数组"><span class="nav-number">1.2.2.</span> <span class="nav-text">shell中的关联数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#monitor-sh脚本"><span class="nav-number">1.2.3.</span> <span class="nav-text">monitor.sh脚本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统信息及运行状态获取"><span class="nav-number">2.</span> <span class="nav-text">系统信息及运行状态获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析系统的运行状态"><span class="nav-number">2.1.</span> <span class="nav-text">分析系统的运行状态</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx和mysql应用状态分析"><span class="nav-number">3.</span> <span class="nav-text">nginx和mysql应用状态分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用日志分析"><span class="nav-number">4.</span> <span class="nav-text">应用日志分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#主控脚本实现"><span class="nav-number">1.</span> <span class="nav-text">主控脚本实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vim编辑器设置"><span class="nav-number">1.1.</span> <span class="nav-text">vim编辑器设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#shell编程高级知识"><span class="nav-number">1.2.</span> <span class="nav-text">shell编程高级知识</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#shell高亮显示"><span class="nav-number">1.2.1.</span> <span class="nav-text">shell高亮显示</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#shell中的关联数组"><span class="nav-number">1.2.2.</span> <span class="nav-text">shell中的关联数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#monitor-sh脚本"><span class="nav-number">1.2.3.</span> <span class="nav-text">monitor.sh脚本</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统信息及运行状态获取"><span class="nav-number">2.</span> <span class="nav-text">系统信息及运行状态获取</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析系统的运行状态"><span class="nav-number">2.1.</span> <span class="nav-text">分析系统的运行状态</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx和mysql应用状态分析"><span class="nav-number">3.</span> <span class="nav-text">nginx和mysql应用状态分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#应用运行状态监控脚本"><span class="nav-number">3.1.</span> <span class="nav-text">应用运行状态监控脚本</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#利用操作系统命令"><span class="nav-number">3.1.1.</span> <span class="nav-text">利用操作系统命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用日志分析"><span class="nav-number">4.</span> <span class="nav-text">应用日志分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#系统日志文件"><span class="nav-number">4.1.</span> <span class="nav-text">系统日志文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用服务"><span class="nav-number">4.2.</span> <span class="nav-text">应用服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#程序脚本"><span class="nav-number">4.3.</span> <span class="nav-text">程序脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Http状态码"><span class="nav-number">4.4.</span> <span class="nav-text">Http状态码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本功能介绍"><span class="nav-number">4.5.</span> <span class="nav-text">脚本功能介绍</span></a></li></ol></li></ol></div>
             
 
           </div>
