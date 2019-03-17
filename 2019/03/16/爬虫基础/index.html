@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="爬虫的基本原理什么是爬虫 请求网站并提取数据的自动化程序 URL:统一资源定位符  能抓怎样的数据 网页文本 图片,音频,视频 705写入成功  怎么解析 1.直接处理 2.json解析 3.正则表达式 4.bs4 5.pyQuery 6.xpath  怎么解决javascript渲染的问题的? 1.分析ajax请求 2.使用selenium/webDriver 3.splash 4.pyv8或G">
+<meta name="keywords" content="爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爬虫基础">
+<meta property="og:url" content="http://yoursite.com/2019/03/16/爬虫基础/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="爬虫的基本原理什么是爬虫 请求网站并提取数据的自动化程序 URL:统一资源定位符  能抓怎样的数据 网页文本 图片,音频,视频 705写入成功  怎么解析 1.直接处理 2.json解析 3.正则表达式 4.bs4 5.pyQuery 6.xpath  怎么解决javascript渲染的问题的? 1.分析ajax请求 2.使用selenium/webDriver 3.splash 4.pyv8或G">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-16T01:37:26.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="爬虫基础">
+<meta name="twitter:description" content="爬虫的基本原理什么是爬虫 请求网站并提取数据的自动化程序 URL:统一资源定位符  能抓怎样的数据 网页文本 图片,音频,视频 705写入成功  怎么解析 1.直接处理 2.json解析 3.正则表达式 4.bs4 5.pyQuery 6.xpath  怎么解决javascript渲染的问题的? 1.分析ajax请求 2.使用selenium/webDriver 3.splash 4.pyv8或G">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/16/爬虫基础/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>爬虫基础 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/16/爬虫基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">爬虫基础
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-16 07:46:24 / 修改时间：09:37:26" itemprop="dateCreated datePublished" datetime="2019-03-16T07:46:24+08:00">2019-03-16</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/爬虫/" itemprop="url" rel="index"><span itemprop="name">爬虫</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="爬虫的基本原理"><a href="#爬虫的基本原理" class="headerlink" title="爬虫的基本原理"></a>爬虫的基本原理</h3><h4 id="什么是爬虫"><a href="#什么是爬虫" class="headerlink" title="什么是爬虫"></a>什么是爬虫</h4><ul>
+<li>请求网站并提取数据的自动化程序</li>
+<li>URL:统一资源定位符</li>
+</ul>
+<h4 id="能抓怎样的数据"><a href="#能抓怎样的数据" class="headerlink" title="能抓怎样的数据"></a>能抓怎样的数据</h4><ul>
+<li>网页文本</li>
+<li>图片,音频,视频</li>
+<li>705写入成功</li>
+</ul>
+<h4 id="怎么解析"><a href="#怎么解析" class="headerlink" title="怎么解析"></a>怎么解析</h4><ul>
+<li>1.直接处理</li>
+<li>2.json解析</li>
+<li>3.正则表达式</li>
+<li>4.bs4</li>
+<li>5.pyQuery</li>
+<li>6.xpath</li>
+</ul>
+<h4 id="怎么解决javascript渲染的问题的"><a href="#怎么解决javascript渲染的问题的" class="headerlink" title="怎么解决javascript渲染的问题的?"></a>怎么解决javascript渲染的问题的?</h4><ul>
+<li>1.分析ajax请求</li>
+<li>2.使用selenium/webDriver</li>
+<li>3.splash</li>
+<li>4.pyv8或Ghost.py</li>
+</ul>
+<h4 id="怎么保存数据"><a href="#怎么保存数据" class="headerlink" title="怎么保存数据"></a>怎么保存数据</h4><ul>
+<li>文本型</li>
+<li>关系型数据库</li>
+<li>非关系型数据库</li>
+<li>二进制文件</li>
+</ul>
+<h3 id="urllib库详解"><a href="#urllib库详解" class="headerlink" title="urllib库详解"></a>urllib库详解</h3><h4 id="什么是urllib（python内置的http库）"><a href="#什么是urllib（python内置的http库）" class="headerlink" title="什么是urllib（python内置的http库）"></a>什么是urllib（python内置的http库）</h4><ul>
+<li>Urllib.request() 请求模块</li>
+<li>urllib.error 异常处理模块</li>
+<li>urllib.parse url解析模块</li>
+<li>urllib.robotparser robots.txt 解析模块</li>
+</ul>
+<h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><h5 id="GET请求（例子）"><a href="#GET请求（例子）" class="headerlink" title="GET请求（例子）"></a>GET请求（例子）</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">res = urllib.request.urlopen(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(res.read().decode())</span><br></pre></td></tr></table></figure>
+<h5 id="POST请求（例子）"><a href="#POST请求（例子）" class="headerlink" title="POST请求（例子）"></a>POST请求（例子）</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">data = bytes(urllib.parse.urlencode(&#123;<span class="string">'name'</span>:<span class="string">'hello'</span>&#125;),encoding=<span class="string">'utf-8'</span>)</span><br><span class="line">res = urllib.request.urlopen(<span class="string">'http://httpbin.org/post'</span>,data=data)</span><br><span class="line">print(res.read().decode())</span><br></pre></td></tr></table></figure>
+<h5 id="获取数据并自动保存"><a href="#获取数据并自动保存" class="headerlink" title="获取数据并自动保存"></a>获取数据并自动保存</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">request.urlretrieve(url=<span class="string">'地址'</span>,filename=<span class="string">'文件名'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="设置超时时间"><a href="#设置超时时间" class="headerlink" title="设置超时时间"></a>设置超时时间</h5><h6 id="正常"><a href="#正常" class="headerlink" title="正常"></a>正常</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">res = urllib.request.urlopen(<span class="string">'http://httpbin.org/get'</span>,timeout=<span class="number">1</span>)</span><br><span class="line">print(res.read())</span><br></pre></td></tr></table></figure>
+<h6 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> socket</span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> urllib.error</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    res = urllib.request.urlopen(<span class="string">'http://httpbin.org/get'</span>,timeout=<span class="number">0.1</span>)</span><br><span class="line"><span class="keyword">except</span> urllib.error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    <span class="keyword">if</span> isinstance(e.reason,socket.timeout):</span><br><span class="line">        print(<span class="string">'time out'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">request = urllib.request.Request(<span class="string">'http://www.baidu.com'</span>) <span class="comment"># 生成一个对象</span></span><br><span class="line">res = urllib.request.urlopen(request)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 增加参数和使用post请求</span></span><br><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request,parse</span><br><span class="line">url = <span class="string">'http://www.httpbin.org/post'</span></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Host'</span>:<span class="string">'httpbin.org'</span></span><br><span class="line">&#125;</span><br><span class="line">dic = &#123;</span><br><span class="line">   <span class="string">'name'</span>:<span class="string">'Germey'</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">data = bytes(parse.urlencode(dic),encoding=<span class="string">'utf8'</span>)</span><br><span class="line">req = request.Request(url=url,data=data,headers=headers,method=<span class="string">'POST'</span>)</span><br><span class="line">res = request.urlopen(req)</span><br><span class="line">print(res)</span><br><span class="line"></span><br><span class="line"><span class="comment"># header也可以使用这样</span></span><br><span class="line">req.add_header(<span class="string">'User-Agent'</span>,<span class="string">'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'</span>,)</span><br></pre></td></tr></table></figure>
+<h5 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 响应类型:&lt;class 'http.client.HTTPResponse'&gt;</span></span><br><span class="line"><span class="comment"># 状态码和响应头</span></span><br><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line">res = urllib.request.urlopen(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(res.status)  <span class="comment"># 状态码</span></span><br><span class="line">print(res.getheaders()) <span class="comment"># 全部响应头</span></span><br><span class="line">print(res.getheader(<span class="string">'Server'</span>))</span><br><span class="line">print(res.read().decode(<span class="string">'utf-8'</span>))  <span class="comment"># 获取响应体内容</span></span><br></pre></td></tr></table></figure>
+<h5 id="代理"><a href="#代理" class="headerlink" title="代理"></a>代理</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request</span><br><span class="line">proxy_header = request.ProxyHandler(&#123;</span><br><span class="line">    <span class="string">'http'</span>:<span class="string">'http://127.0.0.1:8899'</span>,</span><br><span class="line">    <span class="string">'https'</span>:<span class="string">'https://127.0.0.1:8899'</span>,</span><br><span class="line">&#125;)</span><br><span class="line">opener = request.build_opener(proxy_header)</span><br><span class="line">res = opener.open(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(res.read())</span><br></pre></td></tr></table></figure>
+<h5 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request,error</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    res = request.urlopen(<span class="string">'http://www.baidu.top/11'</span>)</span><br><span class="line">    print(res.read())</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    print(e.reason)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> request,error</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    res = request.urlopen(<span class="string">'http://www.baidu222.top/11'</span>)</span><br><span class="line">    print(res.read())</span><br><span class="line"><span class="keyword">except</span> error.HTTPError <span class="keyword">as</span> e:</span><br><span class="line">    print(e.reason,e.code,e.headers)</span><br><span class="line"><span class="keyword">except</span> error.URLError <span class="keyword">as</span> e:</span><br><span class="line">    print(e.reason)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'xxxx'</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="url解析"><a href="#url解析" class="headerlink" title="url解析"></a>url解析</h5><p><strong>协议类型:scheme=’http/https’</strong></p>
+<p><strong>allow_fragments:#号后的内容存放在哪里</strong></p>
+<p><strong>urlunparse:将内容上面返回的内容进行拼接的</strong></p>
+<p><strong>urljoin:对两个url进行拼接,以后面的url为标准,有就覆盖,没有就用前面的</strong></p>
+<p><strong>import urllib.robotparser :查看那些路径是可以访问的,那些事不可以访问的</strong></p>
+<h3 id="re模块的基本使用"><a href="#re模块的基本使用" class="headerlink" title="re模块的基本使用"></a>re模块的基本使用</h3><h4 id="常见的使用方法"><a href="#常见的使用方法" class="headerlink" title="常见的使用方法"></a>常见的使用方法</h4><ul>
+<li>re.S:匹配换行符</li>
+<li>re.match(正则,带匹配的字符串):尝试从起始位置匹配一个模式,没有返回None<ul>
+<li>group:匹配结果<ul>
+<li>span:匹配的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>re.search :匹配所有能匹配到的,并返回第一个</li>
+<li>re.sub(正则,要替换的字符串,’字符串’) :</li>
+<li>re.findall(正则,字符串)</li>
+<li>re.compile():将正则字符串,编译成一个正则对象</li>
+</ul>
+<h3 id="bs4的基本使用方法"><a href="#bs4的基本使用方法" class="headerlink" title="bs4的基本使用方法"></a>bs4的基本使用方法</h3><h4 id="lxml的使用方法"><a href="#lxml的使用方法" class="headerlink" title="lxml的使用方法"></a>lxml的使用方法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'</span>,</span><br><span class="line">    <span class="string">'Connection'</span>:<span class="string">'close'</span></span><br><span class="line">&#125;</span><br><span class="line">lxml_obj = etree.HTML(html)</span><br><span class="line">url_list = lxml_obj.xpath(<span class="string">'//div[@id="container"]/div'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="BeautifulSoup的使用方法"><a href="#BeautifulSoup的使用方法" class="headerlink" title="BeautifulSoup的使用方法"></a>BeautifulSoup的使用方法</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line">html = <span class="string">"&lt;html&gt;&lt;title class='xxx'&gt;111111&lt;/title&gt; "</span></span><br><span class="line">soup = BeautifulSoup(html,<span class="string">'lxml'</span>)</span><br><span class="line">print(soup.prettify())  <span class="comment">#自动补全代码</span></span><br><span class="line">print(soup.title.string)<span class="comment">#获取title标签的代码</span></span><br></pre></td></tr></table></figure>
+<h4 id="标签选择器"><a href="#标签选择器" class="headerlink" title="标签选择器"></a>标签选择器</h4><h5 id="获取名称"><a href="#获取名称" class="headerlink" title="获取名称"></a>获取名称</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.title.name)</span><br></pre></td></tr></table></figure>
+<h5 id="获取属性"><a href="#获取属性" class="headerlink" title="获取属性"></a>获取属性</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(soup.p.attrs[<span class="string">'name'</span>])</span><br><span class="line">print(soup.p[<span class="string">'name'</span>])</span><br></pre></td></tr></table></figure>
+<h5 id="获取内容"><a href="#获取内容" class="headerlink" title="获取内容"></a>获取内容</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.p.string)</span><br></pre></td></tr></table></figure>
+<h5 id="嵌套选择"><a href="#嵌套选择" class="headerlink" title="嵌套选择"></a>嵌套选择</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.head.title.string)</span><br></pre></td></tr></table></figure>
+<h5 id="子节点和子孙节点"><a href="#子节点和子孙节点" class="headerlink" title="子节点和子孙节点"></a>子节点和子孙节点</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(soup.body.contents) <span class="comment"># 返回一个列表</span></span><br><span class="line">print(soup.body.children) <span class="comment"># 放回一个迭代器</span></span><br><span class="line">soup.body.descendants <span class="comment"># 所有的子孙节点,也是一个迭代器</span></span><br></pre></td></tr></table></figure>
+<h5 id="父节点和祖先节点"><a href="#父节点和祖先节点" class="headerlink" title="父节点和祖先节点"></a>父节点和祖先节点</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(soup.a.parent) <span class="comment"># 父节点,只有一个</span></span><br><span class="line">soup.a.parents <span class="comment"># 祖先节点</span></span><br></pre></td></tr></table></figure>
+<h5 id="兄弟节点"><a href="#兄弟节点" class="headerlink" title="兄弟节点"></a>兄弟节点</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(list(soup.p.next_siblings))</span><br><span class="line">print(list(soup.p.previous_siblings))</span><br></pre></td></tr></table></figure>
+<h4 id="标准选择器"><a href="#标准选择器" class="headerlink" title="标准选择器"></a>标准选择器</h4><h5 id="根据标签"><a href="#根据标签" class="headerlink" title="根据标签"></a>根据标签</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.find_all(<span class="string">'ul'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="根据属性"><a href="#根据属性" class="headerlink" title="根据属性"></a>根据属性</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(soup.find_all(attrs=&#123;<span class="string">'id'</span>:<span class="string">'list_1'</span>&#125;))</span><br><span class="line">print(soup.find_all(id=<span class="string">'list_1'</span>))</span><br><span class="line">print(soup.find_all(class_=<span class="string">'p1'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="根据文本"><a href="#根据文本" class="headerlink" title="根据文本"></a>根据文本</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.find_all(text=[<span class="number">777</span>,<span class="number">666</span>,<span class="number">888</span>]))</span><br></pre></td></tr></table></figure>
+<h5 id="返回单个元素"><a href="#返回单个元素" class="headerlink" title="返回单个元素"></a>返回单个元素</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(soup.find_parent(<span class="string">'title'</span>)) :返回父节点</span><br><span class="line">print(soup.find_parents(<span class="string">'title'</span>)):返回祖先节点</span><br><span class="line">print(soup.find_next_siblings(<span class="string">'p'</span>)) :返回兄弟节点</span><br><span class="line">print(soup.find_next_sibling(<span class="string">'p'</span>))返回兄弟节点</span><br></pre></td></tr></table></figure>
+<h4 id="css选择器"><a href="#css选择器" class="headerlink" title="css选择器"></a>css选择器</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print(soup.select(<span class="string">'.p1 .a1'</span>))</span><br><span class="line">print(soup.select(<span class="string">'#list_1 .a1'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="获取属性-1"><a href="#获取属性-1" class="headerlink" title="获取属性"></a>获取属性</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ul[<span class="string">"id"</span>]</span><br></pre></td></tr></table></figure>
+<h5 id="获取内容-1"><a href="#获取内容-1" class="headerlink" title="获取内容"></a>获取内容</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> soup.select(<span class="string">'#list_1 .a1'</span>):</span><br><span class="line">	print(i.get_text())</span><br><span class="line">	print(i.text)</span><br></pre></td></tr></table></figure>
+<h3 id="pyquery库的使用"><a href="#pyquery库的使用" class="headerlink" title="pyquery库的使用"></a>pyquery库的使用</h3><h4 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyquery <span class="keyword">import</span> PyQuery <span class="keyword">as</span> py</span><br><span class="line">doc = py(url=<span class="string">'http://www.baidu.com'</span>)  <span class="comment"># 从url中获取数据</span></span><br><span class="line">doc = py(filename=<span class="string">'demo.html'</span>)		  <span class="comment"># 从文件中获取</span></span><br></pre></td></tr></table></figure>
+<h4 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h4><h5 id="子元素"><a href="#子元素" class="headerlink" title="子元素"></a>子元素</h5><h6 id="所有的"><a href="#所有的" class="headerlink" title="所有的"></a>所有的</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">doc = py(html)</span><br><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.find(<span class="string">'a'</span>))</span><br></pre></td></tr></table></figure>
+<h6 id="直接的"><a href="#直接的" class="headerlink" title="直接的"></a>直接的</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">doc = py(html)</span><br><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.children())</span><br></pre></td></tr></table></figure>
+<h6 id="子元素筛选"><a href="#子元素筛选" class="headerlink" title="子元素筛选"></a>子元素筛选</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.children(<span class="string">'.a1'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="父元素"><a href="#父元素" class="headerlink" title="父元素"></a>父元素</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.parent())   <span class="comment"># 获取父元素</span></span><br><span class="line">print(item.parents())   <span class="comment"># 获取祖先元素</span></span><br><span class="line"><span class="comment"># 对父节点进行筛选</span></span><br><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.parent(<span class="string">'.r1'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="兄弟元素"><a href="#兄弟元素" class="headerlink" title="兄弟元素"></a>兄弟元素</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.siblings())    <span class="comment"># 兄弟元素</span></span><br><span class="line"></span><br><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.siblings(<span class="string">'.a1'</span>))    <span class="comment"># 对兄弟元素进行筛选</span></span><br></pre></td></tr></table></figure>
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><h5 id="单个元素"><a href="#单个元素" class="headerlink" title="单个元素"></a>单个元素</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item)</span><br></pre></td></tr></table></figure>
+<h5 id="返回迭代器"><a href="#返回迭代器" class="headerlink" title="返回迭代器"></a>返回迭代器</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>).items()</span><br><span class="line">print(item)</span><br></pre></td></tr></table></figure>
+<h4 id="获取信息"><a href="#获取信息" class="headerlink" title="获取信息"></a>获取信息</h4><h5 id="获取属性-2"><a href="#获取属性-2" class="headerlink" title="获取属性"></a>获取属性</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1 a'</span>)</span><br><span class="line">print(item.attr(<span class="string">'href'</span>))</span><br><span class="line">print(item.attr.href)</span><br></pre></td></tr></table></figure>
+<h5 id="获取文本"><a href="#获取文本" class="headerlink" title="获取文本"></a>获取文本</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1 a'</span>) print(item.text())</span><br></pre></td></tr></table></figure>
+<h5 id="获取html"><a href="#获取html" class="headerlink" title="获取html"></a>获取html</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>) print(item.html())</span><br></pre></td></tr></table></figure>
+<h4 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h4><h5 id="addClass和removeClass"><a href="#addClass和removeClass" class="headerlink" title="addClass和removeClass"></a>addClass和removeClass</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.remove_class(<span class="string">'p1'</span>)) :删除p1</span><br><span class="line">print(item.add_class(<span class="string">'p1'</span>)):添加p1</span><br></pre></td></tr></table></figure>
+<h5 id="attr-和-css"><a href="#attr-和-css" class="headerlink" title="attr 和 css"></a>attr 和 css</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.attr(<span class="string">'name'</span>,<span class="string">'link'</span>))</span><br><span class="line">print(item.css(<span class="string">'font_size'</span>,<span class="string">'14px'</span>))</span><br></pre></td></tr></table></figure>
+<h5 id="remove-把中间a标签全部删除"><a href="#remove-把中间a标签全部删除" class="headerlink" title="remove:把中间a标签全部删除"></a>remove:把中间a标签全部删除</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">item = doc(<span class="string">'#list_1'</span>)</span><br><span class="line">print(item.text())</span><br><span class="line">print(item.find(<span class="string">'a'</span>).remove())</span><br><span class="line">print(item.text())</span><br></pre></td></tr></table></figure>
+<h5 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">doc = py(html) </span><br><span class="line">print(doc(<span class="string">'p:first-child'</span>)) <span class="comment"># 获取第一个</span></span><br><span class="line">print(doc(<span class="string">'p:last-child'</span>))<span class="comment"># 获取最后一个</span></span><br><span class="line">print(doc(<span class="string">'p:nth-child(2)'</span>))<span class="comment"># 获取第二个</span></span><br><span class="line">print(doc(<span class="string">'p:gt(1)'</span>)) <span class="comment"># 获取比1大的所有元素</span></span><br><span class="line">print(doc(<span class="string">'p:nth-child(2n)'</span>)) <span class="comment"># 获取偶数的</span></span><br><span class="line">print(doc(<span class="string">'p:contains(xxx)'</span>)) <span class="comment">#查看包含xxx文本的所有内容</span></span><br></pre></td></tr></table></figure>
+<h3 id="requests库的基本使用"><a href="#requests库的基本使用" class="headerlink" title="requests库的基本使用"></a>requests库的基本使用</h3><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">res = requests.get(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">print(type(res))  <span class="comment"># 获取一个对象</span></span><br><span class="line">print(res.status_code)  <span class="comment"># 获取状态码</span></span><br><span class="line">print(type(res.text)) <span class="comment"># 获取页面</span></span><br><span class="line">print(type(res.cookies)) <span class="comment"># 获取cookie</span></span><br></pre></td></tr></table></figure>
+<h4 id="所有请求方式"><a href="#所有请求方式" class="headerlink" title="所有请求方式"></a>所有请求方式</h4><ul>
+<li>requests.get()</li>
+<li>requests.post()</li>
+<li>requests.put()</li>
+<li>requests.patch()</li>
+<li>requests.options()</li>
+<li>requests.head()</li>
+<li>requests.delete()</li>
+</ul>
+<h4 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h4><ul>
+<li>res.json() :获取json数据</li>
+<li>res.text:获取文本信息</li>
+<li>res.content :获取二进制数据</li>
+</ul>
+<h4 id="响应-1"><a href="#响应-1" class="headerlink" title="响应"></a>响应</h4><ul>
+<li>status_code :获取状态码</li>
+<li>text:获取文本信息</li>
+<li>headers:获取头部信息</li>
+<li>content:获取二进制数据</li>
+<li>cookies:获取cookie</li>
+<li>url:访问的url</li>
+<li>history:历史记录</li>
+</ul>
+<h4 id="高级操作"><a href="#高级操作" class="headerlink" title="高级操作"></a>高级操作</h4><h5 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">files = &#123;<span class="string">'file'</span>:open(<span class="string">'11.jpg'</span>,<span class="string">'rb'</span>)&#125;</span><br><span class="line">requests.post(<span class="string">'url'</span>,files=files)</span><br></pre></td></tr></table></figure>
+<h5 id="获取cookie"><a href="#获取cookie" class="headerlink" title="获取cookie"></a>获取cookie</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">res.cookies.item()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="number">111</span>:<span class="number">222</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="会话维持"><a href="#会话维持" class="headerlink" title="会话维持"></a>会话维持</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">session = requests.session()</span><br><span class="line">session.get(<span class="string">'http://httpbin.org/cookies/set/number/1000000'</span>)</span><br><span class="line">res = session.get(<span class="string">'http://httpbin.org/cookies'</span>)</span><br><span class="line">print(res.text)</span><br></pre></td></tr></table></figure>
+<h5 id="代理设置"><a href="#代理设置" class="headerlink" title="代理设置"></a>代理设置</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">proxies = &#123;</span><br><span class="line">    <span class="string">'http'</span>:<span class="string">'http://127.0.0.1:5000'</span></span><br><span class="line">&#125;</span><br><span class="line">res = requests.get(<span class="string">'http://www.baidu.com'</span>,proxies=proxies)</span><br></pre></td></tr></table></figure>
+<h5 id="超时设置"><a href="#超时设置" class="headerlink" title="超时设置"></a>超时设置</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> ReadTimeout</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    res = requests.get(<span class="string">'http://www.baidu.com'</span>,timeout=<span class="number">0.01</span>)</span><br><span class="line">    print(res.text)</span><br><span class="line"><span class="keyword">except</span> ReadTimeout:</span><br><span class="line">    print(<span class="number">111</span>)</span><br></pre></td></tr></table></figure>
+<h5 id="认证设置"><a href="#认证设置" class="headerlink" title="认证设置"></a>认证设置</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">res = requests.get(<span class="string">'http://www.baidu.com'</span>,auth=&#123;<span class="string">'user'</span>:<span class="number">123</span>&#125;)</span><br></pre></td></tr></table></figure>
+<h5 id="异常处理-1"><a href="#异常处理-1" class="headerlink" title="异常处理"></a>异常处理</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> ReadTimeout, HTTPError,RequestException</span><br><span class="line">ReadTimeout:超时</span><br><span class="line">HTTPError:</span><br><span class="line">ConnectionError:网络不通</span><br><span class="line">RequestException</span><br></pre></td></tr></table></figure>
+<h3 id="selenium的基本使用"><a href="#selenium的基本使用" class="headerlink" title="selenium的基本使用"></a>selenium的基本使用</h3><h4 id="基本使用-1"><a href="#基本使用-1" class="headerlink" title="基本使用"></a>基本使用</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    browser.get(<span class="string">'http://www.baidu.com'</span>)</span><br><span class="line">    input = browser.find_element_by_id(<span class="string">'kw'</span>)</span><br><span class="line">    input.send_keys(<span class="string">'Python'</span>)</span><br><span class="line">    input.send_keys(Keys.ENTER)</span><br><span class="line">    wait = WebDriverWait(browser,<span class="number">10</span>)</span><br><span class="line">    wait.until(EC.presence_of_all_elements_located((By.ID,<span class="string">'content_left'</span>)))</span><br><span class="line">    print(browser.current_url)</span><br><span class="line">    print(browser.get_cookies())</span><br><span class="line">    print(browser.page_source)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="声明浏览器对象"><a href="#声明浏览器对象" class="headerlink" title="声明浏览器对象"></a>声明浏览器对象</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver </span><br><span class="line">browser = webdriver.Chrome()   <span class="comment"># chrome浏览器</span></span><br><span class="line">browser = webdriver.Firefox()</span><br><span class="line">browser = webdriver.Edge()</span><br><span class="line">browser = webdriver.PhantomJS()</span><br><span class="line">browser = webdriver.Safari()</span><br></pre></td></tr></table></figure>
+<h4 id="访问页面"><a href="#访问页面" class="headerlink" title="访问页面"></a>访问页面</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line">print(browser.page_source)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="查找元素-1"><a href="#查找元素-1" class="headerlink" title="查找元素"></a>查找元素</h4><h5 id="单个元素-1"><a href="#单个元素-1" class="headerlink" title="单个元素"></a>单个元素</h5><h6 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line">input_first = browser.find_element_by_id(<span class="string">'q'</span>)</span><br><span class="line">input_second = browser.find_element_by_css_selector(<span class="string">'#q'</span>)</span><br><span class="line">input_third = browser.find_element_by_xpath(<span class="string">'//*[@id="q"]'</span>)</span><br><span class="line">print(input_first,input_second,input_third)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h6 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line">input_first = browser.find_element(By.ID,<span class="string">'q'</span>)</span><br><span class="line">print(input_first)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h5 id="多个元素"><a href="#多个元素" class="headerlink" title="多个元素"></a>多个元素</h5><h6 id="第一种-1"><a href="#第一种-1" class="headerlink" title="第一种"></a>第一种</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line">lis = browser.find_elements_by_css_selector(<span class="string">'.service-bd li'</span>)</span><br><span class="line">print(lis)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h6 id="第二种-1"><a href="#第二种-1" class="headerlink" title="第二种"></a>第二种</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line">lis = browser.find_elements(By.CSS_SELECTOR,<span class="string">'.service-bd li'</span>)</span><br><span class="line">print(lis)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="元素交互操作"><a href="#元素交互操作" class="headerlink" title="元素交互操作"></a>元素交互操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com'</span>)</span><br><span class="line"></span><br><span class="line">input = browser.find_element_by_id(<span class="string">'q'</span>)</span><br><span class="line">input.send_keys(<span class="string">'Iphone'</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">input.clear()</span><br><span class="line">input.send_keys(<span class="string">'iPad'</span>)</span><br><span class="line">button = browser.find_element_by_class_name(<span class="string">'btn-search'</span>)</span><br><span class="line">button.click()</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="交互动作"><a href="#交互动作" class="headerlink" title="交互动作"></a>交互动作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver <span class="keyword">import</span> ActionChains</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">url = <span class="string">'http://www.runoob.com/try/try.php?filename=jqueryui-api-droppable'</span></span><br><span class="line">browser.get(url)</span><br><span class="line">browser.switch_to.frame(<span class="string">'iframeResult'</span>)</span><br><span class="line">source= browser.find_element_by_css_selector(<span class="string">'#draggable'</span>) <span class="comment"># 拖拽对象</span></span><br><span class="line">target= browser.find_element_by_css_selector(<span class="string">'#droppable'</span>) <span class="comment"># 拖拽目标</span></span><br><span class="line"></span><br><span class="line">actions = ActionChains(browser)</span><br><span class="line">actions.drag_and_drop(source,target)</span><br><span class="line">actions.perform()</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="执行js"><a href="#执行js" class="headerlink" title="执行js"></a>执行js</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">browser.execute_script(<span class="string">'window.scrollTo(0,document.body.scrollHeight)'</span>) <span class="comment"># 把下拉到最下面</span></span><br><span class="line">browser.execute_script(<span class="string">'alert("to bottom")'</span>)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="获取元素信息"><a href="#获取元素信息" class="headerlink" title="获取元素信息"></a>获取元素信息</h4><h5 id="获取属性-3"><a href="#获取属性-3" class="headerlink" title="获取属性"></a>获取属性</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">logo = browser.find_element_by_id(<span class="string">'zh-top-link-logo'</span>)</span><br><span class="line">print(logo)</span><br><span class="line">print(logo.get_attribute(<span class="string">'class'</span>)) <span class="comment"># 获取class</span></span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h5 id="获取文本值"><a href="#获取文本值" class="headerlink" title="获取文本值"></a>获取文本值</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">input = browser.find_element_by_css_selector(<span class="string">'.zh-summary'</span>)</span><br><span class="line">print(input.text)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h5 id="获取id，位置，标签名，大小"><a href="#获取id，位置，标签名，大小" class="headerlink" title="获取id，位置，标签名，大小"></a>获取id，位置，标签名，大小</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">input = browser.find_element_by_class_name(<span class="string">'zh-summary'</span>)</span><br><span class="line">print(input.id)</span><br><span class="line">print(input.location)</span><br><span class="line">print(input.tag_name)</span><br><span class="line">print(input.size)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="Frame-进去和出来"><a href="#Frame-进去和出来" class="headerlink" title="Frame:进去和出来"></a>Frame:进去和出来</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> NoSuchElementException</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">url = <span class="string">'http://www.runoob.com/try/try.php?filename=jqueryui-api-droppable'</span></span><br><span class="line">browser.get(url)</span><br><span class="line">browser.switch_to.frame(<span class="string">'iframeResult'</span>)  <span class="comment"># 进入里面iframe</span></span><br><span class="line">source = browser.find_element_by_css_selector(<span class="string">'#draggable'</span>) <span class="comment"># 拖拽对象</span></span><br><span class="line">print(source)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    logo = browser.find_element_by_class_name(<span class="string">'logo'</span>)</span><br><span class="line"><span class="keyword">except</span> NoSuchElementException:</span><br><span class="line">    print(<span class="string">'No Logo'</span>)</span><br><span class="line">browser.switch_to.parent_frame() <span class="comment"># 出来iframe</span></span><br><span class="line">logo = browser.find_element_by_class_name(<span class="string">'logo'</span>)</span><br><span class="line">print(logo)</span><br><span class="line">print(logo.text)</span><br></pre></td></tr></table></figure>
+<h4 id="等待"><a href="#等待" class="headerlink" title="等待"></a>等待</h4><h5 id="隐式等待"><a href="#隐式等待" class="headerlink" title="隐式等待"></a>隐式等待</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.implicitly_wait(<span class="number">10</span>)</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">input = browser.find_element_by_class_name(<span class="string">'zu-top-add-question'</span>)</span><br><span class="line">print(input)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h5 id="显示等待"><a href="#显示等待" class="headerlink" title="显示等待"></a>显示等待</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.ui <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.taobao.com/'</span>)</span><br><span class="line">wait = WebDriverWait(browser,<span class="number">10</span>)</span><br><span class="line">input = wait.until(EC.presence_of_all_elements_located((By.ID,<span class="string">'q'</span>)))</span><br><span class="line">button = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,<span class="string">'.btn-search'</span>)))</span><br><span class="line">print(input,button)</span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="前进和后退"><a href="#前进和后退" class="headerlink" title="前进和后退"></a>前进和后退</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.baidu.com/'</span>)</span><br><span class="line">browser.get(<span class="string">'http://www.taobao.com/'</span>)</span><br><span class="line">browser.get(<span class="string">'http://www.python.org/'</span>)</span><br><span class="line">browser.back()  <span class="comment"># 后退一步</span></span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">browser.forward() <span class="comment"># 前进一步</span></span><br><span class="line">browser.close()</span><br></pre></td></tr></table></figure>
+<h4 id="设置cookie"><a href="#设置cookie" class="headerlink" title="设置cookie"></a>设置cookie</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.zhihu.com/explore'</span>)</span><br><span class="line">print(browser.get_cookies())</span><br><span class="line">browser.add_cookie(&#123;<span class="string">'name'</span>:<span class="string">'name'</span>,<span class="string">'domain'</span>:<span class="string">'www.zhihu.com'</span>,<span class="string">'value'</span>:<span class="string">'germey'</span>&#125;)</span><br><span class="line">print(browser.get_cookies())</span><br><span class="line">browser.delete_all_cookies()</span><br><span class="line">print(browser.get_cookies())</span><br></pre></td></tr></table></figure>
+<h4 id="选项卡设置"><a href="#选项卡设置" class="headerlink" title="选项卡设置"></a>选项卡设置</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line">browser.get(<span class="string">'https://www.baidu.com'</span>)</span><br><span class="line">browser.execute_script(<span class="string">'window.open()'</span>) <span class="comment"># 打开一个新的标签</span></span><br><span class="line">print(browser.window_handles)</span><br><span class="line">browser.switch_to_window(browser.window_handles[<span class="number">1</span>]) <span class="comment"># 切换标签</span></span><br><span class="line">browser.get(<span class="string">'https://www.taobao.com'</span>)</span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">browser.switch_to_window(browser.window_handles[<span class="number">0</span>])</span><br><span class="line">browser.get(<span class="string">'https://python.org'</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="异常处理-2"><a href="#异常处理-2" class="headerlink" title="异常处理"></a>异常处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.common.exceptions <span class="keyword">import</span> TimeoutException, NoSuchElementException</span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    browser.get(<span class="string">'https://www.baidu.com'</span>)</span><br><span class="line"><span class="keyword">except</span> TimeoutException:</span><br><span class="line">    print(<span class="string">'请求超时'</span>)</span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    browser.find_element_by_id(<span class="string">'hello'</span>)</span><br><span class="line"><span class="keyword">except</span> NoSuchElementException:</span><br><span class="line">    print(<span class="string">'没有此id'</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    browser.close()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/scrapy笔记/" rel="next" title="scrapy笔记">
+                <i class="fa fa-chevron-left"></i> scrapy笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#爬虫的基本原理"><span class="nav-number">1.</span> <span class="nav-text">爬虫的基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是爬虫"><span class="nav-number">1.1.</span> <span class="nav-text">什么是爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#能抓怎样的数据"><span class="nav-number">1.2.</span> <span class="nav-text">能抓怎样的数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么解析"><span class="nav-number">1.3.</span> <span class="nav-text">怎么解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么解决javascript渲染的问题的"><span class="nav-number">1.4.</span> <span class="nav-text">怎么解决javascript渲染的问题的?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么保存数据"><span class="nav-number">1.5.</span> <span class="nav-text">怎么保存数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#urllib库详解"><span class="nav-number">2.</span> <span class="nav-text">urllib库详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是urllib（python内置的http库）"><span class="nav-number">2.1.</span> <span class="nav-text">什么是urllib（python内置的http库）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本用法"><span class="nav-number">2.2.</span> <span class="nav-text">基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GET请求（例子）"><span class="nav-number">2.2.1.</span> <span class="nav-text">GET请求（例子）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#POST请求（例子）"><span class="nav-number">2.2.2.</span> <span class="nav-text">POST请求（例子）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取数据并自动保存"><span class="nav-number">2.2.3.</span> <span class="nav-text">获取数据并自动保存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置超时时间"><span class="nav-number">2.2.4.</span> <span class="nav-text">设置超时时间</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#正常"><span class="nav-number">2.2.4.1.</span> <span class="nav-text">正常</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#报错"><span class="nav-number">2.2.4.2.</span> <span class="nav-text">报错</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#请求"><span class="nav-number">2.2.5.</span> <span class="nav-text">请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#响应"><span class="nav-number">2.2.6.</span> <span class="nav-text">响应</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代理"><span class="nav-number">2.2.7.</span> <span class="nav-text">代理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#异常处理"><span class="nav-number">2.2.8.</span> <span class="nav-text">异常处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#url解析"><span class="nav-number">2.2.9.</span> <span class="nav-text">url解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#re模块的基本使用"><span class="nav-number">3.</span> <span class="nav-text">re模块的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#常见的使用方法"><span class="nav-number">3.1.</span> <span class="nav-text">常见的使用方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bs4的基本使用方法"><span class="nav-number">4.</span> <span class="nav-text">bs4的基本使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#lxml的使用方法"><span class="nav-number">4.1.</span> <span class="nav-text">lxml的使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BeautifulSoup的使用方法"><span class="nav-number">4.2.</span> <span class="nav-text">BeautifulSoup的使用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标签选择器"><span class="nav-number">4.3.</span> <span class="nav-text">标签选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取名称"><span class="nav-number">4.3.1.</span> <span class="nav-text">获取名称</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取属性"><span class="nav-number">4.3.2.</span> <span class="nav-text">获取属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取内容"><span class="nav-number">4.3.3.</span> <span class="nav-text">获取内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#嵌套选择"><span class="nav-number">4.3.4.</span> <span class="nav-text">嵌套选择</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#子节点和子孙节点"><span class="nav-number">4.3.5.</span> <span class="nav-text">子节点和子孙节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#父节点和祖先节点"><span class="nav-number">4.3.6.</span> <span class="nav-text">父节点和祖先节点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#兄弟节点"><span class="nav-number">4.3.7.</span> <span class="nav-text">兄弟节点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标准选择器"><span class="nav-number">4.4.</span> <span class="nav-text">标准选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#根据标签"><span class="nav-number">4.4.1.</span> <span class="nav-text">根据标签</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据属性"><span class="nav-number">4.4.2.</span> <span class="nav-text">根据属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据文本"><span class="nav-number">4.4.3.</span> <span class="nav-text">根据文本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#返回单个元素"><span class="nav-number">4.4.4.</span> <span class="nav-text">返回单个元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css选择器"><span class="nav-number">4.5.</span> <span class="nav-text">css选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取属性-1"><span class="nav-number">4.5.1.</span> <span class="nav-text">获取属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取内容-1"><span class="nav-number">4.5.2.</span> <span class="nav-text">获取内容</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pyquery库的使用"><span class="nav-number">5.</span> <span class="nav-text">pyquery库的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本使用"><span class="nav-number">5.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找元素"><span class="nav-number">5.2.</span> <span class="nav-text">查找元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#子元素"><span class="nav-number">5.2.1.</span> <span class="nav-text">子元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#所有的"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">所有的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#直接的"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">直接的</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#子元素筛选"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">子元素筛选</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#父元素"><span class="nav-number">5.2.2.</span> <span class="nav-text">父元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#兄弟元素"><span class="nav-number">5.2.3.</span> <span class="nav-text">兄弟元素</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#遍历"><span class="nav-number">5.3.</span> <span class="nav-text">遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单个元素"><span class="nav-number">5.3.1.</span> <span class="nav-text">单个元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#返回迭代器"><span class="nav-number">5.3.2.</span> <span class="nav-text">返回迭代器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取信息"><span class="nav-number">5.4.</span> <span class="nav-text">获取信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取属性-2"><span class="nav-number">5.4.1.</span> <span class="nav-text">获取属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取文本"><span class="nav-number">5.4.2.</span> <span class="nav-text">获取文本</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取html"><span class="nav-number">5.4.3.</span> <span class="nav-text">获取html</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM操作"><span class="nav-number">5.5.</span> <span class="nav-text">DOM操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#addClass和removeClass"><span class="nav-number">5.5.1.</span> <span class="nav-text">addClass和removeClass</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#attr-和-css"><span class="nav-number">5.5.2.</span> <span class="nav-text">attr 和 css</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#remove-把中间a标签全部删除"><span class="nav-number">5.5.3.</span> <span class="nav-text">remove:把中间a标签全部删除</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#伪类选择器"><span class="nav-number">5.5.4.</span> <span class="nav-text">伪类选择器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#requests库的基本使用"><span class="nav-number">6.</span> <span class="nav-text">requests库的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">6.1.</span> <span class="nav-text">实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#所有请求方式"><span class="nav-number">6.2.</span> <span class="nav-text">所有请求方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取数据"><span class="nav-number">6.3.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应-1"><span class="nav-number">6.4.</span> <span class="nav-text">响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#高级操作"><span class="nav-number">6.5.</span> <span class="nav-text">高级操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文件上传"><span class="nav-number">6.5.1.</span> <span class="nav-text">文件上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取cookie"><span class="nav-number">6.5.2.</span> <span class="nav-text">获取cookie</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#会话维持"><span class="nav-number">6.5.3.</span> <span class="nav-text">会话维持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#代理设置"><span class="nav-number">6.5.4.</span> <span class="nav-text">代理设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#超时设置"><span class="nav-number">6.5.5.</span> <span class="nav-text">超时设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#认证设置"><span class="nav-number">6.5.6.</span> <span class="nav-text">认证设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#异常处理-1"><span class="nav-number">6.5.7.</span> <span class="nav-text">异常处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#selenium的基本使用"><span class="nav-number">7.</span> <span class="nav-text">selenium的基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本使用-1"><span class="nav-number">7.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声明浏览器对象"><span class="nav-number">7.2.</span> <span class="nav-text">声明浏览器对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#访问页面"><span class="nav-number">7.3.</span> <span class="nav-text">访问页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找元素-1"><span class="nav-number">7.4.</span> <span class="nav-text">查找元素</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单个元素-1"><span class="nav-number">7.4.1.</span> <span class="nav-text">单个元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#第一种"><span class="nav-number">7.4.1.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第二种"><span class="nav-number">7.4.1.2.</span> <span class="nav-text">第二种</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多个元素"><span class="nav-number">7.4.2.</span> <span class="nav-text">多个元素</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#第一种-1"><span class="nav-number">7.4.2.1.</span> <span class="nav-text">第一种</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#第二种-1"><span class="nav-number">7.4.2.2.</span> <span class="nav-text">第二种</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#元素交互操作"><span class="nav-number">7.5.</span> <span class="nav-text">元素交互操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交互动作"><span class="nav-number">7.6.</span> <span class="nav-text">交互动作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行js"><span class="nav-number">7.7.</span> <span class="nav-text">执行js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取元素信息"><span class="nav-number">7.8.</span> <span class="nav-text">获取元素信息</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取属性-3"><span class="nav-number">7.8.1.</span> <span class="nav-text">获取属性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取文本值"><span class="nav-number">7.8.2.</span> <span class="nav-text">获取文本值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取id，位置，标签名，大小"><span class="nav-number">7.8.3.</span> <span class="nav-text">获取id，位置，标签名，大小</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frame-进去和出来"><span class="nav-number">7.9.</span> <span class="nav-text">Frame:进去和出来</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#等待"><span class="nav-number">7.10.</span> <span class="nav-text">等待</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#隐式等待"><span class="nav-number">7.10.1.</span> <span class="nav-text">隐式等待</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#显示等待"><span class="nav-number">7.10.2.</span> <span class="nav-text">显示等待</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前进和后退"><span class="nav-number">7.11.</span> <span class="nav-text">前进和后退</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置cookie"><span class="nav-number">7.12.</span> <span class="nav-text">设置cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选项卡设置"><span class="nav-number">7.13.</span> <span class="nav-text">选项卡设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异常处理-2"><span class="nav-number">7.14.</span> <span class="nav-text">异常处理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
