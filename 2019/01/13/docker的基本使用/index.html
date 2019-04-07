@@ -478,29 +478,29 @@
 <p>新安装的系统可能会没有curl服务,需要下载: </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update $ sudo apt-get install curl</span><br></pre></td></tr></table></figure>
 <p>顺便提及,docker应用的启动需要root的管理员权限,最好在安装之前获取root权限,啰嗦一下如何方便地将用户转为root角色 </p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo su</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo su</span><br></pre></td></tr></table></figure>
 <p>然后根据提示输入当前用户密码即可.</p>
 <p>下载好之后可以测试,下载hello-world或者busybox测试一下.</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker <span class="keyword">run</span><span class="bash"> hello-world</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run hello-world</span><br></pre></td></tr></table></figure>
 <p>docker run是docker的运行命令.后面是容器名称,如果本地没有该命令,则docker服务会从docker仓库下载该容器,然后运行.　 </p>
 <p>测试打印 hello world就说明成功了.可用docker info查看安装信息. </p>
 <p>最好使用新版本的Ubuntu安装docker.如果是12.04或者13.04版本的则需要先安装一些依赖性的包 </p>
 <p>先要升级内核(同样先获取root权限) </p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="builtin-name">get</span> update</span><br><span class="line">sudo apt-<span class="builtin-name">get</span> install linux-image-generic-lts-raring linux-headers-generic-lts-raring</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install linux-image-generic-lts-raring linux-headers-generic-lts-raring</span><br></pre></td></tr></table></figure>
 <p>　Docker有deb格式的安装包 </p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver<span class="selector-class">.ubuntu</span><span class="selector-class">.com</span> --recv-keys <span class="number">36</span>A1D7869245C8950F966E92D8576A8BA88D21E9</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9</span><br></pre></td></tr></table></figure>
 <p>后把Docker的库添加到apt的源列表中，更新并安装lxc-docker包。 </p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo <span class="keyword">sh</span> -<span class="keyword">c</span> <span class="comment">"echo deb http://get.docker.io/ubuntu docker main\</span></span><br><span class="line">&gt; /etc/apt/sources.<span class="keyword">list</span>.d/docker.<span class="keyword">list</span><span class="comment">"</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> <span class="keyword">update</span></span><br><span class="line">sudo apt-<span class="built_in">get</span> install lxc-docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c &quot;echo deb http://get.docker.io/ubuntu docker main\</span><br><span class="line">&gt; /etc/apt/sources.list.d/docker.list&quot;</span><br><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install lxc-docker</span><br></pre></td></tr></table></figure>
 <p>如果有警告信息,yes即可 </p>
 <h4 id="2-centos系统和rhel"><a href="#2-centos系统和rhel" class="headerlink" title="2.centos系统和rhel"></a>2.centos系统和rhel</h4><p>这两个系统在新的版本里面都自带了docker,只不过docker版本不一定是最新的,我记得centos7里面的自带的docker是0.9,当前最新docker版本已经到了0.11,不过不会影响试用. </p>
 <p>系统安装需要保证内核版本在3.10以上,低于这个版本的理论上也可以安装,只不过需要大牛去研究一番,我们直接升级内核 </p>
 <p>yum安装带aufs模块的3.10内核 </p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> /etc/yum.repos.<span class="keyword">d</span> </span><br><span class="line">wget http:<span class="comment">//www.hop5.in/yum/el6/hop5.repo</span></span><br><span class="line">yum install kernel-<span class="keyword">ml</span>-aufs kernel-<span class="keyword">ml</span>-aufs-devel</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/yum.repos.d </span><br><span class="line">wget http://www.hop5.in/yum/el6/hop5.repo</span><br><span class="line">yum install kernel-ml-aufs kernel-ml-aufs-devel</span><br></pre></td></tr></table></figure>
 <p>修改grub的主配置文件/etc/grub.conf，设置default=0，表示第一个title下的内容为默认启动的kernel（一般新安装的内核在第一个位置）,之后重启. </p>
 <p>执行安装: </p>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL http<span class="variable">s:</span>//<span class="built_in">get</span>.docker.<span class="keyword">com</span>/ | <span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https://get.docker.com/ | sh</span><br></pre></td></tr></table></figure>
 <p>启动服务:</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo<span class="built_in"> service </span>docker start</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service docker start</span><br></pre></td></tr></table></figure>
 <p>如果是系统版本7以上,已经自带docker包,直接运行: </p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install docker</span><br></pre></td></tr></table></figure>
       
@@ -622,7 +622,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">44</span>
+                    <span class="site-state-item-count">47</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -665,7 +665,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -722,7 +726,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
