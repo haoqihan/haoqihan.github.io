@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="python是一个解释强类型语言 python的优缺点 胶水语言，轮子多，应用广泛 语言灵活，生产力高 性能问题，代码维护问题，python2、3兼容问题  什么是鸭子类型 关注点是对象的行为，而不是类型（duck typing）  什么是monkey patch 所谓的monkey patch 就是运行时替换 比如gevent库需要修改socket from gevent import monk">
+<meta name="keywords" content="python面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python语言基础">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/python语言基础/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="python是一个解释强类型语言 python的优缺点 胶水语言，轮子多，应用广泛 语言灵活，生产力高 性能问题，代码维护问题，python2、3兼容问题  什么是鸭子类型 关注点是对象的行为，而不是类型（duck typing）  什么是monkey patch 所谓的monkey patch 就是运行时替换 比如gevent库需要修改socket from gevent import monk">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?raw=true">
+<meta property="og:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C.png?raw=true">
+<meta property="og:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%9F%BA%E4%BA%8E%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E5%8D%8F%E7%A8%8B.png?raw=true">
+<meta property="og:updated_time" content="2019-04-18T03:36:18.849Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python语言基础">
+<meta name="twitter:description" content="python是一个解释强类型语言 python的优缺点 胶水语言，轮子多，应用广泛 语言灵活，生产力高 性能问题，代码维护问题，python2、3兼容问题  什么是鸭子类型 关注点是对象的行为，而不是类型（duck typing）  什么是monkey patch 所谓的monkey patch 就是运行时替换 比如gevent库需要修改socket from gevent import monk">
+<meta name="twitter:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?raw=true">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/16/python语言基础/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>python语言基础 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/python语言基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">python语言基础
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-16 19:23:10" itemprop="dateCreated datePublished" datetime="2019-04-16T19:23:10+08:00">2019-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 11:36:18" itemprop="dateModified" datetime="2019-04-18T11:36:18+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/python面试/" itemprop="url" rel="index"><span itemprop="name">python面试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>python是一个解释强类型语言</p>
+<h4 id="python的优缺点"><a href="#python的优缺点" class="headerlink" title="python的优缺点"></a>python的优缺点</h4><ul>
+<li>胶水语言，轮子多，应用广泛</li>
+<li>语言灵活，生产力高</li>
+<li>性能问题，代码维护问题，python2、3兼容问题</li>
+</ul>
+<h4 id="什么是鸭子类型"><a href="#什么是鸭子类型" class="headerlink" title="什么是鸭子类型"></a>什么是鸭子类型</h4><ul>
+<li>关注点是对象的行为，而不是类型（duck typing）</li>
+</ul>
+<h4 id="什么是monkey-patch"><a href="#什么是monkey-patch" class="headerlink" title="什么是monkey patch"></a>什么是monkey patch</h4><ul>
+<li>所谓的monkey patch 就是运行时替换</li>
+<li>比如gevent库需要修改socket</li>
+<li>from gevent import monkey;monkey.patch_select()</li>
+</ul>
+<h4 id="什么是自省？"><a href="#什么是自省？" class="headerlink" title="什么是自省？"></a>什么是自省？</h4><ul>
+<li>使用id，type，isinstance() 判断一个对象的类型</li>
+</ul>
+<h4 id="python2与python3相关问题"><a href="#python2与python3相关问题" class="headerlink" title="python2与python3相关问题"></a>python2与python3相关问题</h4><h5 id="python2与3的差异"><a href="#python2与3的差异" class="headerlink" title="python2与3的差异"></a>python2与3的差异</h5><ul>
+<li>print  在2里面是一个关键字，在3中是一个函数</li>
+<li>编码问题： python3中没有unicode对象，默认str就是unicode，python2有两种 一种是str（byte）和unicode</li>
+<li>除法问题： python3除号返回浮点数</li>
+</ul>
+<h5 id="python3的改进"><a href="#python3的改进" class="headerlink" title="python3的改进"></a>python3的改进</h5><ul>
+<li>类型注解（type hint） 帮助IDE实现类型检查</li>
+<li>优化的super（）方便直接调用父类函数<ul>
+<li>python2 super(A,self)：python2需要2个参数</li>
+<li>python3  super() : 可以直接调用</li>
+</ul>
+</li>
+<li>高级解包操作 a，b，*c = range(10）</li>
+<li>限定关键字参数<ul>
+<li>def he(a,b,*,c):return a,b,c</li>
+</ul>
+</li>
+<li>python3 重新跑出异常不会丢失栈信息</li>
+<li>一切返回迭代器 range zip map dict.values etc.are all, iterators</li>
+</ul>
+<h5 id="python3新增特性"><a href="#python3新增特性" class="headerlink" title="python3新增特性"></a>python3新增特性</h5><ul>
+<li>yield from 链接子生成器</li>
+<li>asyncio内置库，async/await 原生协程支持异步编程</li>
+<li>新的内置库：enum，mock，asyncio，ipaddress，concurrent.futures等</li>
+</ul>
+<h5 id="python3改进"><a href="#python3改进" class="headerlink" title="python3改进"></a>python3改进</h5><ul>
+<li>生成的pyc文件统一放到<em>pycache</em></li>
+<li>一些内置库的修改，urllib，selector等</li>
+</ul>
+<h5 id="兼容2-3的工具"><a href="#兼容2-3的工具" class="headerlink" title="兼容2/3的工具"></a>兼容2/3的工具</h5><ul>
+<li>six模块</li>
+<li>2to3等工具转换代码</li>
+<li>__future__</li>
+</ul>
+<h4 id="python函数常考题"><a href="#python函数常考题" class="headerlink" title="python函数常考题"></a>python函数常考题</h4><h5 id="python的参数传递"><a href="#python的参数传递" class="headerlink" title="python的参数传递"></a>python的参数传递</h5><ul>
+<li>python的参数传递方式，既不是引用传递也不是值传递，他是对象引用传递</li>
+</ul>
+<h5 id="python如何传递参数"><a href="#python如何传递参数" class="headerlink" title="python如何传递参数"></a>python如何传递参数</h5><ul>
+<li>一个混淆的问题</li>
+<li>传递值还是引用呢，都不是，唯一支持的参数传递是共享传参</li>
+<li>共享传参：函数形参获得实参中各个引用的副本</li>
+</ul>
+<h5 id="python的可变和不可变对象"><a href="#python的可变和不可变对象" class="headerlink" title="python的可变和不可变对象"></a>python的可变和不可变对象</h5><ul>
+<li>不可变对象：<ul>
+<li>bool，int，float，tuple，str，frozenset</li>
+</ul>
+</li>
+<li>可变对象<ul>
+<li>list、set、dict</li>
+</ul>
+</li>
+<li>默认参数只计算一次</li>
+</ul>
+<h5 id="args-和-kwargs是什么"><a href="#args-和-kwargs是什么" class="headerlink" title="*args 和 **kwargs是什么"></a>*args 和 **kwargs是什么</h5><ul>
+<li>用来处理可变参数</li>
+<li>*args 被打包成tuple</li>
+<li>**kwargs 被打包成dict</li>
+</ul>
+<h4 id="python的异常"><a href="#python的异常" class="headerlink" title="python的异常"></a>python的异常</h4><h5 id="什么时候需要捕获处理异常，看python内置异常的类型"><a href="#什么时候需要捕获处理异常，看python内置异常的类型" class="headerlink" title="什么时候需要捕获处理异常，看python内置异常的类型"></a>什么时候需要捕获处理异常，看python内置异常的类型</h5><ul>
+<li>网络请求（超时，链接错误等）</li>
+<li>资源访问（权限问题，资源不存在）</li>
+<li>代码逻辑（越界访问，keyError等）</li>
+</ul>
+<h5 id="如何自定义自己的异常，为什么需要定义自己的异常"><a href="#如何自定义自己的异常，为什么需要定义自己的异常" class="headerlink" title="如何自定义自己的异常，为什么需要定义自己的异常"></a>如何自定义自己的异常，为什么需要定义自己的异常</h5><ul>
+<li>继承Exception实现自定义异常（）</li>
+<li>给异常加上一些附加信息</li>
+<li>处理一些业务相关的特定异常（raise MyException）</li>
+</ul>
+<p><img src="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.png?raw=true" alt=""></p>
+<h4 id="python性能分析与优化，GIL常见考题"><a href="#python性能分析与优化，GIL常见考题" class="headerlink" title="python性能分析与优化，GIL常见考题"></a>python性能分析与优化，GIL常见考题</h4><h5 id="GIL锁带来的缺点？"><a href="#GIL锁带来的缺点？" class="headerlink" title="GIL锁带来的缺点？"></a>GIL锁带来的缺点？</h5><ul>
+<li>限制了程序的多核执行</li>
+<li>同一个时间只能有一个线程执行字节码</li>
+<li>CPU密集程序难以利用多核优势</li>
+<li>IO期间会释放GIL，对IO密集程序影响不大</li>
+</ul>
+<h5 id="如何规避GIL影响"><a href="#如何规避GIL影响" class="headerlink" title="如何规避GIL影响"></a>如何规避GIL影响</h5><ul>
+<li>区分CPU和IO密集程序</li>
+<li>CPU密集可以使用多进程+进程池</li>
+<li>IO密集使用多线程、协程</li>
+<li>cython扩展</li>
+</ul>
+<h5 id="为什么有了GIL还要关注线程安全"><a href="#为什么有了GIL还要关注线程安全" class="headerlink" title="为什么有了GIL还要关注线程安全"></a>为什么有了GIL还要关注线程安全</h5><ul>
+<li>python中什么操作才是原子的，一步到位执行完的</li>
+<li>一个操作如果是一个字节码指令可以完成的，这就是原子的</li>
+<li>原子操作是可以保证线程安全的</li>
+<li>使用dis操作来分析字节码</li>
+</ul>
+<p><img src="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C.png?raw=true" alt=""></p>
+<h5 id="如何剖析程序性能"><a href="#如何剖析程序性能" class="headerlink" title="如何剖析程序性能"></a>如何剖析程序性能</h5><ul>
+<li>使用各种profile工具（内置或第三方）</li>
+<li>二八定律，大部分时间好事在少量代码之上</li>
+<li>内置的profile、cprofile等工具</li>
+<li>使用pyflame（uber开源）的火焰图工具</li>
+</ul>
+<h5 id="服务端性能优化措施"><a href="#服务端性能优化措施" class="headerlink" title="服务端性能优化措施"></a>服务端性能优化措施</h5><ul>
+<li>web应用一般语言不会成为瓶颈</li>
+<li>数据结构与算法优化</li>
+<li>数据库层：索引优化，慢查询消除，批量操作减少IO，NoSql</li>
+<li>网络IO：批量操作，pipline操作 减少IO</li>
+<li>缓存：使用内存数据库redis、memcached</li>
+<li>异步： asyncio，celery</li>
+<li>并发：gevent、多线程</li>
+</ul>
+<h4 id="什么是生成器"><a href="#什么是生成器" class="headerlink" title="什么是生成器"></a>什么是生成器</h4><ul>
+<li>生成器就是可以生成值的函数</li>
+<li>当一个函数里有了yield关键字就成了生成器</li>
+<li>生成器可以挂起来执行并且保持当前执行的状态</li>
+</ul>
+<h4 id="基于生成器的协程"><a href="#基于生成器的协程" class="headerlink" title="基于生成器的协程"></a>基于生成器的协程</h4><ul>
+<li>python3之前没有原生的协程，只有基于生成器的协程</li>
+<li>生成器可以通过yield暂停执行和产出数据</li>
+<li>同时支持send（）向生成器发送数据和throw（）向生成器抛出异常</li>
+</ul>
+<p><img src="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%9F%BA%E4%BA%8E%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E5%8D%8F%E7%A8%8B.png?raw=true" alt=""></p>
+<h4 id="协成的注意点"><a href="#协成的注意点" class="headerlink" title="协成的注意点"></a>协成的注意点</h4><ul>
+<li>协成需要使用send（None）或者next（coroutine）来预激才能启动</li>
+<li>在yield处协成会暂停执行</li>
+<li>单独的yield value会产出值给调用方</li>
+<li>可以通过coroutine.send（value） 来给协成发送值，发送的值或赋值给yield表达式左边的值</li>
+<li>协程执行完成后没有遇到下一个yield语句会抛出Stoplteration</li>
+<li>python3.5引入async、await支持原生协成（native coroutine）</li>
+</ul>
+<h4 id="python-单元测试"><a href="#python-单元测试" class="headerlink" title="python 单元测试"></a>python 单元测试</h4><h5 id="unit-Testing"><a href="#unit-Testing" class="headerlink" title="unit Testing"></a>unit Testing</h5><ul>
+<li>针对程序模块进行正确性检验</li>
+<li>一个函数，一个类进行验证</li>
+<li>自底向上保证程序的正确性</li>
+</ul>
+<h5 id="三无代码不可取（无文档，无注释，无单测）"><a href="#三无代码不可取（无文档，无注释，无单测）" class="headerlink" title="三无代码不可取（无文档，无注释，无单测）"></a>三无代码不可取（无文档，无注释，无单测）</h5><ul>
+<li>保证代码逻辑的正确性，（甚至有些采用测试驱动开发（TDD））</li>
+<li>单测影响设计，易测的代码往往是高内聚低耦合的</li>
+<li>回归测试，防止改一处整个服务不可用</li>
+</ul>
+<h5 id="单元测试相关库"><a href="#单元测试相关库" class="headerlink" title="单元测试相关库"></a>单元测试相关库</h5><ul>
+<li>nose/pytest 较为常用</li>
+<li>mock 模块用来模拟网络请求等</li>
+<li>coverage 统计测试覆盖率</li>
+</ul>
+<p>​    </p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python面试/" rel="tag"># python面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/08/nlp自然语言处理/" rel="next" title="nlp自然语言处理">
+                <i class="fa fa-chevron-left"></i> nlp自然语言处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/16/python面试流程/" rel="prev" title="python面试流程">
+                python面试流程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#python的优缺点"><span class="nav-number">1.</span> <span class="nav-text">python的优缺点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是鸭子类型"><span class="nav-number">2.</span> <span class="nav-text">什么是鸭子类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是monkey-patch"><span class="nav-number">3.</span> <span class="nav-text">什么是monkey patch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是自省？"><span class="nav-number">4.</span> <span class="nav-text">什么是自省？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python2与python3相关问题"><span class="nav-number">5.</span> <span class="nav-text">python2与python3相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#python2与3的差异"><span class="nav-number">5.1.</span> <span class="nav-text">python2与3的差异</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python3的改进"><span class="nav-number">5.2.</span> <span class="nav-text">python3的改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python3新增特性"><span class="nav-number">5.3.</span> <span class="nav-text">python3新增特性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python3改进"><span class="nav-number">5.4.</span> <span class="nav-text">python3改进</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#兼容2-3的工具"><span class="nav-number">5.5.</span> <span class="nav-text">兼容2/3的工具</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python函数常考题"><span class="nav-number">6.</span> <span class="nav-text">python函数常考题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#python的参数传递"><span class="nav-number">6.1.</span> <span class="nav-text">python的参数传递</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python如何传递参数"><span class="nav-number">6.2.</span> <span class="nav-text">python如何传递参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#python的可变和不可变对象"><span class="nav-number">6.3.</span> <span class="nav-text">python的可变和不可变对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#args-和-kwargs是什么"><span class="nav-number">6.4.</span> <span class="nav-text">*args 和 **kwargs是什么</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python的异常"><span class="nav-number">7.</span> <span class="nav-text">python的异常</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#什么时候需要捕获处理异常，看python内置异常的类型"><span class="nav-number">7.1.</span> <span class="nav-text">什么时候需要捕获处理异常，看python内置异常的类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何自定义自己的异常，为什么需要定义自己的异常"><span class="nav-number">7.2.</span> <span class="nav-text">如何自定义自己的异常，为什么需要定义自己的异常</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python性能分析与优化，GIL常见考题"><span class="nav-number">8.</span> <span class="nav-text">python性能分析与优化，GIL常见考题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GIL锁带来的缺点？"><span class="nav-number">8.1.</span> <span class="nav-text">GIL锁带来的缺点？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何规避GIL影响"><span class="nav-number">8.2.</span> <span class="nav-text">如何规避GIL影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#为什么有了GIL还要关注线程安全"><span class="nav-number">8.3.</span> <span class="nav-text">为什么有了GIL还要关注线程安全</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#如何剖析程序性能"><span class="nav-number">8.4.</span> <span class="nav-text">如何剖析程序性能</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#服务端性能优化措施"><span class="nav-number">8.5.</span> <span class="nav-text">服务端性能优化措施</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是生成器"><span class="nav-number">9.</span> <span class="nav-text">什么是生成器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于生成器的协程"><span class="nav-number">10.</span> <span class="nav-text">基于生成器的协程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协成的注意点"><span class="nav-number">11.</span> <span class="nav-text">协成的注意点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#python-单元测试"><span class="nav-number">12.</span> <span class="nav-text">python 单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#unit-Testing"><span class="nav-number">12.1.</span> <span class="nav-text">unit Testing</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三无代码不可取（无文档，无注释，无单测）"><span class="nav-number">12.2.</span> <span class="nav-text">三无代码不可取（无文档，无注释，无单测）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#单元测试相关库"><span class="nav-number">12.3.</span> <span class="nav-text">单元测试相关库</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

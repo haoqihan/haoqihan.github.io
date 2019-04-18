@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="linux常考命令tldr：类似于man命令 1pip3 install tldr 文件、目录操作 chown chmod chgrp ls rm cd cp mv touch rename ln（软连接和硬链接） locate find grep 定位查找和搜索  文件或日志查看工具 编辑器 vi nano cat head tail 查看文件 more less 交互式查看文件  进程操作的命">
+<meta name="keywords" content="python面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="http://yoursite.com/2019/04/16/操作系统/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="linux常考命令tldr：类似于man命令 1pip3 install tldr 文件、目录操作 chown chmod chgrp ls rm cd cp mv touch rename ln（软连接和硬链接） locate find grep 定位查找和搜索  文件或日志查看工具 编辑器 vi nano cat head tail 查看文件 more less 交互式查看文件  进程操作的命">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6.png?raw=true">
+<meta property="og:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%88%86%E6%AE%B5%E6%9C%BA%E5%88%B6.png?raw=true">
+<meta property="og:updated_time" content="2019-04-18T03:14:35.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统">
+<meta name="twitter:description" content="linux常考命令tldr：类似于man命令 1pip3 install tldr 文件、目录操作 chown chmod chgrp ls rm cd cp mv touch rename ln（软连接和硬链接） locate find grep 定位查找和搜索  文件或日志查看工具 编辑器 vi nano cat head tail 查看文件 more less 交互式查看文件  进程操作的命">
+<meta name="twitter:image" content="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6.png?raw=true">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/16/操作系统/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>操作系统 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/16/操作系统/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">操作系统
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-16 19:26:27" itemprop="dateCreated datePublished" datetime="2019-04-16T19:26:27+08:00">2019-04-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-18 11:14:35" itemprop="dateModified" datetime="2019-04-18T11:14:35+08:00">2019-04-18</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/python面试/" itemprop="url" rel="index"><span itemprop="name">python面试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="linux常考命令"><a href="#linux常考命令" class="headerlink" title="linux常考命令"></a>linux常考命令</h3><p>tldr：类似于man命令</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install tldr</span><br></pre></td></tr></table></figure>
+<h4 id="文件、目录操作"><a href="#文件、目录操作" class="headerlink" title="文件、目录操作"></a>文件、目录操作</h4><ul>
+<li>chown chmod chgrp</li>
+<li>ls rm cd cp mv touch rename ln（软连接和硬链接）</li>
+<li>locate find grep 定位查找和搜索</li>
+</ul>
+<h4 id="文件或日志查看工具"><a href="#文件或日志查看工具" class="headerlink" title="文件或日志查看工具"></a>文件或日志查看工具</h4><ul>
+<li>编辑器 vi nano</li>
+<li>cat head tail 查看文件</li>
+<li>more less 交互式查看文件</li>
+</ul>
+<h4 id="进程操作的命令"><a href="#进程操作的命令" class="headerlink" title="进程操作的命令"></a>进程操作的命令</h4><ul>
+<li>ps 查看进程</li>
+<li>kill 杀死进程</li>
+<li>top htop 监控进程</li>
+</ul>
+<h4 id="内存相关命令"><a href="#内存相关命令" class="headerlink" title="内存相关命令"></a>内存相关命令</h4><ul>
+<li>free 查看内存</li>
+</ul>
+<h4 id="网络操作命令"><a href="#网络操作命令" class="headerlink" title="网络操作命令"></a>网络操作命令</h4><ul>
+<li>ifconfig  查看网卡信息</li>
+<li>lsof、netstat 查看端口信息</li>
+<li>ssh scp 远程登录和复制 tcpdump 抓包</li>
+</ul>
+<h4 id="常见用户、组操作命令"><a href="#常见用户、组操作命令" class="headerlink" title="常见用户、组操作命令"></a>常见用户、组操作命令</h4><ul>
+<li>useradd 、usermod 增加和修改用户</li>
+<li>groupadd、groupmod 增加和修改组</li>
+</ul>
+<h3 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h3><h4 id="进程与线程的区别"><a href="#进程与线程的区别" class="headerlink" title="进程与线程的区别"></a>进程与线程的区别</h4><ul>
+<li>进程是对运行时程序的封装，是系统资源调度和分配的基本单位</li>
+<li>线程是进程的子任务，cpu调度的基本单位，实现进程内并发</li>
+<li>一个进程可以包含多个线程，线程依赖进程存在，并共享进程内存</li>
+</ul>
+<h4 id="什么是线程安全"><a href="#什么是线程安全" class="headerlink" title="什么是线程安全"></a>什么是线程安全</h4><p><strong>python那些操作是线程安全的？</strong></p>
+<ul>
+<li>一个操作可以在多线程的环境中安全使用，获取正确结果</li>
+<li>线程安全的操作就好比线程是顺序执行，而不是并发执行的</li>
+<li>一般涉及到写操作数据需要考虑如何让多个线程安全访问数据</li>
+</ul>
+<h4 id="线程同步的方式"><a href="#线程同步的方式" class="headerlink" title="线程同步的方式"></a>线程同步的方式</h4><ul>
+<li>互斥量（锁） ：通过互斥机制防止多线程同时访问公共资源</li>
+<li>信号量：控制同一时刻多线程访问同一资源的线程数</li>
+<li>事件：通过通知的方式保持多个线程同步</li>
+</ul>
+<h4 id="进程之间通信的方式"><a href="#进程之间通信的方式" class="headerlink" title="进程之间通信的方式"></a>进程之间通信的方式</h4><ul>
+<li>管道 匿名管道 有名管道</li>
+<li>信号 比如ctrl + c 产生sigint 程序终止信号</li>
+<li>消息队列</li>
+<li>共享内存</li>
+<li>信号量</li>
+<li>套接字（socket）</li>
+</ul>
+<h3 id="linux内存相关"><a href="#linux内存相关" class="headerlink" title="linux内存相关"></a>linux内存相关</h3><h4 id="什么是分页机制"><a href="#什么是分页机制" class="headerlink" title="什么是分页机制"></a>什么是分页机制</h4><ul>
+<li>逻辑地址和物理地址分离的内存分配管理方案</li>
+<li>程序的逻辑地址划分为固定大小的页</li>
+<li>物理地址划分为同样大小的帧</li>
+<li>通过页表对应逻辑地址和物理地址</li>
+</ul>
+<p><img src="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%88%86%E9%A1%B5%E6%9C%BA%E5%88%B6.png?raw=true" alt=""></p>
+<h4 id="什么是分段机制"><a href="#什么是分段机制" class="headerlink" title="什么是分段机制"></a>什么是分段机制</h4><ul>
+<li>分段为了满足代码的一些逻辑需求</li>
+<li>数据共享 数据保护 动态链接</li>
+<li>通过段表实现逻辑地址和物理地址的映射关系</li>
+<li>每个段内部都是连续的内存分配，段和段之间是离散分配的</li>
+</ul>
+<p><img src="https://github.com/haoqihan/gallery/blob/master/python%E9%9D%A2%E8%AF%95/%E5%88%86%E6%AE%B5%E6%9C%BA%E5%88%B6.png?raw=true" alt=""></p>
+<h4 id="分页和分段的区别"><a href="#分页和分段的区别" class="headerlink" title="分页和分段的区别"></a>分页和分段的区别</h4><ul>
+<li>页是出于内存利用率的角度提出的离散分配机制</li>
+<li>段是出于用户角度，用于数据保护，数据隔离等用途的管理机制</li>
+<li>页的大小是固定的，操作系统决定，段的大小不确定，用户程序决定</li>
+</ul>
+<h4 id="什么是虚拟内存"><a href="#什么是虚拟内存" class="headerlink" title="什么是虚拟内存"></a>什么是虚拟内存</h4><ul>
+<li>通过把部分暂时不用的内存信息放在硬盘上</li>
+<li>局部性原理，程序运行时只有部分必要信息装入内存</li>
+<li>内存中暂时不需要的内容放到硬盘上</li>
+<li>系统似乎提供了比实际内存大的多的容量，称之为虚拟内存</li>
+</ul>
+<h4 id="什么是内存抖动（颠簸）"><a href="#什么是内存抖动（颠簸）" class="headerlink" title="什么是内存抖动（颠簸）"></a>什么是内存抖动（颠簸）</h4><ul>
+<li>本质是频繁的页调度行为</li>
+<li>频繁的页调度，进程不断产生缺页终端</li>
+<li>置换一个页，又不断再次需要这个页</li>
+<li>运行程序太多，页面替换策略不好，终止进程或者增加物理内存</li>
+</ul>
+<h3 id="python垃圾回收机制的原理"><a href="#python垃圾回收机制的原理" class="headerlink" title="python垃圾回收机制的原理"></a>python垃圾回收机制的原理</h3><ul>
+<li>引用计数为主（缺点：循环引用）</li>
+<li>引入标记清除和分代回收解决引用计数的问题</li>
+<li>引用计数为主+标记清除和分代回收为辅</li>
+</ul>
+<h4 id="什么时候引用计数增加？"><a href="#什么时候引用计数增加？" class="headerlink" title="什么时候引用计数增加？"></a>什么时候引用计数增加？</h4><ul>
+<li>对象被创建 a=1</li>
+<li>对象被引用 b = a</li>
+<li>对象作为参数被传递 func（a）</li>
+<li>对象存储在容器中 l = 【a】</li>
+</ul>
+<h4 id="什么时候引用计数减少？"><a href="#什么时候引用计数减少？" class="headerlink" title="什么时候引用计数减少？"></a>什么时候引用计数减少？</h4><ul>
+<li>显示使用del a</li>
+<li>引用指向别的对象 b = None</li>
+<li>离开的对象的作用域比如函数执行结束</li>
+<li>从一个容器移除对象或销毁容器</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python面试/" rel="tag"># python面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/16/python系统设计/" rel="next" title="python系统设计">
+                <i class="fa fa-chevron-left"></i> python系统设计
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">57</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#linux常考命令"><span class="nav-number">1.</span> <span class="nav-text">linux常考命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件、目录操作"><span class="nav-number">1.1.</span> <span class="nav-text">文件、目录操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件或日志查看工具"><span class="nav-number">1.2.</span> <span class="nav-text">文件或日志查看工具</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程操作的命令"><span class="nav-number">1.3.</span> <span class="nav-text">进程操作的命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内存相关命令"><span class="nav-number">1.4.</span> <span class="nav-text">内存相关命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络操作命令"><span class="nav-number">1.5.</span> <span class="nav-text">网络操作命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常见用户、组操作命令"><span class="nav-number">1.6.</span> <span class="nav-text">常见用户、组操作命令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程与线程"><span class="nav-number">2.</span> <span class="nav-text">进程与线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程与线程的区别"><span class="nav-number">2.1.</span> <span class="nav-text">进程与线程的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是线程安全"><span class="nav-number">2.2.</span> <span class="nav-text">什么是线程安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程同步的方式"><span class="nav-number">2.3.</span> <span class="nav-text">线程同步的方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进程之间通信的方式"><span class="nav-number">2.4.</span> <span class="nav-text">进程之间通信的方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#linux内存相关"><span class="nav-number">3.</span> <span class="nav-text">linux内存相关</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是分页机制"><span class="nav-number">3.1.</span> <span class="nav-text">什么是分页机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是分段机制"><span class="nav-number">3.2.</span> <span class="nav-text">什么是分段机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页和分段的区别"><span class="nav-number">3.3.</span> <span class="nav-text">分页和分段的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是虚拟内存"><span class="nav-number">3.4.</span> <span class="nav-text">什么是虚拟内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是内存抖动（颠簸）"><span class="nav-number">3.5.</span> <span class="nav-text">什么是内存抖动（颠簸）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python垃圾回收机制的原理"><span class="nav-number">4.</span> <span class="nav-text">python垃圾回收机制的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候引用计数增加？"><span class="nav-number">4.1.</span> <span class="nav-text">什么时候引用计数增加？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么时候引用计数减少？"><span class="nav-number">4.2.</span> <span class="nav-text">什么时候引用计数减少？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

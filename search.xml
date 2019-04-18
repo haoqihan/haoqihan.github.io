@@ -1,6 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[操作系统]]></title>
+    <url>%2F2019%2F04%2F16%2F%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%2F</url>
+    <content type="text"><![CDATA[linux常考命令tldr：类似于man命令 1pip3 install tldr 文件、目录操作 chown chmod chgrp ls rm cd cp mv touch rename ln（软连接和硬链接） locate find grep 定位查找和搜索 文件或日志查看工具 编辑器 vi nano cat head tail 查看文件 more less 交互式查看文件 进程操作的命令 ps 查看进程 kill 杀死进程 top htop 监控进程 内存相关命令 free 查看内存 网络操作命令 ifconfig 查看网卡信息 lsof、netstat 查看端口信息 ssh scp 远程登录和复制 tcpdump 抓包 常见用户、组操作命令 useradd 、usermod 增加和修改用户 groupadd、groupmod 增加和修改组 进程与线程进程与线程的区别 进程是对运行时程序的封装，是系统资源调度和分配的基本单位 线程是进程的子任务，cpu调度的基本单位，实现进程内并发 一个进程可以包含多个线程，线程依赖进程存在，并共享进程内存 什么是线程安全python那些操作是线程安全的？ 一个操作可以在多线程的环境中安全使用，获取正确结果 线程安全的操作就好比线程是顺序执行，而不是并发执行的 一般涉及到写操作数据需要考虑如何让多个线程安全访问数据 线程同步的方式 互斥量（锁） ：通过互斥机制防止多线程同时访问公共资源 信号量：控制同一时刻多线程访问同一资源的线程数 事件：通过通知的方式保持多个线程同步 进程之间通信的方式 管道 匿名管道 有名管道 信号 比如ctrl + c 产生sigint 程序终止信号 消息队列 共享内存 信号量 套接字（socket） linux内存相关什么是分页机制 逻辑地址和物理地址分离的内存分配管理方案 程序的逻辑地址划分为固定大小的页 物理地址划分为同样大小的帧 通过页表对应逻辑地址和物理地址 什么是分段机制 分段为了满足代码的一些逻辑需求 数据共享 数据保护 动态链接 通过段表实现逻辑地址和物理地址的映射关系 每个段内部都是连续的内存分配，段和段之间是离散分配的 分页和分段的区别 页是出于内存利用率的角度提出的离散分配机制 段是出于用户角度，用于数据保护，数据隔离等用途的管理机制 页的大小是固定的，操作系统决定，段的大小不确定，用户程序决定 什么是虚拟内存 通过把部分暂时不用的内存信息放在硬盘上 局部性原理，程序运行时只有部分必要信息装入内存 内存中暂时不需要的内容放到硬盘上 系统似乎提供了比实际内存大的多的容量，称之为虚拟内存 什么是内存抖动（颠簸） 本质是频繁的页调度行为 频繁的页调度，进程不断产生缺页终端 置换一个页，又不断再次需要这个页 运行程序太多，页面替换策略不好，终止进程或者增加物理内存 python垃圾回收机制的原理 引用计数为主（缺点：循环引用） 引入标记清除和分代回收解决引用计数的问题 引用计数为主+标记清除和分代回收为辅 什么时候引用计数增加？ 对象被创建 a=1 对象被引用 b = a 对象作为参数被传递 func（a） 对象存储在容器中 l = 【a】 什么时候引用计数减少？ 显示使用del a 引用指向别的对象 b = None 离开的对象的作用域比如函数执行结束 从一个容器移除对象或销毁容器]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python系统设计]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%2F</url>
+    <content type="text"><![CDATA[什么是系统设计？ 系统设计是一个定义系统架构，模块，接口和数据满足特定需求的过程 比如设计一个短网址服务，评论服务，Feed流服务，抢红包系统 微服务架构有很多系统被按照业务拆分，需要单独设计系统服务 系统设计 需要具备相关领域，算法的经验，有一定架构设计能力 熟悉后端计数组件，比如 消息队列 缓存 数据库 框架 具备文档撰写，流程图绘制，架构设计，编码实现等功能 系统设计三大要素 使用场景和限制条件 数据存储设计 算法模块设计 按照三要素来回答 问面试官：什么场景和条件下使用 这个系统是什么地方使用的，比如短网址系统提供给各站各种服务生成短网址 限制条件：用过估计多少，至少能支撑多少用户 估算qps ： 峰值的qps（每秒请求量多少）是多少。平均qps是多少 数据存储设计 数据库的选型 按需求设计表，需要那些字段，使用什么数据类型，数据增长规模 数据库选型：是否需要持久化，使用关系型还是Nosql 如何优化？如何设计索引？是否可以使用缓存 算法模块的设计 算法是解决问题的核心， 程序=算法+数据结构 系统=服务+存储 需要那些接口，接口如何设计 使用什么算法或者模型 不同实现方式之间的优劣对比，如何取舍 扩展问题 用户多了，qps高了如何处理 数据存储多了不够存了如何处理 故障如何处理？单点失败，多点失败，雪崩问题 如何设计短网址系统设计与实现？问题 什么是短网址服务？包含那些功能 短网址系统的存储设计，需要那些字段 如何设计算法生成短网址 什么是短网址服务？ 把一个长网址转换短网址的服务 比如：https://bitly.com/ 转换之后网址的后缀不超过7位（字符或者数字） 场景和限制：提供短网址服务为公司其他各业务服务 功能：一个长网址转换为短网址 要求短网址的后缀不超过7位 预估峰值插入请求数量级数百，查询量级上千 数据库存储设计 根据需求设计数据存储方式 使用mysql即可满足 需要的字段有那些？ id token （索引） url（原网址） create add 算法实现设计设计两个API： long2short_url（把长URL转换为短url）, short2long_url（拿短url获取长url） 1.md5摘要算法，取前7个字符，但是冲突 2.类似于62进制数字，进制0，1，十六进制 0-9 a-f 自增序列算法 自增id 需要一个计数器 redis incr mysql 建表语句 12345678create table short_url( id bigint unsigned not null auto_increment, token varchar(10), url varchar(2048), create_at timestamp not null default current_timestamp, primary key(`id`), key `idx_token` (`token`)); 练习如何设计一个秒杀系统？ 难点：如何应对高并发用户请求 什么是秒杀系统？你有没有用过 如何根据三要素来设计 秒杀系统涉及的后端组件 ​ ​]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python数据库]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E6%95%B0%E6%8D%AE%E5%BA%93%2F</url>
+    <content type="text"><![CDATA[问题： 事务的原理，特性，事务并发控制 常用的字段，含义和区别 常用数据库引擎之间区别 什么是事务？ 事务是数据库并发控制的基本单位 事务可以看做一系列sql语句的集合 事务必须要么全部执行，要么全部执行失败（回滚） 事务的ACID特性 原子性（Atomicity）： 一个事务所有操作全部完成或全部失败 一致性（Consistency）事务开始和结束之后数据完整性没有被破坏 隔离性（Isolation）： 允许多个事务同事对数据库修改和读写 持久性（Durability） 事务结束后，修改是永久不会丢失的 事务的并发控制可能产生那些问题 幻读（phantom read） 一个事务第二次查出现第一次没有的结果 非重复读（nonrepeatable read）一个事务重复读两次得到不同的结果 脏读（dirty read） 一个事务读取到另一个事务没有提交的修改 修改丢失（lost update） 并发写入造成的一些修改丢失 四种事务的隔离级别 读未提交（read uncommitted） 别的事务可以读取到未提交改变 读已提交（read committed）只能读取已经提交的数据 可重复读（repeatable read）： 同一个事务先后查询的结果都一样 mysql innoDB 默认实现可重复读级别 串行化（serializable） 事务完全串行化执行，隔离级别最高，但是效率最低 如何解决高并发场景下的插入重复？ 使用数据库的唯一索引 使用队列异步写入 使用redis等实现分布式锁 乐观锁和悲观锁 悲观锁是先获取到锁之后再进行操作：一锁二差三更新 select for update 乐观锁 先修改，更新的时候发现数据已经变了，就回滚（check and set） 乐观锁一般通过版本号或时间戳来实现 使用需要根据响应速度，冲突频率，重试代价来判断使用哪一种 mysql常用的数据类型 InnoDB 与 MyIsAM的区别 MyISAM不支持事务，InnoDB支持事务 MyISAM不支持外键，InnoDB支持外键 MyISAM只支持表锁，InnoDB支持行锁和表锁 MyISAM支持全文索引，InnoDB不支持全文索引（5.6.24之后加上了索引） mysql索引原理及优化常见考题索引的原理，类型，结构 创建索引的注意事项，使用原则 如何排查和消除慢查询 什么是索引？ 索引是数据库表中一个或多个列进行排序的数据结构 索引能够大幅度提升检索速度 创建，更新索引本身也会耗费空间和时间的 什么是B-Tree（为什么数据库要使用B+Tree） 线性查找：一个一个找，实现简单，但是太慢了 二分查找： 有序，简单，要求是有序的，插入特别慢 hash ： 查询快，占用空间，不适合存储大规模数据 二叉树：插入和查询很快（log（n）），无法存大规模数据，复杂度退化 平衡树：解决bst 退化的问题，树是平衡的 多路查找树：一个父亲多个孩子节点，节点过多树高不会特别深 多路平衡查找树：B-Tree 什么是B-Tree，为什么使用B-Tree？ 多路平衡查找树（每个节点最多m（m&gt;=2）个孩子，称为m阶或度） 叶节点具有相同的深度 节点中的数据key从左到右是递增的 什么是B+Tree B+树是B-Tree树的变形 mysql实际使用B+Tree作为索引的数据结构 只在叶子节点带有指向记录的指针（为什么，可以增加树的度） 叶子节点通过指针相连，为什么，实现范围查询 msyql索引的类型 普通索引（create index） 唯一索引：索引列的值必须唯一（create unioue index） 多列索引 主键索引（primary key ）一个表中只能有一个主键 全文索引（fulltext index），innoDB不支持（5.6后支持） 什么时候创建索引 建表的时候需要根据查询需求来创建索引 经常用作查询条件的字段（where条件） 经常用作表连接的字段 经常出现在order by，group by之后的字段 创建索引有那些需要注意的 非空字段 not null ，mysql很难对空值做查询优化 区分度高，离散度大，作为索引的字段值尽量不要有大量相同值 索引的长度不要太长（比较耗费时间） 索引什么时候失效 模糊匹配，类型隐转，最左匹配 以%开头的like语句，模糊搜索 出现隐式类型转换（在python这种动态语言查询中需要注意） 没有满足最左前缀原则 什么是聚集索引和非聚集索引 聚集还是非聚集指的是B+Tree叶节点存的是指针还是数据记录 MyISAM索引和数据分离，使用的是非聚集索引 InnoDB数据文件就是索引文件，主键索引就是聚集索引 如何排查慢查询 慢查询通常是缺少索引，索引不合理或者业务代码实现导致的 slow_query_log_file 开启兵器查询慢查询日志 通过explain 排查索引问题 调整数据修改索引，业务代码层限制不合理访问 sql语句编写常考题sql语句考察各种链接为重点 内连接（inner join） 两个表都存在匹配时，才会匹配行 外链接（left、right join）返回一个表的行，即使另一个没有匹配 全连接（full join） 只要某一个表存在匹配就返回 （mysql中不支持full join 可以使用left join+ union+right join） 12345678# 内连接select * from Channel inner JOIN Tage on Channel.id = Tage.id# 左链接select * from Channel left JOIN Tage on Channel.id = Tage.id# 右链接select * from Channel right JOIN Tage on Channel.id = Tage.id# 全链接from Channel left JOIN Tage on Channel.id = Tage.id union select * from Channel right JOIN Tage on Channel.id = Tage.id 缓存的使用场景 问什么要使用缓存？ 缓解关系数据库（常见的是Mysql）并发访问的压力，热点数据 减少响应时间： 内存IO速度比磁盘快 提升吞吐量：Redis等内存数据库单机就可以支撑很大的并发 简述redis常用的数据类型和使用场景 string（字符串） 用来实现简单的kv键值对存储，比如计数器 List（链表）：实现双向链表，比如用户关注，粉丝列表 Hash（哈希表）：用来存储彼此相关信息的键值对 Set（集合） 存储不重复元素，比如用户的关注者 sorted Set（有序集合） 实时信息排行榜 redis各种类型的底层实现 string：整数或者sds（Simple Dynamic String） List： ziplist 或者double linked list ziplist：通过一个连续的内存块实现list结构，其中的每个entry节点头部保存节点前后长度信息，实现双向链表功能 Hash：ziplist 或者hashtable set intset 或者hashtable sortedSet： skiplist跳跃表 redis实现的跳跃表是什么 sorted set 为了简化实现，使用skiplist 而不是平衡树实现 redis支持两种方式实现持久化 快照方式：把数据快照放在磁盘二进制文件中，dump.rdb 快照的实现方式是指定时间间隔把redis数据库状态保存到一个压缩二进制文件中 AOF：每个写命令追加到appendonly.aof 中 可以通过修改Redis配置实现 什么是Redis事务？ 将多个请求打包，一次性，按序执行多个命令的机制 Redis通过MULTI，EXEC，WATCH 等命令实现事务功能 1python redis-py plpline = conn.pipline（transaction=True） Redis如何实现分布式锁？ 使用setnx实现加锁，可以同事通过expire添加超时时间 锁的value值可以使用一个随机的uuid或者特定的命名 释放锁的时候，通过uuid判断是否是该锁，是则执行delete释放锁 使用缓存的模式 cache Aside 同时更新缓存和数据库 Read、Write Through：先更新缓存，缓存负责同步更新数据库 Write Behind Caching：先更新缓存，缓存定期异步更新数据库 如何解决缓存穿透问题 原因 大量查询不到的数据的请求落到后端数据库，数据库压力增大 由于大量缓存查不到就去数据库取，数据库也没有要查的数据 解决 对于没有查到的数据返回None的数据也缓存下来 插入数据的时候删除一个缓存，或者设置较短的超时时间 如何解决缓存击穿问题？ 原因 某些非常热点的数据key过期，大量请求打到后端数据库 热点数据key失效导致大量请求打到数据库增加数据库压力 解决 分布式锁： 获取锁的线程从数据库拉数据更新缓存，其他线程等待 异步后台更新：后台任务针对过期的key 自动刷新 如何解决缓存雪崩问题 原因 缓存不可用或者大量缓存key，大量请求直接打到数据库 解决 多级缓存： 不同级别的key设置不同的超时时间 随机超时：key的超时时间随机设置，防止同时超时‘ 架构层：提升系统可用性，监控，报警完善 练习索引的理解？ 为什么mysql数据库的主键使用自增证书比较好 使用uuid可以吗？为什么 如果是分布式系统下我们如何生成自己数据库中的自增id redis的应用？ 请基于Redis编写代码实现一个分布式锁 要求：支持超时时间参数 深入思考：如果Redis单个节点宕机，如何处理，还有其他方式实现分布式锁吗 ​]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python网络编程]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[浏览器输入一个url中间经历的过程DNS 缓存 -&gt; DNS查询 -&gt; TCP握手 -&gt; HTTP请求 ——&gt; 反向代理Nginx -&gt;uwsgi、gunicom -&gt; web app响应 -&gt; TCP挥手 TCP、UDP的区别 TCP 面向链接，可靠的，基于字节流 UDP 无链接，不可靠，面向报文 HTTP协议HTTP协议有哪些部分组成？ 状态行 请求头 消息主体 curl 和 pip3 install httpie http 请求网页 响应 状态行 响应头 响应主体 状态码 1×× 信息 服务器收到请求，需要请求者继续操做 2×× 成功 操作操作被成功接受并处理 3×× 重定向 需要进一步操作完成请求 4×× 客户端错误 请求有语法错误或者无法完成请求 5×× 服务器错误 服务器在处理请求的过程中发生错误 GET 和 POST 的区别 restful语义上一个是获取一个是创建 GET是幂等的，POST非幂等的 GET请求参数放在明文中，长度限制，POST放在请求体中比较安全 什么是幂等的 幂等方法是无论调用多少次都得到相同结果的HTTP方法 例如：a=4是幂等的，a+=4 就是非幂等的 幂等的方法客户端可以安全的重发请求 什么是HTTP的长链接 短连接： 建立链接 数据传输 关闭链接（链接的建立和关闭） 长连接： Connection：keep-alive 保持TCP链接不断开 如何区分不同的HTTP请求呢？ Content-Length Transfer-Encoding chunked cookie 和 session的区别 session一般是服务器生成之后给客户端（通过URL参数或者Cookie） Cookie是实现Session的一种机制，通过http 的cookie字段实现 Session通过在服务器保存sessionid来识别用户，cookie存储在客户端 TCP socket 编程原理 使用socket 接口发送http请求. HTTP建立在TCP基础之上 HTTP是基于文本的协议 IO多路复用五种IO模型 阻塞式IO 非阻塞式IO IO多路复用 信号式IO 异步IO 如何提升服务器的并发能力一些常见的提升并发能力的方式 多线程模型，创建新的线程处理请求 多进程模型，创建新的进程处理请求 开销大 可以使用线程池和进程池解决 资源占用比较多 难以创建太多 IO多路复用，实现单进程同时处理多个socket请求 什么是IO多路复用？ 操作系统提供的同时监听多个sockt的机制 为实现高并发需要一种机制并发处理多个socket LINUX常见的是select poll epoll 可以使用单线程 单进程 处理多个socket python如何实现IO多路复用 python的IO多路复用基于操作系统实现（select poll epoll python2 select模块 python3 selectors 模块 python并发网络库？tornado Gevent Asyncio Tornado 框架 Tornado 适用于微服务，实现Restful接口 底层基于Linux 多路复用 可以通过协程或者回调实现异步编程 不过生态不完善，响应的异步框架比如ORM不完善 Gevent 高性能的并发网络库 基于轻量级绿色线程(greenlet) 实现并发 需要注意monkey patch ，gevent修改了内置socket为非阻塞的 配合gunicorn 和gevent 部署作为wsgi server 推荐：《Gevent 程序员指南》 Asyncio 基于协程实现的内置并发网络库 python引入到内置库，协程+事件循环 生态不够完善，没有大规模的生产环境检验 目前应用不够广泛，基于Aiohttp可以实现一些小的服务 问题： 使用asyncio实现一个异步爬虫类]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python算法与数据结构]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[collections模块namedtuple（） 可以使用名称访问tuple1234import collectionspoint = collections.namedtuple('porint','x,y')p = point(1,2)print(p.x) deque（） 双端队列123456import collections de = collections.deque()de.append(1)de.appendleft(2)de.pop()de.popleft() counter（） 计数器123import collections c= collections.Counter('sadsafdsjfhdgjhdjfgbdfjbjvkdhf')print(c) ordereDict 有序字典12345import collections dic = collections.OrderedDict()dic['1'] = 1dic['2'] = 2print(dic) defaultdict 给dict做一个初始化1234import collections dd = collections.defaultdict(int)dd['a'] += 1print(dd) python dict底层结构 dict 底层使用哈希表 为了快速查找使用哈希表作为底层结构 哈希表平均查找时间复杂度O(1) cpython 解释器使用二次探查解决哈希冲突 解决哈希冲突： 链接法 元素key冲突之后使用一个链表，填充形同key的元素 探查法（开放寻址法） 探查法又分为：线性探查和二次探查等 开放寻址法是冲突之后根据一种方式（二次探查）寻找下一个可用的槽 cpython使用的是二次探查的 哈希表扩容 python的list和tuple的区别 都是线性结构，支持下标访问 list是可变对象，tuple保存的引用不可变 保存引用不可变是指你没法替换掉这个对象，但是如果对象本身是一个可变对象，是可以修改这个引用指向的可变对象的 list 没法作为字典的key，tuple可以（可变对象不可hash） LRUCache least-Recently-Used 替换掉最近最少使用的对象 缓存剔除策略，当缓存空间不够用的时候，需要一种方式剔除key 常见的有LRU LFU LRU通过使用一个循环双端队列不断把最新访问的key放在表头实现 实现LRUCache 字典用来缓存，循环双端链表用来记录访问顺序 利用python内置的dict+collections.OrderedDict（）实现 dict 用来当做k、v键值对的缓存 OrderedDict 用来实现最新最近访问的key 算法常考题 排序+查找，重中之重 常考排序算法：冒泡排序，快速排序，归并排序，堆排序 线性查找+二分查找 能独立实现代码（手写） 能够分析时间空间复杂度 python数据结构常考题python web后端常考数据结构 常见的数据结构链表，队列，栈，二叉树，堆 使用内置数据结构实现高级数据结构，比如内置的list，deque实现栈 链表 链表有单链表，双链表，循环双链表 如何使用python来标示链表结构 实现链表常见操作，比如插入节点，反转链表，合并多个链表等 链表涉及到指针操作比较复杂，容易出错，经常用做考题 熟悉链表的定义和常用操作 常考题：删除一个链表节点 常考题：合并两个有序链表 常考题：反转一个链表 队列 队列（queue） 是先进先出结构 实现队列的apend和pop操作，如何做到先进先出 使用python的list或者collections.deque实现队列 常考题：用栈实现一个队列 栈 栈（stack） 是后进先出 实现栈的push和pop操作，如何实现 同样使用python的list或者collections.deque实现栈 常考题：用队列实现一个栈 字典和集合 python dict、set底层都是哈希表 哈希表的实现原理，底层就是一个数组 根据哈希函数快速定位一个元素，平均查找O（1） 不断加入元素会引起哈希表重新开辟空间，拷贝之前元素到新的数组 二叉树 先序，中序，后序遍历 先序：先处理根，之后是左子树，然后是右子树 中序：先处理左子树，然后是根，然后是右子树 后序：先处理左子树，然后是右子树，最后是根 二叉树涉及到递归和指针操作，常结合递归考察 二叉树的操作很多可以用递归方式解决，不了解递归会比较吃力 常考题：二叉树的镜像 常考题：如何层序便利二叉树（广度优先） 堆 堆其实就是一个完全二叉树，有最大堆和最小堆 最大堆：对于每个非叶子节点v，v的值都比他的两个孩子大 最小堆：对于每个非叶子节点v，v的值都比他的两个孩子小 最大堆支持每次pop操作获取最大的元素，最小堆获取最小元素 堆的常考题基本围绕在合并多个有序（数组，链表）；topk问题 理解堆的概念，堆是完全二叉树，有最大堆和最小堆 会使用python内置的heapq模块实现堆的操作 字符串 反转一个字符串 判断一个数字是否是回环数字]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[web框架]]></title>
+    <url>%2F2019%2F04%2F16%2Fweb%E6%A1%86%E6%9E%B6%2F</url>
+    <content type="text"><![CDATA[python wsgi 和web框架什么是WSGI？ web server 与 web框架交互的规范 目的是解决：python web server的乱象 django vs Flask vs Tornado django : 大而全，内置ORM，Admin等插件，第三方插件丰富 flask 微框架，插件机制，比较灵活 cookiecutter-flask 生成统一模板 Tornado 异步支持的微框架和异步网络库（轮子少） 什么是mvc模式 Model 负责业务对象和数据库之间的交互 View 负责与用户的交互展示 Controller 接收请求参数调用模型和视图完成请求 什么是ORM？ 对象关系映射 用于实现业务对象与数据表中的字段映射 常见的ORM ：sqlalchemy django ORM Peewee 优势：代码更加面向对象，代码量更少，灵活性高，提升开发效率 web安全常见的安全问题 sql注入 XSS （跨站脚本攻击） csrf（跨站请求伪造） 什么是sql注入 通过构造特殊的输入参数传入web应用 通常由于程序员未堆输入进行过滤，直接动态拼接sql导致的 可以使用开源工具sqlmap SQLLninja 检测 如何防范？ web安全一大原则：永远不要相信用户的任何输入 对输入参数做好检查（类型和范围） 过滤和转义特殊字符 不要直接拼接sql，使用ORM可以大大降低sql注入风险 数据库层： 做好权限管理配置，不要明文存储敏感信息 什么是XSS 而已用户将代码植入到提供给其他用户使用的页面中，未经转义的而已代码输出到其他用户的浏览器执行 用户浏览页面的时候嵌入页面中的脚本（js） 会执行，攻击用户 主要分为两类：反射型（非持久型），存储型（持久型） 前后端分离什么是前后端分离？ 后端负责提供数据接口，不再渲染模板，前端获取数据并呈现 前后端解耦，接口复用（前端和客户端公用接口），减少开发量 各司其职，前后端同步开发，提升工作效率，定义好接口规范 更利调试（mock） ，测试和运维部署 缺点：对于单页的应用不好做seo 什么是RESTFUL？ 表现层状态转移，由HTTP协议的主要设计者Roy Fielding 提出 资源 表现层 状态转化 资源： 使用URL 指向的一个实体 表现层： 资源的表现形式，比如图片，html文本等 状态转化：GET POST DELETE PUT http动词操作资源，实现资源状态的改变 是一种以资源为中心的web软件架构风格，可以使用ajax 或restful web 构建应用 规范和准则 所有事务抽象为资源，资源对应唯一 资源通过接口操作实现状态转移，操作本身是无状态的 对资源的操作不会改变资源标识 restful 风格API接口 通过HTTP GET POST PUT DELETE 来增删改查资源 一般使用json格式返回数据 一般web框架都有响应的插件支持restful api 练习什么是HTTP和HTTPS？ HTTPS 和HTTP 的区别 你了解什么是对称加密和非对称加密 HTTP的通信过程是什么样的 ​ ​ ​]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python编程范式]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E7%BC%96%E7%A8%8B%E8%8C%83%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[什么是面对对象编程？ OOP编程（面向对象） 把对象作为基本单元，把对象抽象成类（class） 包含成员和方法 数据封装，继承，多态 python中使用类来实现，过程式编程（函数），OOP（类） 组合与继承 使用面对对象编程时，优先使用组合而非继承 组合是使用其他类的实例作为自己的一个属性（Has-a） 关系 子类继承父类的方法（Is-a 关系） 优先使用组合保持代码简单 类变量与实例变量的区别区别类变量和实例变量 类变量由所有实例共享 实例变量由实例单独享有，不同实例之间互不影响 当我们需要在一个类的不同实例之间共享变量需要使用类变量 classmethod/starticmethod区别 都可以通过class.method（）的方法使用 classmethod第一个参数是cls，可以引用类变量 starticmethod使用起来和普通函数一样，只是放在类里面 什么是元类 元类是创建类的类 元类允许我们控制类的生成，比如修改类的属性等 使用type来定义元类 元类最常见的一个使用场景就是ORM框架 12x = type('X',(object,),&#123;'abc':123,'xx':'xx'&#125;)print(x.xx 装饰器 装饰器是接受函数作为参数，添加功能后返回一个新函数的函数（类） 通过@使用 类写装饰器 12345678910111213141516# 一个简单的测算函数运行时间的装饰器class LogTime: def __init__(self, use_int=False): self.use_int = use_int def __call__(self, func): def _log(*args, **kwargs): beg = time.time() res = func(*args, **kwargs) print('use time:&#123;&#125;,&#123;&#125;'.format(time.time() - beg, self.use_int)) return res return _log# 使用时需要加（）@LogTime()def func(): time.sleep(1) 设计模式创建型设计模式工厂模式：解决对象创建问题 解决对象创建问题 解耦对象的创建和使用 包括工厂方法和抽象工厂 12345678910111213class Dog: def speak(self): print('wangwang')class CatToy: def speak(self): print('miao miao')def toy_factory(toy_type): if toy_type == 'dog': return Dog() elif toy_type == 'cat': return CatToy() 构造模式 用来控制复杂对象构造 创建和分离，比如你要买电脑，工厂模式直接把电脑给你 但是构造模式允许你自己定义电脑配置，组装完成后给你 原型模式 通过克隆原型来创建新的实例 可以使用相同的原型，通过修改部分属性来创建新的实例 用途：对于一些创建实例开销比较大的地方可以使用原型模式 单例模式 单例模式：一个类创建出来的对象都是同一个 python的模块其实就是单例的，只会导入一次 使用共享同一个实例的方式创建单例模式 123456class Singleton: def __new__(cls, *args, **kwargs): if not hasattr(cls,'_instance'): _instance = super().__new__(cls,*args,**kwargs) cls._instance = _instance return cls._instance 结构型设计模式装饰器模式 无需子类化扩展对象功能 代理模式 把一个对象的操作代理到另一个对象 适配器模式 把不同对象的接口适配到同一接口 想象一下多功能充电头 当我们需要给不同对象同一接口的时候可以使用适配器模式 行为模式迭代器模式 通过统一的接口迭代对象 python内置对迭代器的使用 python里可以实现__next__ 和 __iter__实现迭代器 观察者模式 发布订阅是一种最常用的实现方式 发布订阅用于解耦逻辑 可以通过回调等方式实现，当事件发生的时候，执行相应的回调函数 什么是闭包？ 绑定外部作用域的变量的函数 即使程序离开外部作用域，如果闭包仍然可见，绑定变量不会销毁 每次运行外部函数都会重新创建闭包 闭包：引用外部自由变量的函数 自由变量：不在当前函数定义的变量 特性：自由变量和闭包函数同时存在]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python面试流程]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E9%9D%A2%E8%AF%95%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[面试的基本了解职位分析 岗位职责（业务是否感兴趣） 职位要求（自己是否掌握，查缺补漏） 公司技术栈（公司使用到那些技术栈） 从招聘信息中我们能挖掘到什么？ 你对公司做的业务是否感兴趣 职位要求的知识技能是否掌握，面试有多大的成功几率 自己还有那些知识技能需要查缺补漏 针对准备，提高成功率 针对公司技术栈和要求编写不同的简历 表现出对职位和业务的兴趣 突出自己的技能优势，提高匹配度（技能与公司要求比较匹配） 学生重视基础 学历和成绩 大学所学计算机课程 在校项目、实习经验 社招重视项目和设计 参与过那些项目，有没有知名项目 在项目中承担的职责 有没有系统设计经验 行为面试 自我介绍 口头表达能力 沟通交流能力 HR面试 薪资待遇（锚定效应，可以提出比期望薪资稍微高的待遇） 职业规划 自我介绍、沟通交流等 初级工程师 扎实的计算机理论基础 代码规范，风格良好 能在指导下靠谱地完成业务需求 中级工程师 扎实的计算机基础和丰富的项目经验 能独立设计和完成项目需求 熟悉常用的web组件（缓存，消息队列等），具备一定的系统设计能力 软实力 具有产品意识，技术引导产品 沟通交流能力，团队协作能力 技术领导能力和影响力 简历的编写简历内容 表现个人优势，突出关键信息 基本信息（姓名 学校 学历 联系方式） 职业技能（编程语言 框架 数据库 开发工具） 关键项目敬仰（担任责任 用到了什么技术） 简历加分项 知名项目经验 技术栈比较匹配 开源项目（github、技术blog、linux、unix geek） 简历注意事项 内容精简，突出重点。不宜超过两页，可以套模板 注意格式，推荐PDF（保证跨平台打开格式一致） 信息真实，不弄虚作假，技能和技术岗位匹配，没有太多无关内容 自我介绍 个人信息 掌握的技术，参与过的项目 应聘的岗位，表达对该岗位的看法和兴趣 不会表达怎么办？ 早准备 准备开场白讲稿，面试前多练习 找一个同伴好友模拟面试，消除紧张心理 什么是行为面试？ 根据候选人过去的行为评测其胜任能力 理论依据：行为的连贯性 人在面对相似的场景时会倾向于重复过去的行为 评判人的业务能力，沟通交流能力，语言表达能力，抗压能力 行为面试套路 提问方式：说说你曾经 说说你做过的这个项目 说说你碰到过的技术难题，你是如何解决的？有什么收获 根据start模型来描述项目 制作表格应对面试 常见问题 最后一般面试官会问：你还有什么要问我的 你千万别说没了，直接说没了表明你对岗位缺乏了解和兴趣 表现出兴趣：问问工作内容（业务） 技术栈 团队 项目等 问自己的感兴趣的一些技术问题和架构问题 注意事项 聊天是一个重要的软技能 态度真诚，力求真实，不要弄虚作假 言简意赅，突出重点，省略细枝末节 采用STAR模型让回答更有调理 讲讲你觉得最有技术含量的项目 讲一讲你做过最有难度的项目 你做了什么工作，承担的责任是什么 你遇到的困难是什么？如何解决的？]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python语言基础]]></title>
+    <url>%2F2019%2F04%2F16%2Fpython%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%2F</url>
+    <content type="text"><![CDATA[python是一个解释强类型语言 python的优缺点 胶水语言，轮子多，应用广泛 语言灵活，生产力高 性能问题，代码维护问题，python2、3兼容问题 什么是鸭子类型 关注点是对象的行为，而不是类型（duck typing） 什么是monkey patch 所谓的monkey patch 就是运行时替换 比如gevent库需要修改socket from gevent import monkey;monkey.patch_select() 什么是自省？ 使用id，type，isinstance() 判断一个对象的类型 python2与python3相关问题python2与3的差异 print 在2里面是一个关键字，在3中是一个函数 编码问题： python3中没有unicode对象，默认str就是unicode，python2有两种 一种是str（byte）和unicode 除法问题： python3除号返回浮点数 python3的改进 类型注解（type hint） 帮助IDE实现类型检查 优化的super（）方便直接调用父类函数 python2 super(A,self)：python2需要2个参数 python3 super() : 可以直接调用 高级解包操作 a，b，*c = range(10） 限定关键字参数 def he(a,b,*,c):return a,b,c python3 重新跑出异常不会丢失栈信息 一切返回迭代器 range zip map dict.values etc.are all, iterators python3新增特性 yield from 链接子生成器 asyncio内置库，async/await 原生协程支持异步编程 新的内置库：enum，mock，asyncio，ipaddress，concurrent.futures等 python3改进 生成的pyc文件统一放到pycache 一些内置库的修改，urllib，selector等 兼容2/3的工具 six模块 2to3等工具转换代码 __future__ python函数常考题python的参数传递 python的参数传递方式，既不是引用传递也不是值传递，他是对象引用传递 python如何传递参数 一个混淆的问题 传递值还是引用呢，都不是，唯一支持的参数传递是共享传参 共享传参：函数形参获得实参中各个引用的副本 python的可变和不可变对象 不可变对象： bool，int，float，tuple，str，frozenset 可变对象 list、set、dict 默认参数只计算一次 *args 和 **kwargs是什么 用来处理可变参数 *args 被打包成tuple **kwargs 被打包成dict python的异常什么时候需要捕获处理异常，看python内置异常的类型 网络请求（超时，链接错误等） 资源访问（权限问题，资源不存在） 代码逻辑（越界访问，keyError等） 如何自定义自己的异常，为什么需要定义自己的异常 继承Exception实现自定义异常（） 给异常加上一些附加信息 处理一些业务相关的特定异常（raise MyException） python性能分析与优化，GIL常见考题GIL锁带来的缺点？ 限制了程序的多核执行 同一个时间只能有一个线程执行字节码 CPU密集程序难以利用多核优势 IO期间会释放GIL，对IO密集程序影响不大 如何规避GIL影响 区分CPU和IO密集程序 CPU密集可以使用多进程+进程池 IO密集使用多线程、协程 cython扩展 为什么有了GIL还要关注线程安全 python中什么操作才是原子的，一步到位执行完的 一个操作如果是一个字节码指令可以完成的，这就是原子的 原子操作是可以保证线程安全的 使用dis操作来分析字节码 如何剖析程序性能 使用各种profile工具（内置或第三方） 二八定律，大部分时间好事在少量代码之上 内置的profile、cprofile等工具 使用pyflame（uber开源）的火焰图工具 服务端性能优化措施 web应用一般语言不会成为瓶颈 数据结构与算法优化 数据库层：索引优化，慢查询消除，批量操作减少IO，NoSql 网络IO：批量操作，pipline操作 减少IO 缓存：使用内存数据库redis、memcached 异步： asyncio，celery 并发：gevent、多线程 什么是生成器 生成器就是可以生成值的函数 当一个函数里有了yield关键字就成了生成器 生成器可以挂起来执行并且保持当前执行的状态 基于生成器的协程 python3之前没有原生的协程，只有基于生成器的协程 生成器可以通过yield暂停执行和产出数据 同时支持send（）向生成器发送数据和throw（）向生成器抛出异常 协成的注意点 协成需要使用send（None）或者next（coroutine）来预激才能启动 在yield处协成会暂停执行 单独的yield value会产出值给调用方 可以通过coroutine.send（value） 来给协成发送值，发送的值或赋值给yield表达式左边的值 协程执行完成后没有遇到下一个yield语句会抛出Stoplteration python3.5引入async、await支持原生协成（native coroutine） python 单元测试unit Testing 针对程序模块进行正确性检验 一个函数，一个类进行验证 自底向上保证程序的正确性 三无代码不可取（无文档，无注释，无单测） 保证代码逻辑的正确性，（甚至有些采用测试驱动开发（TDD）） 单测影响设计，易测的代码往往是高内聚低耦合的 回归测试，防止改一处整个服务不可用 单元测试相关库 nose/pytest 较为常用 mock 模块用来模拟网络请求等 coverage 统计测试覆盖率 ​]]></content>
+      <categories>
+        <category>python面试</category>
+      </categories>
+      <tags>
+        <tag>python面试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[nlp自然语言处理]]></title>
+    <url>%2F2019%2F04%2F08%2Fnlp%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[k8s的基本使用]]></title>
     <url>%2F2019%2F04%2F04%2Fk8s%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8%2F</url>
     <content type="text"></content>
