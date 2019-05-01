@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="NGINX的三个主要应用场景 静态资源服务 通过本地文件系统提供服务   反向代理服务 nginx的强大性能 缓存 负载均衡   API服务  Nginx为什么会出现 互联网的数量快速增长 互联网的快速普及 全球网 物联网   摩尔定律：性能提升 低效Apache 一个链接对一个进程    nginx的优点 高并发，高性能 可扩展性好 高可靠性 热部署 BDS许可证  nginx的组成 Nginx">
+<meta name="keywords" content="运维开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/26/nginx笔记/index.html">
+<meta property="og:site_name" content="郝起瀚的博客">
+<meta property="og:description" content="NGINX的三个主要应用场景 静态资源服务 通过本地文件系统提供服务   反向代理服务 nginx的强大性能 缓存 负载均衡   API服务  Nginx为什么会出现 互联网的数量快速增长 互联网的快速普及 全球网 物联网   摩尔定律：性能提升 低效Apache 一个链接对一个进程    nginx的优点 高并发，高性能 可扩展性好 高可靠性 热部署 BDS许可证  nginx的组成 Nginx">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-04-30T07:17:02.720Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nginx笔记">
+<meta name="twitter:description" content="NGINX的三个主要应用场景 静态资源服务 通过本地文件系统提供服务   反向代理服务 nginx的强大性能 缓存 负载均衡   API服务  Nginx为什么会出现 互联网的数量快速增长 互联网的快速普及 全球网 物联网   摩尔定律：性能提升 低效Apache 一个链接对一个进程    nginx的优点 高并发，高性能 可扩展性好 高可靠性 热部署 BDS许可证  nginx的组成 Nginx">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/26/nginx笔记/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>nginx笔记 | 郝起瀚的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">郝起瀚的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术成长之路</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/26/nginx笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="郝起瀚">
+      <meta itemprop="description" content="技术成长之路">
+      <meta itemprop="image" content="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="郝起瀚的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">nginx笔记
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-26 11:06:06" itemprop="dateCreated datePublished" datetime="2019-04-26T11:06:06+08:00">2019-04-26</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-30 15:17:02" itemprop="dateModified" datetime="2019-04-30T15:17:02+08:00">2019-04-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/运维开发/" itemprop="url" rel="index"><span itemprop="name">运维开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="NGINX的三个主要应用场景"><a href="#NGINX的三个主要应用场景" class="headerlink" title="NGINX的三个主要应用场景"></a>NGINX的三个主要应用场景</h4><ul>
+<li>静态资源服务<ul>
+<li>通过本地文件系统提供服务</li>
+</ul>
+</li>
+<li>反向代理服务<ul>
+<li>nginx的强大性能</li>
+<li>缓存</li>
+<li>负载均衡</li>
+</ul>
+</li>
+<li>API服务</li>
+</ul>
+<h4 id="Nginx为什么会出现"><a href="#Nginx为什么会出现" class="headerlink" title="Nginx为什么会出现"></a>Nginx为什么会出现</h4><ul>
+<li>互联网的数量快速增长<ul>
+<li>互联网的快速普及</li>
+<li>全球网</li>
+<li>物联网</li>
+</ul>
+</li>
+<li>摩尔定律：性能提升</li>
+<li>低效Apache<ul>
+<li>一个链接对一个进程</li>
+</ul>
+</li>
+</ul>
+<h4 id="nginx的优点"><a href="#nginx的优点" class="headerlink" title="nginx的优点"></a>nginx的优点</h4><ul>
+<li>高并发，高性能</li>
+<li>可扩展性好</li>
+<li>高可靠性</li>
+<li>热部署</li>
+<li>BDS许可证</li>
+</ul>
+<h4 id="nginx的组成"><a href="#nginx的组成" class="headerlink" title="nginx的组成"></a>nginx的组成</h4><ul>
+<li>Nginx二进制可执行文件<ul>
+<li>由各模块源码编译的一个文件</li>
+</ul>
+</li>
+<li>nginx.conf配置文件<ul>
+<li>控制nginx的行为</li>
+</ul>
+</li>
+<li>access.log访问日志<ul>
+<li>记录每一条http请求信息</li>
+</ul>
+</li>
+<li>error.log错误日志<ul>
+<li>定位问题</li>
+</ul>
+</li>
+</ul>
+<h4 id="nginx的安装"><a href="#nginx的安装" class="headerlink" title="nginx的安装"></a>nginx的安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">nginx地址：http://nginx.org/en/download.html</span><br><span class="line">wget Stable version 下的nginx</span><br><span class="line"><span class="meta">#</span> 下载nginx</span><br><span class="line">wget http://nginx.org/download/nginx-1.16.0.tar.gz  </span><br><span class="line"><span class="meta">#</span> 解压nginx</span><br><span class="line">tar -xzf nginx-1.16.0.tar.gz  </span><br><span class="line"><span class="meta">#</span> 进入nginx</span><br><span class="line">cd nginx-1.16.0</span><br><span class="line"><span class="meta">#</span> 指定编译目录</span><br><span class="line">./configure  --prefix=/home/haoqihan/nginx</span><br><span class="line"> --prefix=PATH        设置编译目录</span><br><span class="line"><span class="meta"> #</span> 编译</span><br><span class="line"> make</span><br><span class="line"><span class="meta"> #</span> 安装</span><br><span class="line"> make install</span><br></pre></td></tr></table></figure>
+<h4 id="nginx的目录结构"><a href="#nginx的目录结构" class="headerlink" title="nginx的目录结构"></a>nginx的目录结构</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 让vim编辑的时候高亮显示</span><br><span class="line">cp -r contrib/vim/* ~/.vim/</span><br></pre></td></tr></table></figure>
+<h4 id="nginx常用配置语法"><a href="#nginx常用配置语法" class="headerlink" title="nginx常用配置语法"></a>nginx常用配置语法</h4><ul>
+<li>配置文件由指令和指令块构成</li>
+<li>每条指令以；分号结尾，指令与参数间以空格符号分隔</li>
+<li>指令块以{}大括号将多条指令组织在一起</li>
+<li>include语句允许组合多个配置文件以提升代码的可维护性</li>
+<li>使用#符号添加注释，提高可读性</li>
+<li>使用$符号使用变量</li>
+<li>部分指令的参数支持正则表达式</li>
+</ul>
+<h4 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h4><table>
+<thead>
+<tr>
+<th>时间单位</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ms（毫秒）</td>
+<td>milliseconds</td>
+</tr>
+<tr>
+<td>s（秒）</td>
+<td>seconds</td>
+</tr>
+<tr>
+<td>m（分钟）</td>
+<td>minutes</td>
+</tr>
+<tr>
+<td>h（小时）</td>
+<td>hours</td>
+</tr>
+<tr>
+<td>d（天）</td>
+<td>days</td>
+</tr>
+<tr>
+<td>w（周）</td>
+<td>weeks</td>
+</tr>
+<tr>
+<td>M（月）</td>
+<td>months，30 days</td>
+</tr>
+<tr>
+<td>y（年）</td>
+<td>years 365days</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>空间单位</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>bytes</td>
+</tr>
+<tr>
+<td>k、K</td>
+<td>kilobytes</td>
+</tr>
+<tr>
+<td>m、M</td>
+<td>megabytes</td>
+</tr>
+<tr>
+<td>g、G</td>
+<td>gigabytes</td>
+</tr>
+</tbody>
+</table>
+<h4 id="http配置的指令块"><a href="#http配置的指令块" class="headerlink" title="http配置的指令块"></a>http配置的指令块</h4><ul>
+<li>http</li>
+<li>server</li>
+<li>upstream</li>
+<li>location</li>
+</ul>
+<h4 id="Nginx命令行"><a href="#Nginx命令行" class="headerlink" title="Nginx命令行"></a>Nginx命令行</h4><ol>
+<li>格式：nginx -s reload</li>
+<li>帮助 -？ -h</li>
+<li>使用指定的配置文件 -c</li>
+<li>指定配置指令 -g</li>
+<li>指定运行目录 -p</li>
+<li>发送信号 -s<ol>
+<li>立刻停止 stop</li>
+<li>优雅的停止： quit</li>
+<li>重载配置文件 reload</li>
+<li>重新开始记录日志文件 reopen</li>
+</ol>
+</li>
+<li>测试配置文件是否语法错误 -t -T</li>
+<li>打印nginx的版本信息，编译信息等 -v -V</li>
+</ol>
+<h4 id="热部署"><a href="#热部署" class="headerlink" title="热部署"></a>热部署</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 把二进制文件改名</span><br><span class="line">cp nginx nginx.old</span><br><span class="line"><span class="meta">#</span> 把编译好的二进制文件，进行替换</span><br><span class="line"><span class="meta">#</span> 把旧进程kill掉</span><br><span class="line">kill -USR2 pid</span><br><span class="line"><span class="meta">#</span> 把老进程进行关闭</span><br><span class="line">kill -WINCH pid</span><br></pre></td></tr></table></figure>
+<h4 id="日志切割"><a href="#日志切割" class="headerlink" title="日志切割"></a>日志切割</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 移动老日志</span><br><span class="line">mv 老日志  old.log</span><br><span class="line"><span class="meta">#</span> 重新生成日志</span><br><span class="line">nginx -s reopen</span><br></pre></td></tr></table></figure>
+<h4 id="nginx搭建简单的web静态资源网站"><a href="#nginx搭建简单的web静态资源网站" class="headerlink" title="nginx搭建简单的web静态资源网站"></a>nginx搭建简单的web静态资源网站</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 开启gzip压缩</span><br><span class="line">gzip  on;</span><br><span class="line"><span class="meta">#</span> 字节数小于1的话就不进行压缩了</span><br><span class="line">gzip_min_length 1;</span><br><span class="line"><span class="meta">#</span> 压缩级别</span><br><span class="line">gzip_comp_level 2;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">        listen       8080;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">	    # 设置index地址</span><br><span class="line">	    alias  dlib/;</span><br><span class="line">	    # 可直接访问文件</span><br><span class="line">	    autoindex on;</span><br><span class="line">	    # 现在访问速度为1k</span><br><span class="line">	    set $limet_rate 1k;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<h4 id="nginx反向代理"><a href="#nginx反向代理" class="headerlink" title="nginx反向代理"></a>nginx反向代理</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">listen  127.0.0.1:8000 代表只能本机的800端口访问</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 配置上游服务</span><br><span class="line">upstream local&#123;</span><br><span class="line">    server 127.0.0.1:8080</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 设置内存存储地址</span><br><span class="line">proxy_cache_path /home/haoqihan/nginxcache levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=60m use_temp_path=off;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">proxy_set_header Host $host;  </span><br><span class="line">proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line"></span><br><span class="line">proxy_cache my_cache;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 会把这些存储在内存中</span><br><span class="line">proxy_cache_key $host$uri$is_args$args;</span><br></pre></td></tr></table></figure>
+<h4 id="用GoAccess实现可视化并实时监控access日志"><a href="#用GoAccess实现可视化并实时监控access日志" class="headerlink" title="用GoAccess实现可视化并实时监控access日志"></a>用GoAccess实现可视化并实时监控access日志</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">下载： apt-get install goaccess</span><br><span class="line"><span class="meta">#</span> 把日志生成一个html页面</span><br><span class="line">goaccess access.log -o ../html/report.html --real-time-html --time-format='%H:%M:%S' --date-format='%d/%b/%Y' --log-format=COMBINED</span><br></pre></td></tr></table></figure>
+<h4 id="ssl安全协议"><a href="#ssl安全协议" class="headerlink" title="ssl安全协议"></a>ssl安全协议</h4><h4 id="为nginx增加一个https证书"><a href="#为nginx增加一个https证书" class="headerlink" title="为nginx增加一个https证书"></a>为nginx增加一个https证书</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">安装：sudo yum install certbot python2-certbot-nginx</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/运维开发/" rel="tag"># 运维开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/22/python测试/" rel="next" title="python测试">
+                <i class="fa fa-chevron-left"></i> python测试
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/30/奇淫巧技/" rel="prev" title="奇淫巧技">
+                奇淫巧技 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://avatars0.githubusercontent.com/u/31914113?s=460&v=4" alt="郝起瀚">
+            
+              <p class="site-author-name" itemprop="name">郝起瀚</p>
+              <p class="site-description motion-element" itemprop="description">技术成长之路</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#NGINX的三个主要应用场景"><span class="nav-number">1.</span> <span class="nav-text">NGINX的三个主要应用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx为什么会出现"><span class="nav-number">2.</span> <span class="nav-text">Nginx为什么会出现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx的优点"><span class="nav-number">3.</span> <span class="nav-text">nginx的优点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx的组成"><span class="nav-number">4.</span> <span class="nav-text">nginx的组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx的安装"><span class="nav-number">5.</span> <span class="nav-text">nginx的安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx的目录结构"><span class="nav-number">6.</span> <span class="nav-text">nginx的目录结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx常用配置语法"><span class="nav-number">7.</span> <span class="nav-text">nginx常用配置语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置参数"><span class="nav-number">8.</span> <span class="nav-text">配置参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#http配置的指令块"><span class="nav-number">9.</span> <span class="nav-text">http配置的指令块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx命令行"><span class="nav-number">10.</span> <span class="nav-text">Nginx命令行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#热部署"><span class="nav-number">11.</span> <span class="nav-text">热部署</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志切割"><span class="nav-number">12.</span> <span class="nav-text">日志切割</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx搭建简单的web静态资源网站"><span class="nav-number">13.</span> <span class="nav-text">nginx搭建简单的web静态资源网站</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx反向代理"><span class="nav-number">14.</span> <span class="nav-text">nginx反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用GoAccess实现可视化并实时监控access日志"><span class="nav-number">15.</span> <span class="nav-text">用GoAccess实现可视化并实时监控access日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ssl安全协议"><span class="nav-number">16.</span> <span class="nav-text">ssl安全协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为nginx增加一个https证书"><span class="nav-number">17.</span> <span class="nav-text">为nginx增加一个https证书</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">郝起瀚</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=6.7.0"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
