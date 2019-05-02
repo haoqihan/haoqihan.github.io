@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="1.查看docker信息(version,info)12345# 查看版本docker version# 显示docker系统的信息docker info 2.对image的操作(search,pull,images,rmi,history) view plaincopy1234567891011121314# 检索imagedocker search image_name# 下载imagedoc">
+  <meta name="description" content="版本查看12345# 版本查看docker version# 显示docker系统的信息docker info 镜像拉取1docker pull 镜像名称 镜像查询12345678# 查看本地镜像docker image ls# 查看公共仓库镜像docker search image_name# 查看镜像历史docker history  image_name 镜像删除1sudo docker r">
 <meta name="keywords" content="docker">
 <meta property="og:type" content="article">
 <meta property="og:title" content="docker的常用命令">
 <meta property="og:url" content="http://yoursite.com/2019/01/13/docker的常用命令/index.html">
 <meta property="og:site_name" content="郝起瀚的博客">
-<meta property="og:description" content="1.查看docker信息(version,info)12345# 查看版本docker version# 显示docker系统的信息docker info 2.对image的操作(search,pull,images,rmi,history) view plaincopy1234567891011121314# 检索imagedocker search image_name# 下载imagedoc">
+<meta property="og:description" content="版本查看12345# 版本查看docker version# 显示docker系统的信息docker info 镜像拉取1docker pull 镜像名称 镜像查询12345678# 查看本地镜像docker image ls# 查看公共仓库镜像docker search image_name# 查看镜像历史docker history  image_name 镜像删除1sudo docker r">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-13T11:46:41.275Z">
+<meta property="og:updated_time" content="2019-05-01T15:14:20.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker的常用命令">
-<meta name="twitter:description" content="1.查看docker信息(version,info)12345# 查看版本docker version# 显示docker系统的信息docker info 2.对image的操作(search,pull,images,rmi,history) view plaincopy1234567891011121314# 检索imagedocker search image_name# 下载imagedoc">
+<meta name="twitter:description" content="版本查看12345# 版本查看docker version# 显示docker系统的信息docker info 镜像拉取1docker pull 镜像名称 镜像查询12345678# 查看本地镜像docker image ls# 查看公共仓库镜像docker search image_name# 查看镜像历史docker history  image_name 镜像删除1sudo docker r">
 
 
 
@@ -416,12 +416,24 @@
                 
               
 
-              <time title="创建时间：2019-01-13 18:36:47 / 修改时间：19:46:41" itemprop="dateCreated datePublished" datetime="2019-01-13T18:36:47+08:00">2019-01-13</time>
+              <time title="创建时间：2019-01-13 18:36:47" itemprop="dateCreated datePublished" datetime="2019-01-13T18:36:47+08:00">2019-01-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-01 23:14:20" itemprop="dateModified" datetime="2019-05-01T23:14:20+08:00">2019-05-01</time>
               
             
           </span>
@@ -472,7 +484,28 @@
       
 
       
-        <h4 id="1-查看docker信息-version-info"><a href="#1-查看docker信息-version-info" class="headerlink" title="1.查看docker信息(version,info)"></a>1.查看docker信息(version,info)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看版本</span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 显示docker系统的信息</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+        <h4 id="版本查看"><a href="#版本查看" class="headerlink" title="版本查看"></a>版本查看</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 版本查看</span><br><span class="line">docker version</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 显示docker系统的信息</span><br><span class="line">docker info</span><br></pre></td></tr></table></figure>
+<h4 id="镜像拉取"><a href="#镜像拉取" class="headerlink" title="镜像拉取"></a>镜像拉取</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull 镜像名称</span><br></pre></td></tr></table></figure>
+<h4 id="镜像查询"><a href="#镜像查询" class="headerlink" title="镜像查询"></a>镜像查询</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看本地镜像</span><br><span class="line">docker image ls</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看公共仓库镜像</span><br><span class="line">docker search image_name</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 查看镜像历史</span><br><span class="line">docker history  image_name</span><br></pre></td></tr></table></figure>
+<h4 id="镜像删除"><a href="#镜像删除" class="headerlink" title="镜像删除"></a>镜像删除</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker rmi 镜像名称</span><br></pre></td></tr></table></figure>
+<h4 id="容器运行"><a href="#容器运行" class="headerlink" title="容器运行"></a>容器运行</h4><p>​           docker容器可以理解为在沙盒中运行的进程,这个沙盒包含该进程所必须的资源,包括文件系统,系统类库,shell环境等,但这个沙盒默认是不会运行任何程序的,你需要在沙盒中运行一个进程来启动某个容器,这个进程是该容器的唯一进程,所以当该进程结束时,容器也会结束</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 运行容器</span><br><span class="line">docker run 容器名称</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 在容器中安装新的程序</span><br><span class="line">docker run image_name apt-get install -y app_name</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 交互式进入容器中</span><br><span class="line">docker run -i -t image_name /bin/bash</span><br></pre></td></tr></table></figure>
+<h4 id="端口映射"><a href="#端口映射" class="headerlink" title="端口映射"></a>端口映射</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run nginx -p 主机端口：容器端口</span><br></pre></td></tr></table></figure>
+<h4 id="挂存储卷"><a href="#挂存储卷" class="headerlink" title="挂存储卷"></a>挂存储卷</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run mysql -v 主机地址：容器地址     # 做地址映射</span><br></pre></td></tr></table></figure>
+<h4 id="进入容器"><a href="#进入容器" class="headerlink" title="进入容器"></a>进入容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 进入容器</span><br><span class="line">sudo docker exec -it CONTAINER ID  /bin/bash</span><br></pre></td></tr></table></figure>
+<h4 id="查看容器日志"><a href="#查看容器日志" class="headerlink" title="查看容器日志"></a>查看容器日志</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看日志</span><br><span class="line">sudo docker logs -f CONTAINER ID</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 保存对容器的修改  -a, --author="" Author; -m, --message="" Commit message </span><br><span class="line">docker commit ID new_image_name</span><br></pre></td></tr></table></figure>
+<h4 id="查询容器"><a href="#查询容器" class="headerlink" title="查询容器"></a>查询容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"> #</span> 查看运行的docker容器</span><br><span class="line">sudo docker ps   </span><br><span class="line"></span><br><span class="line"><span class="meta"> #</span> 查看运行过的容器</span><br><span class="line">sudo docker ps -a</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 列出最近一次启动的container</span><br><span class="line">docker ps -1</span><br></pre></td></tr></table></figure>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run  -e MYSQL_ALLOW_EMPTY_PASSWORD=123456 mysql  # -e 指定环境变量</span><br></pre></td></tr></table></figure>
+<h4 id="容器-停止-启动-杀死"><a href="#容器-停止-启动-杀死" class="headerlink" title="容器(停止,启动,杀死)"></a>容器(停止,启动,杀死)</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 停止,启动,杀死一个容器</span><br><span class="line">docker stop Name/ID</span><br><span class="line">docker start Name/ID</span><br><span class="line">docker kill Name/ID</span><br></pre></td></tr></table></figure>
+<h4 id="容器删除"><a href="#容器删除" class="headerlink" title="容器删除"></a>容器删除</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 删除所有容器</span><br><span class="line">docker rm `docker ps -a -q`</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除单个容器</span><br><span class="line">docker rm Name/ID</span><br></pre></td></tr></table></figure>
+<h4 id="镜像操作"><a href="#镜像操作" class="headerlink" title="镜像操作"></a>镜像操作</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 列出一个容器里面被改变的文件或者目录,list列表会显示三种事件,A 增加 D删除 C被改变</span><br><span class="line">docker diff Name/ID</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 显示一个运行的容器里面的进程信息</span><br><span class="line">docker top Name/ID</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 从容器里面拷贝文件/目录到本地一个路径</span><br><span class="line">docker cp Name:/container_path to_path </span><br><span class="line">docker cp ID:/container_path to_path </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重启一个正在运行的容器</span><br><span class="line">docker restart Name/ID</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 附加到一个运行的容器上</span><br><span class="line">docker attach ID</span><br></pre></td></tr></table></figure>
+<h4 id="保存和加载镜像"><a href="#保存和加载镜像" class="headerlink" title="保存和加载镜像"></a>保存和加载镜像</h4><p>​        当需要把一台机器上的镜像迁移到另一台机器上的时候,需要保存于加载镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 保存镜像到一个tar包  -o, --output="" Write to an file </span><br><span class="line">docker save image_name -o file_path</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 加载一个tar包格式的镜像 -i, --input="" Read from a tar archive file </span><br><span class="line">docker load -i file_path</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 机器a</span><br><span class="line">docker save image_name &gt; /home/save.tar</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用scp将save.tar拷到机器b上,然后</span><br><span class="line">docker load &lt; /home/save.tar</span><br></pre></td></tr></table></figure>
+<h4 id="仓库登录"><a href="#仓库登录" class="headerlink" title="仓库登录"></a>仓库登录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 登录register server -e, --email="" Email; -p, --password="" Password; -u, --username="" Username </span><br><span class="line"><span class="meta">#</span> 这里是阿里云的镜像仓库</span><br><span class="line">sudo docker login --username=春秋羽123 registry.cn-beijing.aliyuncs.com</span><br></pre></td></tr></table></figure>
+<h4 id="镜像构建"><a href="#镜像构建" class="headerlink" title="镜像构建"></a>镜像构建</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo docker build -t 名称：版本   # 在当前文件找dockerfile</span><br><span class="line">sudo docker build -t 名称：版本 -f /root/dockerfile      # -f 指定文件</span><br></pre></td></tr></table></figure>
+<h4 id="镜像打tag"><a href="#镜像打tag" class="headerlink" title="镜像打tag"></a>镜像打tag</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker tag mysql:5.6（或ID） mycangku/mysql:1.0</span><br></pre></td></tr></table></figure>
+<h4 id="镜像推送"><a href="#镜像推送" class="headerlink" title="镜像推送"></a>镜像推送</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker push 镜像名称：id</span><br></pre></td></tr></table></figure>
+<h4 id="Dockerfile的基本语法"><a href="#Dockerfile的基本语法" class="headerlink" title="Dockerfile的基本语法"></a>Dockerfile的基本语法</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM # 基础镜像</span><br><span class="line">RUN  # 执行命令</span><br><span class="line">ADD  #拷贝文件</span><br><span class="line">WORKDIR # 设置工作目录</span><br><span class="line">CMD  # 运行命令</span><br><span class="line">EXPOSE  # 暴露的端口</span><br></pre></td></tr></table></figure>
 <h4 id="2-对image的操作-search-pull-images-rmi-history-view-plaincopy"><a href="#2-对image的操作-search-pull-images-rmi-history-view-plaincopy" class="headerlink" title="2.对image的操作(search,pull,images,rmi,history) view plaincopy"></a>2.对image的操作(search,pull,images,rmi,history) view plaincopy</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 检索image</span><br><span class="line">docker search image_name</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 下载image</span><br><span class="line">docker pull image_name</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 列出镜像列表:-a, --all=false Show all images; --no-trunc=false Don't truncate output; -q, --quiet=false Only show numeric IDs </span><br><span class="line">docker images</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 删除一个或多个镜像  -f, --force=false Force; --no-prune=false Do not delete untagged parents </span><br><span class="line">docker rmi  image_name  </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 显示一个镜像的历史   --no-trunc=false Don't truncate output; -q, --quiet=false Only show numeric IDs </span><br><span class="line">docker history  image_name</span><br></pre></td></tr></table></figure>
 <h4 id="3-启动容器-run"><a href="#3-启动容器-run" class="headerlink" title="3.启动容器(run)"></a>3.启动容器(run)</h4><p>​    docker容器可以理解为在沙盒中运行的进程,这个沙盒包含该进程所必须的资源,包括文件系统,系统类库,shell环境等,但这个沙盒默认是不会运行任何程序的,你需要在沙盒中运行一个进程来启动某个容器,这个进程是该容器的唯一进程,所以当该进程结束时,容器也会结束</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在容器中运行"echo" 命令,输出"hello word"</span><br><span class="line">docker run image_name  echo "hello word"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 交互式进入容器中</span><br><span class="line">docker run -i -t image_name /bin/bash</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 在容器中安装新的程序</span><br><span class="line">docker run image_name apt-get install -y app_name</span><br></pre></td></tr></table></figure>
@@ -486,8 +519,6 @@
 <h4 id="7-保存和加载镜像-save-load"><a href="#7-保存和加载镜像-save-load" class="headerlink" title="7.保存和加载镜像(save load)"></a>7.保存和加载镜像(save load)</h4><p>​    当需要把一台机器上的镜像迁移到另一台机器上的时候,需要保存于加载镜像</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 保存镜像到一个tar包  -o, --output="" Write to an file </span><br><span class="line">docker save image_name -o file_path</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 加载一个tar包格式的镜像 -i, --input="" Read from a tar archive file </span><br><span class="line">docker load -i file_path</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 机器a</span><br><span class="line">docker save image_name &gt; /home/save.tar</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 使用scp将save.tar拷到机器b上,然后</span><br><span class="line">docker load &lt; /home/save.tar</span><br></pre></td></tr></table></figure>
 <h4 id="8-登录-registry-server-login-view-plaincopy"><a href="#8-登录-registry-server-login-view-plaincopy" class="headerlink" title="8.登录 registry server (login)  view plaincopy"></a>8.登录 registry server (login)  view plaincopy</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 登录register server -e, --email="" Email; -p, --password="" Password; -u, --username="" Username </span><br><span class="line">docker login</span><br></pre></td></tr></table></figure>
-<h4 id="9-发布image-push-copy"><a href="#9-发布image-push-copy" class="headerlink" title="9.发布image(push) copy"></a>9.发布image(push) copy</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 发布docker镜像</span><br><span class="line">docker push new_image_name</span><br></pre></td></tr></table></figure>
-<h4 id="10-根据Dockerfile构建一个容器"><a href="#10-根据Dockerfile构建一个容器" class="headerlink" title="10.根据Dockerfile构建一个容器"></a>10.根据Dockerfile构建一个容器</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -608,7 +639,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-count">66</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -665,7 +696,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -736,7 +775,21 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -760,7 +813,7 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.baidu.com" title="http://www.baidu.com" rel="noopener" target="_blank">百度</a>
+                    <a href="https://github.com/haoqihan" title="https://github.com/haoqihan" rel="noopener" target="_blank">春秋羽</a>
                   </li>
                 
               </ul>
@@ -786,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-查看docker信息-version-info"><span class="nav-number">1.</span> <span class="nav-text">1.查看docker信息(version,info)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对image的操作-search-pull-images-rmi-history-view-plaincopy"><span class="nav-number">2.</span> <span class="nav-text">2.对image的操作(search,pull,images,rmi,history) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-启动容器-run"><span class="nav-number">3.</span> <span class="nav-text">3.启动容器(run)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看容器-ps-view-plaincopy"><span class="nav-number">4.</span> <span class="nav-text">4.查看容器(ps) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-保存对容器的修改-commit"><span class="nav-number">5.</span> <span class="nav-text">5.保存对容器的修改(commit)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-对容器的操作-rm、stop、start、kill、logs、diff、top、cp、restart、attach-view-plaincopy"><span class="nav-number">6.</span> <span class="nav-text">6.对容器的操作(rm、stop、start、kill、logs、diff、top、cp、restart、attach ) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-保存和加载镜像-save-load"><span class="nav-number">7.</span> <span class="nav-text">7.保存和加载镜像(save load)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-登录-registry-server-login-view-plaincopy"><span class="nav-number">8.</span> <span class="nav-text">8.登录 registry server (login)  view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-发布image-push-copy"><span class="nav-number">9.</span> <span class="nav-text">9.发布image(push) copy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-根据Dockerfile构建一个容器"><span class="nav-number">10.</span> <span class="nav-text">10.根据Dockerfile构建一个容器</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本查看"><span class="nav-number">1.</span> <span class="nav-text">版本查看</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像拉取"><span class="nav-number">2.</span> <span class="nav-text">镜像拉取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像查询"><span class="nav-number">3.</span> <span class="nav-text">镜像查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像删除"><span class="nav-number">4.</span> <span class="nav-text">镜像删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器运行"><span class="nav-number">5.</span> <span class="nav-text">容器运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口映射"><span class="nav-number">6.</span> <span class="nav-text">端口映射</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#挂存储卷"><span class="nav-number">7.</span> <span class="nav-text">挂存储卷</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进入容器"><span class="nav-number">8.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看容器日志"><span class="nav-number">9.</span> <span class="nav-text">查看容器日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询容器"><span class="nav-number">10.</span> <span class="nav-text">查询容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置环境变量"><span class="nav-number">11.</span> <span class="nav-text">设置环境变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器-停止-启动-杀死"><span class="nav-number">12.</span> <span class="nav-text">容器(停止,启动,杀死)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器删除"><span class="nav-number">13.</span> <span class="nav-text">容器删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像操作"><span class="nav-number">14.</span> <span class="nav-text">镜像操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#保存和加载镜像"><span class="nav-number">15.</span> <span class="nav-text">保存和加载镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#仓库登录"><span class="nav-number">16.</span> <span class="nav-text">仓库登录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像构建"><span class="nav-number">17.</span> <span class="nav-text">镜像构建</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像打tag"><span class="nav-number">18.</span> <span class="nav-text">镜像打tag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#镜像推送"><span class="nav-number">19.</span> <span class="nav-text">镜像推送</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dockerfile的基本语法"><span class="nav-number">20.</span> <span class="nav-text">Dockerfile的基本语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对image的操作-search-pull-images-rmi-history-view-plaincopy"><span class="nav-number">21.</span> <span class="nav-text">2.对image的操作(search,pull,images,rmi,history) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-启动容器-run"><span class="nav-number">22.</span> <span class="nav-text">3.启动容器(run)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-查看容器-ps-view-plaincopy"><span class="nav-number">23.</span> <span class="nav-text">4.查看容器(ps) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-保存对容器的修改-commit"><span class="nav-number">24.</span> <span class="nav-text">5.保存对容器的修改(commit)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-对容器的操作-rm、stop、start、kill、logs、diff、top、cp、restart、attach-view-plaincopy"><span class="nav-number">25.</span> <span class="nav-text">6.对容器的操作(rm、stop、start、kill、logs、diff、top、cp、restart、attach ) view plaincopy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-保存和加载镜像-save-load"><span class="nav-number">26.</span> <span class="nav-text">7.保存和加载镜像(save load)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-登录-registry-server-login-view-plaincopy"><span class="nav-number">27.</span> <span class="nav-text">8.登录 registry server (login)  view plaincopy</span></a></li></ol></div>
             
 
           </div>
