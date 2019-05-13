@@ -96,18 +96,18 @@
 
 
 
-  <meta name="description" content="xlwings模块下载 1pip3 install xlwings 基本使用">
+  <meta name="description" content="xlwings模块下载 1pip3 install xlwings 基本使用 openpyxl模块下载 1pip3 install openpyxl 基本使用 写入excel 12345678910111213141516171819202122232425262728293031323334353637383940# 加载写入的，模块from openpyxl import Workbook#">
 <meta name="keywords" content="奇技淫巧">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python操作excel">
 <meta property="og:url" content="http://yoursite.com/2019/05/01/python操作excel/index.html">
 <meta property="og:site_name" content="郝起瀚的博客">
-<meta property="og:description" content="xlwings模块下载 1pip3 install xlwings 基本使用">
+<meta property="og:description" content="xlwings模块下载 1pip3 install xlwings 基本使用 openpyxl模块下载 1pip3 install openpyxl 基本使用 写入excel 12345678910111213141516171819202122232425262728293031323334353637383940# 加载写入的，模块from openpyxl import Workbook#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-02T13:24:52.622Z">
+<meta property="og:updated_time" content="2019-05-04T10:15:20.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python操作excel">
-<meta name="twitter:description" content="xlwings模块下载 1pip3 install xlwings 基本使用">
+<meta name="twitter:description" content="xlwings模块下载 1pip3 install xlwings 基本使用 openpyxl模块下载 1pip3 install openpyxl 基本使用 写入excel 12345678910111213141516171819202122232425262728293031323334353637383940# 加载写入的，模块from openpyxl import Workbook#">
 
 
 
@@ -433,7 +433,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-05-02 21:24:52" itemprop="dateModified" datetime="2019-05-02T21:24:52+08:00">2019-05-02</time>
+                <time title="修改时间：2019-05-04 18:15:20" itemprop="dateModified" datetime="2019-05-04T18:15:20+08:00">2019-05-04</time>
               
             
           </span>
@@ -487,6 +487,18 @@
         <h4 id="xlwings模块"><a href="#xlwings模块" class="headerlink" title="xlwings模块"></a>xlwings模块</h4><p><strong>下载</strong></p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install xlwings</span><br></pre></td></tr></table></figure>
 <p><strong>基本使用</strong></p>
+<h4 id="openpyxl模块"><a href="#openpyxl模块" class="headerlink" title="openpyxl模块"></a>openpyxl模块</h4><p><strong>下载</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 install openpyxl</span><br></pre></td></tr></table></figure>
+<p><strong>基本使用</strong></p>
+<p><strong>写入excel</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 加载写入的，模块</span><br><span class="line">from openpyxl import Workbook</span><br><span class="line"><span class="meta">#</span> 导入背景颜色模块</span><br><span class="line">from openpyxl.styles import PatternFill</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 新建一个簿</span><br><span class="line">wb = Workbook()</span><br><span class="line">sheet = wb.active</span><br><span class="line"></span><br><span class="line">ws1 = wb.create_sheet("Mysheet")  #默认最后一个</span><br><span class="line">ws2 = wb.create_sheet("Mysheet", 0) #第一个</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 设置sheet的名称</span><br><span class="line">sheet.title = "demo"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 设置背景颜色</span><br><span class="line">fill = PatternFill("solid",fgColor="1874CD")</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>这将返回A4处的单元格，如果尚不存在，则创建一个单元格。值可以直接分配</span><br><span class="line">ws['A4']=4 </span><br><span class="line"><span class="meta">#</span> 也可以通过cell来进行写入，通过行数和列数来找到单元格所在的位置，通过value来赋值</span><br><span class="line">ws.cell(row=4, column=2, value=10) </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 添加一行</span><br><span class="line">ws.append([1,2,3,4])</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 循环添加内容</span><br><span class="line">for i in range(10):</span><br><span class="line"><span class="meta">	#</span> 添加内容</span><br><span class="line">    sheet["A%d"%(i+1)].value = i+1</span><br><span class="line">    if i == 6:</span><br><span class="line">    	# 设置背景颜色</span><br><span class="line">        sheet["A%d"%(i+1)].fill_type = "lightGrid"</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> B9处写入平均值</span><br><span class="line">sheet['B9'] = '=AVERAGE(B2:B8)'</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 保存内容</span><br><span class="line">wb.save('666.xlsx')</span><br></pre></td></tr></table></figure>
+<p><strong>读取excel</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 导入库</span><br><span class="line">from openpyxl import load_workbook</span><br><span class="line"><span class="meta">#</span> 打开xlsx文件</span><br><span class="line">wb = load_workbook('666.xlsx')</span><br><span class="line"><span class="meta">#</span> 查看excel表里面有哪些sheet页</span><br><span class="line">print(wb.sheetnames) </span><br><span class="line"><span class="meta">#</span> 读取指定sheet页</span><br><span class="line">sheet = wb['demo']</span><br><span class="line"><span class="meta">#</span> 获取最大行</span><br><span class="line">print(sheet.max_row)</span><br><span class="line"><span class="meta">#</span> 获取最大列</span><br><span class="line">print(sheet.max_column)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 获取行和列</span><br><span class="line"><span class="meta">#</span> 因为按行，所以返回A1, B1, C1这样的顺序</span><br><span class="line">for row in sheet.rows:</span><br><span class="line">    for cell in row:</span><br><span class="line">        print(cell.value)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> A1, A2, A3这样的顺序</span><br><span class="line">for column in sheet.columns:</span><br><span class="line">    for cell in column:</span><br><span class="line">        print(cell.value)</span><br></pre></td></tr></table></figure>
+<h4 id="设置单元格风格"><a href="#设置单元格风格" class="headerlink" title="设置单元格风格"></a>设置单元格风格</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">先导入需要的类</span><br><span class="line">from openpyxl.styles import Font, colors, Alignment</span><br><span class="line">分别可指定字体相关，颜色，和对齐方式。</span><br></pre></td></tr></table></figure>
+<h4 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bold_itatic_24_font = Font(name='等线', size=24, italic=True, color=colors.RED, bold=True)</span><br><span class="line"></span><br><span class="line">sheet['A1'].font = bold_itatic_24_font</span><br></pre></td></tr></table></figure>
+<h4 id="对齐方式"><a href="#对齐方式" class="headerlink" title="对齐方式"></a>对齐方式</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 设置B1中的数据垂直居中和水平居中</span><br><span class="line">sheet['B1'].alignment = Alignment(horizontal='center', vertical='center')</span><br></pre></td></tr></table></figure>
+<h4 id="设置行高和列宽"><a href="#设置行高和列宽" class="headerlink" title="设置行高和列宽"></a>设置行高和列宽</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 第2行行高</span><br><span class="line">sheet.row_dimensions[2].height = 40</span><br><span class="line"><span class="meta">#</span> C列列宽</span><br><span class="line">sheet.column_dimensions['C'].width = 30</span><br></pre></td></tr></table></figure>
+<h4 id="合并和拆分单元格"><a href="#合并和拆分单元格" class="headerlink" title="合并和拆分单元格"></a>合并和拆分单元格</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 合并单元格， 往左上角写入数据即可</span><br><span class="line">sheet.merge_cells('B1:G1') # 合并一行中的几个单元格</span><br><span class="line">sheet.merge_cells('A1:C3') # 合并一个矩形区域中的单元格</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 拆分单元格</span><br><span class="line">sheet.unmerge_cells('A1:C3')</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -532,6 +544,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/03/kail-linux的使用/" rel="prev" title="kail linux的使用">
+                kail linux的使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -603,7 +619,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -761,7 +777,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#xlwings模块"><span class="nav-number">1.</span> <span class="nav-text">xlwings模块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#xlwings模块"><span class="nav-number">1.</span> <span class="nav-text">xlwings模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#openpyxl模块"><span class="nav-number">2.</span> <span class="nav-text">openpyxl模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置单元格风格"><span class="nav-number">3.</span> <span class="nav-text">设置单元格风格</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字体"><span class="nav-number">4.</span> <span class="nav-text">字体</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对齐方式"><span class="nav-number">5.</span> <span class="nav-text">对齐方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置行高和列宽"><span class="nav-number">6.</span> <span class="nav-text">设置行高和列宽</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并和拆分单元格"><span class="nav-number">7.</span> <span class="nav-text">合并和拆分单元格</span></a></li></ol></div>
             
 
           </div>

@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="郝起瀚的博客">
 <meta property="og:description" content="常用指令底行模式常用指令 ：w    写 ：q    退出 ：！    强制 ：ls    列出打开的所有文件 ：n    切换到后一个文件 ：N    切换到上一个文件 ：15    跳到15行 /xxx    向后搜索 ？xxx    向前搜索  命令模式常用指令 h    光标左移 j    光标下移 k    光标上移 l    光标右移 ctrl + f    向下翻页（front） c">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-11T02:49:46.740Z">
+<meta property="og:updated_time" content="2019-05-03T12:51:12.641Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vim的使用">
 <meta name="twitter:description" content="常用指令底行模式常用指令 ：w    写 ：q    退出 ：！    强制 ：ls    列出打开的所有文件 ：n    切换到后一个文件 ：N    切换到上一个文件 ：15    跳到15行 /xxx    向后搜索 ？xxx    向前搜索  命令模式常用指令 h    光标左移 j    光标下移 k    光标上移 l    光标右移 ctrl + f    向下翻页（front） c">
@@ -433,7 +433,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-11 10:49:46" itemprop="dateModified" datetime="2019-02-11T10:49:46+08:00">2019-02-11</time>
+                <time title="修改时间：2019-05-03 20:51:12" itemprop="dateModified" datetime="2019-05-03T20:51:12+08:00">2019-05-03</time>
               
             
           </span>
@@ -509,6 +509,14 @@
 <li>yy    复制光标所在的行</li>
 <li>p    在光标所在行的下方粘贴</li>
 <li>P    在光标所在行的上方粘贴</li>
+</ul>
+<h3 id="打造自己的vim"><a href="#打造自己的vim" class="headerlink" title="打造自己的vim"></a>打造自己的vim</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 常用设置</span><br><span class="line"><span class="meta">#</span> 设置行号</span><br><span class="line">set number</span><br><span class="line"><span class="meta">#</span> 设置主题</span><br><span class="line">colorscheme hybrid</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 按f2进入粘贴模式</span><br><span class="line">set pastetoggle=&lt;F2&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 高亮搜索</span><br><span class="line">set hlsearch</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 设置折叠方式</span><br><span class="line">set foldmethod=indent</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 常用映射</span><br><span class="line"><span class="meta">#</span> 使用jj进入normal 模式</span><br><span class="line">inoremap jj &lt;Esc&gt;`^</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 插件设置</span><br><span class="line">call plug#begin()</span><br></pre></td></tr></table></figure>
+<p>设置分4部分</p>
+<ul>
+<li>常用设置</li>
+<li>常用映射</li>
+<li>插件的安装和配置</li>
+<li>自定义函数（vimscript）</li>
 </ul>
 
       
@@ -630,7 +638,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">69</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -788,7 +796,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用指令"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#底行模式常用指令"><span class="nav-number">1.1.</span> <span class="nav-text">底行模式常用指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式常用指令"><span class="nav-number">1.2.</span> <span class="nav-text">命令模式常用指令</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用指令"><span class="nav-number">1.</span> <span class="nav-text">常用指令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#底行模式常用指令"><span class="nav-number">1.1.</span> <span class="nav-text">底行模式常用指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式常用指令"><span class="nav-number">1.2.</span> <span class="nav-text">命令模式常用指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打造自己的vim"><span class="nav-number">2.</span> <span class="nav-text">打造自己的vim</span></a></li></ol></div>
             
 
           </div>
